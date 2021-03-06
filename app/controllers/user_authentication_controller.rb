@@ -1,9 +1,15 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
-  # skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
+   skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
 
   def process_login_form
-    
+    a = params.fetch("commit")
+    p (a)
+    if a == "Log In"
+      redirect_to("/user_verify_credentials")
+    else
+      redirect_to("/sign_up")
+    end
   end
 
   def sign_in_form
@@ -42,11 +48,11 @@ class UserAuthenticationController < ApplicationController
 
   def create
     @user = User.new
-    @user.email = params.fetch("query_email")
-    @user.password = params.fetch("query_password")
-    @user.password_confirmation = params.fetch("query_password_confirmation")
-    @user.first_name = params.fetch("query_first_name")
-    @user.last_name = params.fetch("query_last_name")
+    @user.email = params.fetch("userauthentication").fetch("query_email")
+    @user.password = params.fetch("userauthentication").fetch("query_password")
+    @user.password_confirmation = params.fetch("userauthentication").fetch("query_password_confirmation")
+    @user.first_name = params.fetch("userauthentication").fetch("query_first_name")
+    @user.last_name = params.fetch("userauthentication").fetch("query_last_name")
 
     save_status = @user.save
 

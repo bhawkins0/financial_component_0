@@ -80,11 +80,20 @@
                   <a class="sideNavItem" href="#objectives">Objectives</a>
               </li>
               <li>
-                  <a class="sideNavItem" href="{{ url_for('about') }}">About</a>
+                  <a class="sideNavItem" href="/about">About</a>
               </li>
               <li>
-                  <a class="sideNavItem" href="{{ url_for('contact') }}">Contact</a>
+                  <a class="sideNavItem" href="/contact">Contact</a>
               </li>
+              <%if @current_user != nil%>
+                <li>
+                    <a class="sideNavItem" href="/sign_out">Sign Out</a>
+                </li>
+              <%else%>
+                <li>
+                    <a class="sideNavItem" href="/sign_in">Sign In</a>
+                </li>
+              <%end%>
           </ul>
       </div>
       <div class="body-content container" id="bodyContent">

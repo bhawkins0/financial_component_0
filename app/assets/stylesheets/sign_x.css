@@ -1,12 +1,4 @@
-#loginform {
-    margin: 75px 0px 0px 0px;
-    padding: 0px;
-    height: 300px;
-    width: auto;
-    position: relative;
-}
-
-#email_box {
+.form_textbox {
     background-color: #fff;
     border: 1px solid rgb(191,191,191);
     border-radius: 1px;
@@ -22,27 +14,11 @@
     margin: 0px 0px 18px 0px;
 }
 
-#password_box {
-    background-color: #fff;
-    border: 1px solid rgb(191,191,191);
-    border-radius: 1px;
-    cursor: text;
-    display: block;
-    font: 18px arial,sans-serif;
-    height: 36px;
-    line-height: 36px;
-    max-width: 350px;
-    position: relative;
-    width: 350px;
-    padding: 0px 8px 0px 8px;
-    margin: 0px 0px 18px 0px;
-}
-
-    #email_box:hover, #password_box:hover, #submitLogin:hover, #registerBtn:hover {
+.form_textbox:hover, .form_button:hover {
         border: 1px solid rgb(0,51,102);
     }
 
-    #email_box > input, #password_box > input {
+    .form_textbox > input {
         background: transparent;
         border: none;
         bottom: 0;
@@ -56,11 +32,11 @@
         width: 100%
     }
 
-    html[dir=rtl] #email_box > input, #password_box > input {
+    html[dir=rtl] .form_textbox > input {
         right: 0
     }
 
-#email_box-text, #password_box-text {
+.form_textbox-text {
     color: #bbb;
     bottom: 0;
     font-size: 16px;
@@ -75,18 +51,18 @@
     white-space: nowrap
 }
 
-html[dir=rtl] #email_box-text, #password_box-text {
+html[dir=rtl] .form_textbox-text {
     left: auto
 }
 
-#loginprompts {
+.form_prompts {
     display: block;
     position: relative;
-    margin: 0px auto 0px auto;
+    margin: 0px auto 18px auto;
     /*text-align: center;*/
 }
 
-#loginValidation {
+.form_validation {
     display: block;
     /*margin: 20px 0px 20px 0px;*/
     padding: 0px;
@@ -97,15 +73,7 @@ html[dir=rtl] #email_box-text, #password_box-text {
     visibility: hidden;
 }
 
-#loginButtons {
-    display: block;
-    position: relative;
-    margin: auto;
-    /*text-align: center;*/
-    width: auto;
-}
-
-#submitLogin {
+.form_button {
     border: 1px solid rgb(191,191,191);
     border-radius: 1px;
     cursor: pointer;
@@ -117,20 +85,5 @@ html[dir=rtl] #email_box-text, #password_box-text {
     width: 100px;
     padding: 0px 8px 0px 8px;
     margin: 0px 18px 0px 0px;
-    /*text-align: center;*/
-}
-
-#registerBtn {
-    border: 1px solid rgb(191,191,191);
-    border-radius: 1px;
-    cursor: pointer;
-    display: inline-block;
-    font: 18px arial,sans-serif;
-    height: 36px;
-    line-height: 36px;
-    position: relative;
-    width: 100px;
-    padding: 0px 8px 0px 8px;
-    margin: auto;
     /*text-align: center;*/
 }

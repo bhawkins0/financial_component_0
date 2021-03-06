@@ -1,41 +1,27 @@
-<h1>Sign up</h1>
+<h2 class="pageTitle display-4">Financial Component Registration</h2>
 
-<form action="/insert_user" method="post">
+<%= form_for :userauthentication, url: "/insert_user", method: "post" do |f| %>
 
-  <div>
-    <label for="email_box">Email</label>
-    <input id="email_box" name="query_email" placeholder="Choose a email..." type="text">
-  </div>
-                 
-  <div>
-    <label for="first_name_box">First name</label>
-      
-    <input type="text" id="first_name_box" name="query_first_name">
-  </div>
-         
-  <div>
-    <label for="last_name_box">Last name</label>
-      
-    <input type="text" id="last_name_box" name="query_last_name">
-  </div>
-    
-  <div>
-    <label for="password_box">Password</label>
-    <input id="password_box" name="query_password" placeholder="Choose a password..." type="password">
-  </div>
+  <%= f.text_field :query_email, class: "form_textbox form-control", value:"Email", onblur: "if(this.value == '') { this.value = 'Email'}", onfocus: "if(this.value == 'Email') {this.value = ''};"%>
 
-  <div>
-    <label for="password_confirmation_box">Password Confirmation</label>
-    <input id="password_confirmation_box" name="query_password_confirmation" placeholder="Confirm your password..." type="password">
-  </div>
+  <%= f.text_field :query_first_name, class: "form_textbox form-control", value:"First Name", onblur: "if(this.value == '') { this.value = 'First Name'}", onfocus: "if(this.value == 'First Name') {this.value = ''};"%>
 
-  <button>
-    Sign up
-  </button>
-</form>
+  <%= f.text_field :query_last_name, class: "form_textbox form-control", value:"Last Name", onblur: "if(this.value == '') { this.value = 'Last Name'}", onfocus: "if(this.value == 'Last Name') {this.value = ''};"%>
 
-<hr>
+  <%= f.password_field :query_password, class: "form_textbox form-control", value:"Password", onblur: "if(this.value == '') { this.value = 'Password'; }", onfocus: "if(this.value == 'Password') { this.value = ''};"%>
 
-<p>
-  Or, <a href="/user_sign_in">Sign in</a> instead.
-</p>
+  <%= f.password_field :query_password_confirmation, class: "form_textbox form-control", value:"Password Confirmation", onblur: "if(this.value == '') { this.value = 'Password Confirmation'; }", onfocus: "if(this.value == 'Password Confirmation') { this.value = ''};"%>
+
+    <div class="form_prompts">
+        <a href="/sign_in">Sign in with existing account</a>
+        <!--&bull;
+        <a id="resend-confirmation" href="/resendEmail">Resend email confirmation</a>-->
+    </div>
+
+  <%= f.submit "Sign Up", value:"Sign Up", class: "form_button" %>
+  <!--<%= f.submit "Register", value:"Register", class: "form_button" %>-->
+<% end %>
+
+<div class="form_validation text-danger">
+
+</div>
