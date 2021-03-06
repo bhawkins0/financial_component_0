@@ -87,3 +87,8 @@ html[dir=rtl] .form_textbox-text {
     margin: 0px 18px 0px 0px;
     /*text-align: center;*/
 }
+
+.div_spacing{
+  margin-top:18px;
+  margin-bottom:18px;
+}

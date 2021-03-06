@@ -2,9 +2,9 @@
 
 <%= form_for :userauthentication, url: "/process_login_form", method: "post" do |f| %>
 
-  <%= f.text_field :email, class: "form_textbox form-control", value:"Email", onblur: "if(this.value == '') { this.value = 'Email'}", onfocus: "if(this.value == 'Email') {this.value = ''};"%>
+  <%= f.text_field :query_email, class: "form_textbox form-control", value:"Email", onblur: "if(this.value == '') { this.value = 'Email'}", onfocus: "if(this.value == 'Email') {this.value = ''};"%>
 
-  <%= f.password_field :pword, class: "form_textbox form-control", value:"Password", onblur: "if(this.value == '') { this.value = 'Password'; }", onfocus: "if(this.value == 'Password') { this.value = ''};"%>
+  <%= f.password_field :query_password, class: "form_textbox form-control", value:"Password", onblur: "if(this.value == '') { this.value = 'Password'; }", onfocus: "if(this.value == 'Password') { this.value = ''};"%>
 
     <div class="form_prompts">
         <a href="/forgot_password">Forgot your password?</a>
@@ -16,6 +16,6 @@
   <%= f.submit "Register", value:"Register", class: "form_button" %>
 <% end %>
 
-<div class="form_validation text-danger">
+<div class="div_spacing text-success"><%=notice%></div>
 
-</div>
+<div class="div_spacing text-danger"><%=alert%></div>
