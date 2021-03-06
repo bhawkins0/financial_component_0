@@ -1,0 +1,220 @@
+html {
+    position: relative;
+    min-height: 100%;
+    font-size: 14px;
+}
+
+body {
+    height:100%;
+    overflow-x: hidden;
+}
+
+.body-container {
+  position: absolute;
+  width: 100%;
+  height:100%;
+  left: -178px;
+}
+
+.body-content,
+.sideNav {
+  float: left;
+  height: auto;
+  position: absolute;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 45px;
+    /*height:100%;*/
+    width:100%;
+    left: 245px;
+}
+
+.header {
+  top: 0;  
+  position: absolute;
+  width: 100%;
+  white-space: nowrap;
+  height:45px;
+  vertical-align: middle; /* Vertically center the text there */
+  z-index: 1;
+}
+
+.footer {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    white-space: nowrap;
+    line-height:45px;
+    vertical-align: middle; /* Vertically center the text there */
+}
+
+/* Style the sidebar - fixed full height */
+.sideNav {
+    width: 160px;
+    top: 45px;
+    bottom: 45px;
+    margin-right: 18px;
+    background-color: rgb(0,110,192);
+    overflow-x: hidden;
+}
+
+.sideNavItems {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+    .sideNavItems a {
+        color: white;
+        text-decoration: none;
+    }
+
+/* Style navigation menu links */
+.sideNavItem {
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: inline-block;
+}
+
+.sideNavItemsChild {
+    padding-left: 33px;
+    font-size: 15px;
+    /*display: none;*/
+    list-style-type: none;
+    position: relative;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+    .sideNavItemsChild a {
+        color: white;
+        text-decoration: none;
+    }
+
+.pageTitle{
+  margin-top:18px;
+  margin-bottom:18px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.topnav-right {
+    float: right;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+/*Code for plus (+) and minus (-) signs in sideNav menu*/
+
+.collapsible:after {
+    content: '\002B'; /*Unicode character for "plus" sign (+)*/
+    font-size: 17px;
+    color: white;
+    /*float: right;*/
+    margin-left: 5px;
+    display: inline-block;
+    position: absolute;
+}
+
+.active:after {
+    content: "\2212"; /*Unicode character for "minus" sign (-) */
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}

@@ -7,15 +7,132 @@
     <!-- Expand the number of characters we can use in the document beyond basic ASCII 🎉 -->
     <meta charset="utf-8">
 
+    <!-- Connect Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- Connect Bootstrap JavaScript and its dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Connect Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+
     <!-- Make it responsive to small screens -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
 
+    <!-- Load an icon library to show a hamburger menu (bars) on small screens -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--<script src="/static/scripts/modernizr-2.6.2.js"></script>-->
+    <!--Plaid Integration-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--<script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script src="/static/scripts/bootstrap.js"></script>
+    <script src="/static/scripts/respond.js"></script>-->
+
   </head>
 
   <body>
-    <%= yield %>
+    <header class="header border-bottom box-shadow">
+      <div class="container">
+        <a href="javascript:void(0);" class="navbar-brand text-muted" id="hamburgerMenu">
+          <i class="fa fa-bars" onmouseenter="navFunction()"></i>
+        </a>
+      </div>
+    </header>
+    <!-- The sidebar -->
+    <div class="body-container">
+      <div class="sideNav" id="sideNav">
+          <ul class="sideNavItems">
+              <li>
+                  <a class="sideNavItem" href="{{ url_for('index') }}">Home</a>
+              </li>
+              <li>
+                  <span class="sideNavItem collapsible" style="cursor:pointer">Transactions</span>
+                  <ul class="sideNavItemsChild">
+                      <li style="margin:5px 0px 5px 0px">
+                          <a href="{{ url_for('transactions') }}">Posted</a>
+                      </li>
+                      <li style="margin:5px 0px 5px 0px">
+                          <a href="#pending">Planned</a>
+                      </li>
+
+                  </ul>
+              </li>
+              <li>
+                  <span class="sideNavItem collapsible" style="cursor:pointer">Statements</span>
+                  <ul class="sideNavItemsChild">
+                      <li style="margin:5px 0px 5px 0px">
+                          <a href="#statements">Income</a>
+                      </li>
+                      <li style="margin:5px 0px 5px 0px">
+                          <a href="#statements">Cash Flow</a>
+                      </li>
+                      <li style="margin:5px 0px 5px 0px">
+                          <a href="#statements">Balance Sheet</a>
+                      </li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sideNavItem" href="#objectives">Objectives</a>
+              </li>
+              <li>
+                  <a class="sideNavItem" href="{{ url_for('about') }}">About</a>
+              </li>
+              <li>
+                  <a class="sideNavItem" href="{{ url_for('contact') }}">Contact</a>
+              </li>
+          </ul>
+      </div>
+      <div class="body-content container" id="bodyContent">
+          <%= yield %>
+      </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <p style="margin:0px 60px; padding:0;">&copy; <%= Date.today.year%> - Mesh</p>
+    </footer>
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        function navFunction() {
+            //var x = document.getElementById("sideNav");
+            //if (x.classList.contains("fullSideNav")) {
+            //    for (i = 0; i < coll.length; i++) {
+            //        var content = coll[i].nextElementSibling;
+            //        if (content.style.maxHeight) {
+            //            coll[i].classList.toggle("active");
+            //            content.style.maxHeight = null;
+            //        };
+            //    }
+            //    x.classList.remove("fullSideNav");
+            //} else {
+            //    x.classList.add("fullSideNav");
+            //}
+            var x = $('.body-container');
+            if (x.hasClass('visible')){
+                x.animate({"left":"-178px"}, 400).removeClass('visible');
+            } else {
+                x.animate({"left":"0px"}, 400).addClass('visible');
+            }
+        }
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
   </body>
 </html>

@@ -1,0 +1,136 @@
+#loginform {
+    margin: 75px 0px 0px 0px;
+    padding: 0px;
+    height: 300px;
+    width: auto;
+    position: relative;
+}
+
+#email {
+    background-color: #fff;
+    border: 1px solid rgb(191,191,191);
+    border-radius: 1px;
+    cursor: text;
+    display: block;
+    font: 18px arial,sans-serif;
+    height: 36px;
+    line-height: 36px;
+    max-width: 350px;
+    position: relative;
+    width: 350px;
+    padding: 0px 8px 0px 8px;
+    margin: 0px 0px 18px 0px;
+}
+
+#pwd {
+    background-color: #fff;
+    border: 1px solid rgb(191,191,191);
+    border-radius: 1px;
+    cursor: text;
+    display: block;
+    font: 18px arial,sans-serif;
+    height: 36px;
+    line-height: 36px;
+    max-width: 350px;
+    position: relative;
+    width: 350px;
+    padding: 0px 8px 0px 8px;
+    margin: 0px 0px 18px 0px;
+}
+
+    #email:hover, #pwd:hover, #submitLogin:hover, #registerBtn:hover {
+        border: 1px solid rgb(0,51,102);
+    }
+
+    #email > input, #pwd > input {
+        background: transparent;
+        border: none;
+        bottom: 0;
+        box-sizing: border-box;
+        left: 0;
+        margin: 0;
+        outline: none;
+        padding: 0 8px;
+        position: absolute;
+        top: 2px;
+        width: 100%
+    }
+
+    html[dir=rtl] #email > input, #pwd > input {
+        right: 0
+    }
+
+#email-text, #pwd-text {
+    color: #bbb;
+    bottom: 0;
+    font-size: 16px;
+    left: 9px;
+    margin-top: 1px;
+    overflow: hidden;
+    position: absolute;
+    right: 9px;
+    text-align: initial;
+    text-overflow: ellipsis;
+    visibility: hidden;
+    white-space: nowrap
+}
+
+html[dir=rtl] #email-text, #pwd-text {
+    left: auto
+}
+
+#loginprompts {
+    display: block;
+    position: relative;
+    margin: 0px auto 0px auto;
+    /*text-align: center;*/
+}
+
+#loginValidation {
+    display: block;
+    /*margin: 20px 0px 20px 0px;*/
+    padding: 0px;
+    height: 35px;
+    width: auto;
+    position: relative;
+    /*text-align: center;*/
+    visibility: hidden;
+}
+
+#loginButtons {
+    display: block;
+    position: relative;
+    margin: auto;
+    /*text-align: center;*/
+    width: auto;
+}
+
+#submitLogin {
+    border: 1px solid rgb(191,191,191);
+    border-radius: 1px;
+    cursor: pointer;
+    display: inline-block;
+    font: 18px arial,sans-serif;
+    height: 36px;
+    line-height: 36px;
+    position: relative;
+    width: 100px;
+    padding: 0px 8px 0px 8px;
+    margin: 0px 18px 0px 0px;
+    /*text-align: center;*/
+}
+
+#registerBtn {
+    border: 1px solid rgb(191,191,191);
+    border-radius: 1px;
+    cursor: pointer;
+    display: inline-block;
+    font: 18px arial,sans-serif;
+    height: 36px;
+    line-height: 36px;
+    position: relative;
+    width: 100px;
+    padding: 0px 8px 0px 8px;
+    margin: auto;
+    /*text-align: center;*/
+}
