@@ -6,7 +6,7 @@
     position: relative;
 }
 
-#email {
+#email_box {
     background-color: #fff;
     border: 1px solid rgb(191,191,191);
     border-radius: 1px;
@@ -22,7 +22,7 @@
     margin: 0px 0px 18px 0px;
 }
 
-#pwd {
+#password_box {
     background-color: #fff;
     border: 1px solid rgb(191,191,191);
     border-radius: 1px;
@@ -38,11 +38,11 @@
     margin: 0px 0px 18px 0px;
 }
 
-    #email:hover, #pwd:hover, #submitLogin:hover, #registerBtn:hover {
+    #email_box:hover, #password_box:hover, #submitLogin:hover, #registerBtn:hover {
         border: 1px solid rgb(0,51,102);
     }
 
-    #email > input, #pwd > input {
+    #email_box > input, #password_box > input {
         background: transparent;
         border: none;
         bottom: 0;
@@ -56,11 +56,11 @@
         width: 100%
     }
 
-    html[dir=rtl] #email > input, #pwd > input {
+    html[dir=rtl] #email_box > input, #password_box > input {
         right: 0
     }
 
-#email-text, #pwd-text {
+#email_box-text, #password_box-text {
     color: #bbb;
     bottom: 0;
     font-size: 16px;
@@ -75,7 +75,7 @@
     white-space: nowrap
 }
 
-html[dir=rtl] #email-text, #pwd-text {
+html[dir=rtl] #email_box-text, #password_box-text {
     left: auto
 }
 
