@@ -37,7 +37,8 @@ Rails.application.routes.draw do
 
   #PLAID ROUTES
   get("/",{:controller=>"plaid_link", :action=>"index"})
-  #get("/plaid/api/transactions",{:controller=>"plaid_link",:action=>"get_transactions"})
-  ##get("/connect_with_plaid", {:controller=>"plaid",:action=>"connect_with_plaid"})
+  get("/connect_with_plaid", {:controller=>"plaid_link",:action=>"connect_with_plaid"})
+  post("/get_access_token",{:controller=>"plaid_link",:action=>"get_access_token"})
+  
   
 end

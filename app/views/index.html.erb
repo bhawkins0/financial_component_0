@@ -1,56 +1,23 @@
-<p><%=@access_token%><
-
-<button id="link-btn" class="btn btn-primary" href="/connect_with_plaid">Connect with Plaid</button>
-
 <script>
     //COMMENT OUT FOR TESTING PURPOSES ONLY [BELOW]//
     var handler = null;
-    //$.post('/api/create_link_token', {}, function (data) {
-    //    if (data.error != null) {
-    //        console.log("issue")
-    //        displayError($('#plaidLinkInitiation'), data.error);
-    //        return;
-    //    }
-    //    localStorage.setItem('link_token', data.link_token);
-    //    handler = Plaid.create({
-    //        token: data.link_token,
-    //        onSuccess:
-    //            function (public_token) {
-    //                $.post('/api/set_access_token', {
-    //                    public_token: public_token
-    //                }, function (){
-    //                    linkToggle(),
-    //                    getItem(),
-    //                    getAccounts()
-    //                })
-    //            },
-    //    });
-    //});
-    //COMMENT OUT FOR TESTING PURPOSES ONLY [ABOVE]//
-
-    $('#plaidLinkButton').on('click', function (e) {
-        if (handler != null) {
-            handler.open();
-            //FOR TESTING PURPOSES ONLY [BELOW]
-        } else {
-            //getAccounts();
-            getTransactions();
-        }
-        //FOR TESTING PURPOSES ONLY [ABOVE]
+    
+    
+    handler = Plaid.create({
+      token: '<%=@link_token%>',
+      onSuccess:
+        function (public_token) {
+          $.post('/get_access_token', {
+            public_token: public_token
+          }, function (){
+            alert("done!")
+            //linkToggle(),
+            //getItem(),
+            //getAccounts()
+          })
+        },
     });
-
-    //$('#importButton').on('click', function (e) {
-    //    fetch('/import_transactions', {
-            // Declare what type of data we're sending
-    //        headers: {
-    //            'Content-Type': 'application/json'
-    //        },
-            // Specify the method
-    //        method: 'POST',
-            // A JSON payload
-    //        body: sessionStorage.getItem("transaction_response")
-    //     })
-    // });
+    //COMMENT OUT FOR TESTING PURPOSES ONLY [ABOVE]//
 
     function displayError(element, error) {
         var html = `
@@ -63,81 +30,5 @@
         $(element).html(html).slideDown();
     }
 
-    function plaidLinkCheck() {
-        var a = localStorage.getItem("plaid_link_persistent_id");
-        if (a != null) {
-            var b = document.getElementById("plaidLinkInitiation");
-            b.style.display = "none";
-            //var b = document.getElementById("plaidItemManagement");
-            //b.style.display = "block";
-            var b = document.getElementById("plaidConent");
-            b.style.display = "block";
-        }
-    }
-
-    function linkToggle() {
-        document.getElementById("plaidLinkInitiation").style.display = "none";
-        //var transWidth = $("#bodyContent").width();
-        //$("#plaidTransactionManagement").width(transWidth - 342);
-        document.getElementById("plaidContent").style = "display: inline-block; width: 100%";
-    }
-
-    function getTransactions(e) {
-        $.get('/plaid/api/transactions', function (data, status) {
-            if (data.error != null) {
-                displayError(this, data.error);
-                return;
-            }
-            //var html = '<tr><td><strong>Account</strong></td><td><strong>Balance</strong></td><td><strong>Type</strong></td></tr>';
-            //data.accounts.forEach(function (account, idx) {
-            //    html += '<tr>';
-            //    html += '<td class="truncate" style="padding: 5px 15px 0px 0px; font-size:11px"><a href="/api/transactions">' + account.name + '</a></td>';
-            //    html += '<td style="padding: 5px 15px 0px 0px; font-size:11px">$' + (account.balances.available != null ? account.balances.available : account.balances.current) + '</td>';
-            //    html += '<td class="truncate" style="padding: 5px 15px 0px 0px; font-size:11px">' + sentenceCase(account.subtype) + '</td>';
-            //    html += '</tr>';
-            //});
-            
-            var html2 = '<tr><td><strong>Account</strong></td><td><strong>Type</strong></td><td><strong>Name</strong></td><td><strong>Amount</strong></td><td><strong>Date</strong></td><td><strong>Status</strong></td></tr>';
-            data.transactions.forEach(function (txn, idx) {
-                html2 += '<tr>';
-                var acct_id = txn.account_id;
-                var acct_name = '';
-                var acct_subtype = '';
-                for (var a in data.accounts) {
-                    
-                    if (data.accounts[a]["account_id"] === acct_id) {
-                        acct_name = data.accounts[a]["name"];
-                        acct_subtype = data.accounts[a]["subtype"];
-                    }
-                }
-                html2 += '<td class="truncate" style="padding: 5px 15px 0px 0px; font-size:11px">' + acct_name + '</td>';
-                html2 += '<td class="truncate" style="padding: 5px 15px 0px 0px; font-size:11px">' + sentenceCase(acct_subtype) + '</td>';
-                html2 += '<td class="truncate" style="padding: 5px 15px 0px 0px; font-size:11px">' + txn.name + '</td>';
-                html2 += '<td style="padding: 5px 15px 0px 0px; font-size:11px">' + txn.amount + '</td>';
-                html2 += '<td style="padding: 5px 15px 0px 0px; font-size:11px">' + txn.date + '</td>';
-                html2 += '<td style="padding: 5px 15px 0px 0px; font-size:11px">' + txn.imported + '</td>';
-                html2 += '</tr>';
-            });
-
-            $("#itemHeading").text("Accounts")
-            $("#transactionHeading").text("Transactions");
-            linkToggle();
-            //$("#get-accounts-data").html(html).slideDown;
-            document.getElementById("transaction-data").classList.add("fixed");
-            //document.getElementById("importButton").classList.add("importButton");
-            $("#get-transactions-data").html(html2).slideDown();
-            //sessionStorage.setItem("transaction_response", JSON.stringify(data));
-        });
-    };
-
-    function sentenceCase(str) {
-        if ((str === null) || (str === ''))
-            return false;
-        else
-            str = str.toString();
-
-        return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
-    }
-
-    plaidLinkCheck()
+  handler.open();
 </script>
