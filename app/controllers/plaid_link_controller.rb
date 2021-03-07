@@ -2,8 +2,6 @@
 class PlaidLinkController < ApplicationController
   def index
     client = Plaid::Client.new(env: 'sandbox',
-      #client_id: '5eb39ba40b2dcc00124d076f',  
-      #secret: '8405e8cc1b8fcc62af5b3fc1819ebc')
       client_id: ENV['PLAID_CLIENT_ID'],
       secret: ENV['PLAID_SECRET'])
 
