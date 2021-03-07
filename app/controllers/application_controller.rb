@@ -19,8 +19,11 @@ class ApplicationController < ActionController::Base
     render("/index.html.erb")
   end
 
+  def about
+    render("/about.html.erb")
+  end
 
-  def test
-    render("/test.html.erb")
+  def contact
+    render("/contact.html.erb")
   end
 end
