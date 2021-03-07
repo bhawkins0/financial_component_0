@@ -29,11 +29,15 @@ Rails.application.routes.draw do
   #------------------------------
 
   #NAVBAR ROUTES
-  get("/",{:controller=>"application", :action=>"index"})
+  
   get("/about",{:controller=>"application", :action=>"about"})
   get("/contact",{:controller=>"application", :action=>"contact"})
 
   get("/test",{:controller=>"application", :action=>"test"})
 
-
+  #PLAID ROUTES
+  get("/",{:controller=>"plaid_link", :action=>"index"})
+  #get("/plaid/api/transactions",{:controller=>"plaid_link",:action=>"get_transactions"})
+  ##get("/connect_with_plaid", {:controller=>"plaid",:action=>"connect_with_plaid"})
+  
 end

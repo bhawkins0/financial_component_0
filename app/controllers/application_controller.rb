@@ -15,10 +15,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def index
-    render("/index.html.erb")
-  end
-
   def about
     render("/about.html.erb")
   end
