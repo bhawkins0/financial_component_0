@@ -1,34 +1,68 @@
-<script>
-    //COMMENT OUT FOR TESTING PURPOSES ONLY [BELOW]//
-    var handler = null;
-    
-    
-    handler = Plaid.create({
-      token: '<%=@link_token%>',
-      onSuccess:
-        function (public_token) {
-          $.post('/get_access_token', {
-            public_token: public_token
-          }, function (){
-            alert("done!")
-            //linkToggle(),
-            //getItem(),
-            //getAccounts()
-          })
-        },
-    });
-    //COMMENT OUT FOR TESTING PURPOSES ONLY [ABOVE]//
+<h2 class="pageTitle display-4">Fund Overview</h2>
 
-    function displayError(element, error) {
-        var html = `
-            <div class="alert alert-danger">
-              <p><strong>Error Code:</strong> ${error.error_code}</p>
-              <p><strong>Error Type:</strong> ${error.error_type}</p>
-              <p><strong>Error Message:</strong> ${error.display_message == null ? error.error_message : error.display_message}</p>
-              <div>Check out our <a href="https://plaid.com/docs/#errors-overview">errors documentation</a> for more information.</div>
-            </div>`;
-        $(element).html(html).slideDown();
+<div class="container overflow-hidden">
+  <div class="row gy-5">
+    <div class="col-6">
+      <div class="p-3 border bg-light">Custom column padding</div>
+    </div>
+    <div class="col-6">
+      <div class="p-3 border bg-light">Custom column padding</div>
+    </div>
+    <div class="col-6">
+      <div class="p-3 border bg-light">Custom column padding</div>
+    </div>
+    <div class="col-6">
+      <div class="p-3 border bg-light">Custom column padding</div>
+    </div>
+  </div>
+</div>
+
+
+<div id="notifications"></div>
+<button id="link-button" class="btn btn-primary">Link Account</button>
+
+
+<script type="text/javascript">
+(async function($) {
+  var handler = Plaid.create({
+    // Create a new link_token to initialize Link
+    token: (await $.post('/create_link_token')).link_token,
+    onLoad: function() {
+      // Optional, called when Link loads
+    },
+    onSuccess: function(public_token, metadata) {
+      // Send the public_token to your app server.
+      // The metadata object contains info about the institution the
+      // user selected and the account ID or IDs, if the
+      // Select Account view is enabled.
+      $.post('/get_access_token', {
+        public_token: public_token,
+      });
+    },
+    onExit: function(err, metadata) {
+      // The user exited the Link flow.
+      if (err != null) {
+        // The user encountered a Plaid API error prior to exiting.
+      }
+      // metadata contains information about the institution
+      // that the user selected and the most recent API request IDs.
+      // Storing this information can be helpful for support.
+    },
+    onEvent: function(eventName, metadata) {
+      // Optionally capture Link flow events, streamed through
+      // this callback as your users connect an Item to Plaid.
+      // For example:
+      // eventName = "TRANSITION_VIEW"
+      // metadata  = {
+      //   link_session_id: "123-abc",
+      //   mfa_type:        "questions",
+      //   timestamp:       "2017-09-14T14:42:19.350Z",
+      //   view_name:       "MFA",
+      // }
     }
-
-  handler.open();
+  });
+  $('#link-button').on('click', function(e) {
+    handler.open();
+  });
+})(jQuery);
 </script>

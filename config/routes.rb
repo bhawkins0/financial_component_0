@@ -38,7 +38,6 @@ Rails.application.routes.draw do
   #PLAID ROUTES
   get("/",{:controller=>"plaid_link", :action=>"index"})
   get("/connect_with_plaid", {:controller=>"plaid_link",:action=>"connect_with_plaid"})
+  post("/create_link_token",{:controller=>"plaid_link",:action=>"create_link_token"})
   post("/get_access_token",{:controller=>"plaid_link",:action=>"get_access_token"})
-  
-  
 end
