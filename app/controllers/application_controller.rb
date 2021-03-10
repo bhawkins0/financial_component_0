@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
  # Uncomment this if you want to force users to sign in before any other actions
   skip_before_action(:force_user_sign_in, { :only => [:about, :contact] })
 
-
   def load_current_user
     the_id = session[:user_id]
     @current_user = User.where({ :id => the_id }).first

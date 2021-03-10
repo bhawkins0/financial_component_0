@@ -11,6 +11,8 @@
 
 <button id="link-button" class="btn btn-primary">Connect to Plaid</button>
 
+<%=Base64.decode64(@test)%>
+
 <script type="text/javascript">
 (async function($) {
   var handler = Plaid.create({
@@ -26,6 +28,7 @@
       // Select Account view is enabled.
       $.post('/get_access_token', {
         public_token: public_token,
+        institution_id: metadata.institution.institution_id
       });
     },
     onExit: function(err, metadata) {

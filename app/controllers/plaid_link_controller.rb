@@ -1,17 +1,23 @@
 class PlaidLinkController < ApplicationController
+  #Not Working before_action(:create_plaid_client)
+  #def create_plaid_client
+  #    client = Plaid::Client.new(env: 'sandbox',
+  #    client_id: ENV['PLAID_CLIENT_ID'],
+  #    secret: ENV['PLAID_SECRET'])
+  #end
 
-  def plaid_index()
+
+  def plaid_index
     @the_user = User.where(:id => @current_user).at(0)
     render("/plaid.html.erb")
   end
 
 #API ENDPOINTS
-  def create_link_token()
+  def create_link_token
+    #USER DETAILS PRE-POPULATED FOR TESTING
     client = Plaid::Client.new(env: 'sandbox',
       client_id: ENV['PLAID_CLIENT_ID'],
       secret: ENV['PLAID_SECRET'])
-
-         #USER DETAILS PRE-POPULATED FOR TESTING
     response = client.link_token.create(
       user: {
         client_user_id: @current_user.to_s,
@@ -22,7 +28,7 @@ class PlaidLinkController < ApplicationController
       },
       client_name: 'Plaid Test App',
       products: %w[auth transactions],
-      country_codes: ['GB'],
+      country_codes: ['US'],
       language: 'en',
       #webhook: 'https://sample-webhook.com',
       #link_customization_name: 'default',
@@ -38,17 +44,39 @@ class PlaidLinkController < ApplicationController
   end
 
   def get_access_token()
-    if 
     the_user = User.where(:id => @current_user).at(0)
-    
-
+    institution = params.fetch("institution_id")
+    if the_user.institutions.where(:plaid_institution_id => institution).at(0) == nil
+      get_institution(institution)
     end
+
+    client = Plaid::Client.new(env: 'sandbox',
+      client_id: ENV['PLAID_CLIENT_ID'],
+      secret: ENV['PLAID_SECRET'])    
     
     public_token = params.fetch("public_token")
     response = client.item.public_token.exchange(public_token)
     access_token = response.access_token
     
     session[:access_token] = access_token
-    return access_token
+    #return access_token
+    render("/plaid.html.erb")
+  end
+
+  def get_institution(institution)
+    client = Plaid::Client.new(env: 'sandbox',
+      client_id: ENV['PLAID_CLIENT_ID'],
+      secret: ENV['PLAID_SECRET'])
+
+    response = client.institutions.get_by_id(institution, ['US'],options:{include_optional_metadata: True})
+    
+    inst = PlaidInstitution.new
+    inst.plaid_institution_id = response.fetch("institution").fetch("institution_id")
+    inst.plaid_name = response.fetch("institution").fetch("name")
+    inst.plaid_logo = response.fetch("institution").fetch("logo")
+    inst.fc_user_id = @current_user
+
+    save_status = inst.save
+    
   end
 end

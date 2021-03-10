@@ -18,6 +18,7 @@ require "sprockets/railtie"
 #Manual adds 06MAR2021
 require "sinatra"
 require "plaid"
+require "base64"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

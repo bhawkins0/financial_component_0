@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_035940) do
+ActiveRecord::Schema.define(version: 2021_03_10_054758) do
 
   create_table "plaid_institutions", force: :cascade do |t|
     t.string "plaid_institution_id"
     t.string "plaid_name"
-    t.string "plaid_logo"
+    t.text "plaid_logo"
     t.integer "fc_user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
