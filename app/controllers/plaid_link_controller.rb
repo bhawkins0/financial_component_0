@@ -6,7 +6,6 @@ class PlaidLinkController < ApplicationController
   #    secret: ENV['PLAID_SECRET'])
   #end
 
-
   def plaid_index
     @the_user = User.where(:id => @current_user).at(0)
     render("/plaid.html.erb")
@@ -59,8 +58,8 @@ class PlaidLinkController < ApplicationController
     access_token = response.access_token
     
     session[:access_token] = access_token
-    #return access_token
     render("/plaid.html.erb")
+    return access_token
   end
 
   def get_institution(institution)
@@ -68,13 +67,15 @@ class PlaidLinkController < ApplicationController
       client_id: ENV['PLAID_CLIENT_ID'],
       secret: ENV['PLAID_SECRET'])
 
-    response = client.institutions.get_by_id(institution, ['US'],options:{include_optional_metadata: True})
+    response = client.institutions.get_by_id(institution, ['US'],options:{include_optional_metadata: TRUE})
     
+    p response
+
     inst = PlaidInstitution.new
     inst.plaid_institution_id = response.fetch("institution").fetch("institution_id")
     inst.plaid_name = response.fetch("institution").fetch("name")
     inst.plaid_logo = response.fetch("institution").fetch("logo")
-    inst.fc_user_id = @current_user
+    inst.fc_user_id = @current_user.id
 
     save_status = inst.save
     
