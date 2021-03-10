@@ -1,11 +1,12 @@
-
 class PlaidLinkController < ApplicationController
-  def index
-    render("/index.html.erb")
+
+  def plaid_index()
+    @the_user = User.where(:id => @current_user).at(0)
+    render("/plaid.html.erb")
   end
 
-  #API ENDPOINTS
- def create_link_token()
+#API ENDPOINTS
+  def create_link_token()
     client = Plaid::Client.new(env: 'sandbox',
       client_id: ENV['PLAID_CLIENT_ID'],
       secret: ENV['PLAID_SECRET'])
@@ -36,7 +37,13 @@ class PlaidLinkController < ApplicationController
     #return response.to_json
   end
 
-  def get_access_token()      
+  def get_access_token()
+    if 
+    the_user = User.where(:id => @current_user).at(0)
+    
+
+    end
+    
     public_token = params.fetch("public_token")
     response = client.item.public_token.exchange(public_token)
     access_token = response.access_token

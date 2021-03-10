@@ -29,14 +29,14 @@ Rails.application.routes.draw do
   #------------------------------
 
   #NAVBAR ROUTES
-  
+  get("/",{:controller=>"application", :action=>"index"})
   get("/about",{:controller=>"application", :action=>"about"})
   get("/contact",{:controller=>"application", :action=>"contact"})
 
   get("/test",{:controller=>"application", :action=>"test"})
 
   #PLAID ROUTES
-  get("/",{:controller=>"plaid_link", :action=>"index"})
+  get("/plaid", {:controller=>"plaid_link",:action=>"plaid_index"})
   get("/connect_with_plaid", {:controller=>"plaid_link",:action=>"connect_with_plaid"})
   post("/create_link_token",{:controller=>"plaid_link",:action=>"create_link_token"})
   post("/get_access_token",{:controller=>"plaid_link",:action=>"get_access_token"})
