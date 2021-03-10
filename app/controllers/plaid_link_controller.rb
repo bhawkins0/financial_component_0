@@ -1,10 +1,4 @@
 class PlaidLinkController < ApplicationController
-  #Not Working before_action(:create_plaid_client)
-  #def create_plaid_client
-  #    client = Plaid::Client.new(env: 'sandbox',
-  #    client_id: ENV['PLAID_CLIENT_ID'],
-  #    secret: ENV['PLAID_SECRET'])
-  #end
 
   def plaid_index
     @the_user = User.where(:id => @current_user).at(0)
@@ -46,8 +40,8 @@ class PlaidLinkController < ApplicationController
   def get_access_token()
     #the_user = User.where(:id => @current_user).at(0)
     institution = params.fetch("institution_id")
-    the_institution = @the_user.institutions.where(:plaid_institution_id => institution).at(0)
-    if the_institution == nil
+    @the_institution = @the_user.institutions.where(:plaid_institution_id => institution).at(0)
+    if @the_institution == nil
       get_institution(institution)
     end
 

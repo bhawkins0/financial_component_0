@@ -6,7 +6,7 @@
   <div class="row g-5">
     <%@matching_institutions.each do |inst|%>
       <div class="col-4">
-        <div class="p-3 border bg-light text-center" style="height:100%">
+        <div  id="<%=inst.plaid_name%>_div" class="p-3 border bg-light text-center" style="height:100%">
           <!--<div class="border bg-light text-center" style="height:70px"><%=inst.plaid_name%></div>-->
           <div><%=inst.plaid_name%></div>
           <%= image_tag "data:image/jpeg;base64,#{inst.plaid_logo}", class: "rounded float-start thumbnailArrangement" %></span>
@@ -44,10 +44,8 @@
         public_token: public_token,
         institution_id: metadata.institution.institution_id
       });
-      $(function(){
-        // jQuery methods go here...
-        alert("test")
-      });
+      // jQuery methods go here...
+        $("#Chime_div").addClass("border border-success");
     },
     onExit: function(err, metadata) {
       // The user exited the Link flow.
