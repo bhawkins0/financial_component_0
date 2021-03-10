@@ -108,6 +108,17 @@ body {
   margin-bottom:18px;
 }
 
+.thumbnailArrangement{
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+}
+
+
+
+
+
+/*REVISIT BELOW*/
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
