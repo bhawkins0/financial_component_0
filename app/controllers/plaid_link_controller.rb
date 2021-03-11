@@ -38,12 +38,14 @@ class PlaidLinkController < ApplicationController
   end
 
   def get_access_token()
-    #the_user = User.where(:id => @current_user).at(0)
+    @the_user = User.where(:id => @current_user).at(0)
     institution = params.fetch("institution_id")
-    @the_institution = @the_user.institutions.where(:plaid_institution_id => institution).at(0)
-    if @the_institution == nil
+    the_institution = @the_user.institutions.where(:plaid_institution_id => institution).at(0)
+    if the_institution == nil
       get_institution(institution)
     end
+
+    cookies.store(:plaid_institution, the_institution.plaid_name.gsub(" ","_"))
 
     client = Plaid::Client.new(env: 'sandbox',
       client_id: ENV['PLAID_CLIENT_ID'],
@@ -72,6 +74,5 @@ class PlaidLinkController < ApplicationController
     inst.fc_user_id = @current_user.id
 
     save_status = inst.save
-    
   end
 end
