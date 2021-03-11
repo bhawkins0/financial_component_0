@@ -34,7 +34,6 @@ class PlaidLinkController < ApplicationController
     )
     
     render :json => response
-    #return response.to_json
   end
 
   def get_access_token()
@@ -45,6 +44,9 @@ class PlaidLinkController < ApplicationController
       get_institution(institution)
     end
 
+    if cookies[:plaid_institution] != nil
+      cookies.delete :plaid_institution
+    end
     cookies.store(:plaid_institution, the_institution.plaid_name.gsub(" ","_"))
 
     client = Plaid::Client.new(env: 'sandbox',
@@ -57,7 +59,7 @@ class PlaidLinkController < ApplicationController
     
     session[:access_token] = access_token
 
-    return access_token
+    #return access_token
   end
 
   def get_institution(institution)
