@@ -2,12 +2,24 @@
   <h2 class="pageTitle display-4">Plaid</h2>
 </div>
 
+<div id="link-div" class="pageTitle">
+  <%if @the_user.institutions.count == 0%>
+    <p>Hello! Plaid is an engine used to securely connect to and access data at your Financial Institutions.</p>
+    <p>Please click the link below to connect to Plaid and get started!</p>
+  <%else%>
+    <p id="plaid_instructions">Please sign in to your financial institutions to refresh your data.</p>
+  <%end%>
+</div>
+
+<button id="link-button" class="btn btn-primary">Connect to Plaid</button>
+
+<hr>
+
 <div id="plaid_institutions" class="container overflow-hidden">
   <div class="row g-5">
     <%@matching_institutions.each do |inst|%>
       <div class="col-4">
         <div  id="<%=inst.plaid_name.gsub(" ","_")%>_div" class="p-3 border bg-light text-center institution" style="height:100%">
-          <!--<div class="border bg-light text-center" style="height:70px"><%=inst.plaid_name%></div>-->
           <div><%=inst.plaid_name%></div>
           <%= image_tag "data:image/jpeg;base64,#{inst.plaid_logo}", class: "rounded float-start thumbnailArrangement" %></span>
         </div>
@@ -15,17 +27,6 @@
     <%end%>
   </div>
 </div>
-
-<div id="link-div" class="pageTitle">
-  <%if @the_user.institutions.count == 0%>
-    <p>Hello! Plaid is an engine used to securely connect to and access data at your Financial Institutions.</p>
-    <p>Please click the link below to connect to Plaid and get started!</p>
-  <%else%>
-    <p>Please sign in to your financial institutions to refresh your data.</p>
-  <%end%>
-</div>
-
-<button id="link-button" class="btn btn-primary">Connect to Plaid</button>
 
 <script type="text/javascript">
 (async function($) {
@@ -46,9 +47,17 @@
       }).done(function() {
           $("#" + getCookie("plaid_institution") + "_div").addClass("border border-success");
           $("#" + getCookie("plaid_institution")+ "_div").click(function() {window.location = "/plaid/<%=@the_institution%>"});
+          var a = 1
+          console.log(a)
           $('#plaid_institutions > .row > .col-4 > .institution').each(function() {
-              window.console&&console.log(this.id);
+              if(!$(this).hasClass('border-success')){
+                  a = 0;
+              };
             });
+            if(a == 1){
+              $('#plaid_instructions').text("All of your existing accounts are updated!");
+              $('#link-button').text("Connect a new account");
+            };
         });
       // jQuery methods go here...
     },
