@@ -93,6 +93,9 @@ body {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
+    .sideNavItemsChild li {
+        margin:5px 0px 5px 0px;
+    }
 
     .sideNavItemsChild a {
         color: white;
@@ -114,8 +117,30 @@ body {
   width: 50px;
 }
 
+.clickable {
+  cursor: pointer;
+}
 
+.sideNav::-webkit-scrollbar {
+        width: 6px;
+    }
 
+    /* Track */
+.sideNav::-webkit-scrollbar-track {
+        /*box-shadow: inset 0 0 2px grey; 
+        border-radius: 10px;*/
+    }
+
+    /* Handle */
+.sideNav::-webkit-scrollbar-thumb {
+        background: silver; 
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+.sideNav::-webkit-scrollbar-thumb:hover {
+        background: #548235; 
+    }
 
 
 /*REVISIT BELOW*/

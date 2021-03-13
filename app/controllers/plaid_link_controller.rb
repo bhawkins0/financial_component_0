@@ -1,8 +1,7 @@
 class PlaidLinkController < ApplicationController
 
   def plaid_index
-    @the_user = User.where(:id => @current_user).at(0)
-    @matching_institutions = @the_user.institutions
+    #@the_user = User.where(:id => @current_user).at(0)
     render("/plaid.html.erb")
   end
 
@@ -37,17 +36,12 @@ class PlaidLinkController < ApplicationController
   end
 
   def get_access_token()
-    @the_user = User.where(:id => @current_user).at(0)
+    #@the_user = User.where(:id => @current_user).at(0)
     institution = params.fetch("institution_id")
-    the_institution = @the_user.institutions.where(:plaid_institution_id => institution).at(0)
+    the_institution = @current_user.institutions.where(:plaid_institution_id => institution).at(0)
     if the_institution == nil
       get_institution(institution)
     end
-
-    if cookies[:plaid_institution] != nil
-      cookies.delete :plaid_institution
-    end
-    cookies.store(:plaid_institution, the_institution.plaid_name.gsub(" ","_"))
 
     client = Plaid::Client.new(env: 'sandbox',
       client_id: ENV['PLAID_CLIENT_ID'],
@@ -57,7 +51,13 @@ class PlaidLinkController < ApplicationController
     response = client.item.public_token.exchange(public_token)
     access_token = response.access_token
     
-    session[:access_token] = access_token
+    #session[:access_token] = access_token
+
+    if cookies["#{the_institution.plaid_name.gsub(' ','_')}"] != nil
+      cookies.delete "#{the_institution.plaid_name.gsub(' ','_')}"
+    end
+
+    cookies["#{the_institution.plaid_name.gsub(' ','_')}"] = access_token
 
     #return access_token
   end

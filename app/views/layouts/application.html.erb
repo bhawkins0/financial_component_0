@@ -47,35 +47,47 @@
     </header>
     <!-- The sidebar -->
     <div class="body-container">
-      <div class="sideNav" id="sideNav">
+      <div class="sideNav scrollbar" id="sideNav">
           <ul class="sideNavItems">
             <%if @current_user != nil%>
               <li>
                   <a class="sideNavItem" href="/">Home</a>
               </li>
               <li>
-                  <a class="sideNavItem" href="/plaid">Plaid</a>
-                  <!--<span class="sideNavItem collapsible" style="cursor:pointer">Transactions</span>
+                <%a = 0%>
+                <%@matching_institutions.each do |inst|%>
+                    <%if cookies["#{inst.plaid_name.gsub(' ','_')}"] != nil%>
+                      <%a = 1%>
+                    <%end%>
+                <%end%>
+                <%if a == 1%>
+                  <span class="sideNavItem collapsible clickable">Plaid</span>
                   <ul class="sideNavItemsChild">
-                      <li style="margin:5px 0px 5px 0px">
-                          <a href="/transactions">Posted</a>
+                      <li>
+                          <a href="/plaid">Link</a>
                       </li>
-                      <li style="margin:5px 0px 5px 0px">
-                          <a href="#pending">Planned</a>
-                      </li>
-
-                  </ul>-->
+                      <%@matching_institutions.each do |inst|%>
+                        <%if cookies["#{inst.plaid_name.gsub(' ','_')}"] != nil%>
+                          <li class="clickable">
+                            <a href="/<%=inst.plaid_name.gsub(' ','_')%>"><%=inst.plaid_name%></a>
+                          </li>
+                        <%end%>
+                      <%end%>
+                  </ul>
+                <%else%>
+                  <a class="sideNavItem" href="/plaid">Plaid</a>
+                <%end%>
               </li>
               <li>
-                  <span class="sideNavItem collapsible" style="cursor:pointer">Statements</span>
+                  <span class="sideNavItem collapsible clickable">Statements</span>
                   <ul class="sideNavItemsChild">
-                      <li style="margin:5px 0px 5px 0px">
+                      <li>
                           <a href="#statements">Income</a>
                       </li>
-                      <li style="margin:5px 0px 5px 0px">
+                      <li>
                           <a href="#statements">Cash Flow</a>
                       </li>
-                      <li style="margin:5px 0px 5px 0px">
+                      <li>
                           <a href="#statements">Balance Sheet</a>
                       </li>
                   </ul>

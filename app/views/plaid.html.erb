@@ -3,15 +3,27 @@
 </div>
 
 <div id="link-div" class="pageTitle">
-  <%if @the_user.institutions.count == 0%>
+  <%if @current_user.institutions.count == 0%>
     <p>Hello! Plaid is an engine used to securely connect to and access data at your Financial Institutions.</p>
     <p>Please click the link below to connect to Plaid and get started!</p>
   <%else%>
-    <p id="plaid_instructions">Please sign in to your financial institutions to refresh your data.</p>
+    <%a = 1%>
+    <%@matching_institutions.each do |inst|%>
+        <%if cookies["#{inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"] == nil%>
+          <%a = 0%>
+        <%end%>
+    <%end%>
+    <%if a == 0%>
+      <p id="plaid_instructions">Please sign in to your financial institutions to refresh your data.</p>
+      <button id="link-button" class="btn btn-primary">Connect to Plaid</button>
+    <%else%>
+      <p id="plaid_instructions">All of your existing accounts are updated!</p>
+      <button id="link-button" class="btn btn-primary">Connect a new account</button>
+    <%end%>
   <%end%>
 </div>
 
-<button id="link-button" class="btn btn-primary">Connect to Plaid</button>
+
 
 <hr>
 
@@ -19,7 +31,11 @@
   <div class="row g-5">
     <%@matching_institutions.each do |inst|%>
       <div class="col-4">
-        <div  id="<%=inst.plaid_name.gsub(" ","_")%>_div" class="p-3 border bg-light text-center institution" style="height:100%">
+        <%if cookies["#{inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"] != nil%>
+          <div  id="<%=inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,"_")%>_div" class="p-3 border border-success bg-light text-center institution clickable" style="height:100%;" onclick="institution_div('<%=inst.plaid_name%>')">
+        <%else%>
+          <div  id="<%=inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,"_")%>_div" class="p-3 border bg-light text-center institution" style="height:100%">
+        <%end%>        
           <div><%=inst.plaid_name%></div>
           <%= image_tag "data:image/jpeg;base64,#{inst.plaid_logo}", class: "rounded float-start thumbnailArrangement" %></span>
         </div>
@@ -41,12 +57,14 @@
       // The metadata object contains info about the institution the
       // user selected and the account ID or IDs, if the
       // Select Account view is enabled.
+      var b = metadata.institution.name;
       $.post('/get_access_token', {
         public_token: public_token,
         institution_id: metadata.institution.institution_id
+        //institution_name: metadata.institution.name,
       }).done(function() {
-          $("#" + getCookie("plaid_institution") + "_div").addClass("border border-success");
-          $("#" + getCookie("plaid_institution")+ "_div").click(function() {window.location = "/plaid/<%=@the_institution%>"});
+          $("#" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi, '_') + "_div").addClass("border border-success clickable");
+          $("#" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi, '_') + "_div").click(function() {window.location = "/plaid" + b.replace(" ", "_")});
           var a = 1
           console.log(a)
           $('#plaid_institutions > .row > .col-4 > .institution').each(function() {
@@ -87,4 +105,7 @@
     handler.open();
   });
 })(jQuery);
+
+  function institution_div(institution){window.location = "/plaid/" + institution};
+ 
 </script>
