@@ -1,0 +1,150 @@
+<div>
+  <div>
+    <h1>
+      List of all plaid accounts
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new plaid account
+    </h2>
+
+    <form action="/insert_plaid_account" method="post">
+      <div>
+        <label for="plaid_institution_id_box">
+          Plaid institution
+        </label>
+
+        <input type="text" id="plaid_institution_id_box" name="query_plaid_institution_id">
+      </div>
+
+      <div>
+        <label for="plaid_account_id_box">
+          Plaid account
+        </label>
+
+        <input type="text" id="plaid_account_id_box" name="query_plaid_account_id">
+      </div>
+
+      <div>
+        <label for="plaid_account_name_box">
+          Plaid account name
+        </label>
+
+        <input type="text" id="plaid_account_name_box" name="query_plaid_account_name">
+      </div>
+
+      <div>
+        <label for="plaid_account_type_box">
+          Plaid account type
+        </label>
+
+        <input type="text" id="plaid_account_type_box" name="query_plaid_account_type">
+      </div>
+
+      <div>
+        <label for="fc_account_normal_balance_box">
+          Plaid account normal balance
+        </label>
+
+        <input type="text" id="fc_account_normal_balance_box" name="query_fc_account_normal_balance">
+      </div>
+
+      <button>
+        Create plaid account
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Plaid institution
+        </th>
+
+        <th>
+          Plaid account
+        </th>
+
+        <th>
+          Plaid account name
+        </th>
+
+        <th>
+          Plaid account type
+        </th>
+
+        <th>
+          Plaid account normal balance
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_plaid_accounts.each do |a_plaid_account| %>
+      <tr>
+        <td>
+          <%= a_plaid_account.id %>
+        </td>
+
+        <td>
+          <%= a_plaid_account.plaid_institution_id %>
+        </td>
+
+        <td>
+          <%= a_plaid_account.plaid_account_id %>
+        </td>
+
+        <td>
+          <%= a_plaid_account.plaid_account_name %>
+        </td>
+
+        <td>
+          <%= a_plaid_account.plaid_account_type %>
+        </td>
+
+        <td>
+          <%= a_plaid_account.fc_account_normal_balance %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_plaid_account.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_plaid_account.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/plaid_accounts/<%= a_plaid_account.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

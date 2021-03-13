@@ -10,13 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_054758) do
+ActiveRecord::Schema.define(version: 2021_03_13_053641) do
+
+  create_table "plaid_accounts", force: :cascade do |t|
+    t.string "plaid_institution_id"
+    t.string "plaid_account_id"
+    t.string "plaid_account_name"
+    t.string "plaid_account_type"
+    t.string "fc_account_normal_balance"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "plaid_institutions", force: :cascade do |t|
     t.string "plaid_institution_id"
     t.string "plaid_name"
     t.text "plaid_logo"
     t.integer "fc_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "plaid_transactions", force: :cascade do |t|
+    t.string "plaid_account_id"
+    t.date "plaid_authorized_date"
+    t.date "plaid_date"
+    t.string "plaid_name"
+    t.float "plaid_amount"
+    t.string "plaid_iso_currency_code"
+    t.string "plaid_category"
+    t.string "plaid_merchant_name"
+    t.string "plaid_address"
+    t.string "plaid_city"
+    t.string "plaid_region"
+    t.string "plaid_postal_code"
+    t.string "plaid_country"
+    t.float "plaid_latitude"
+    t.float "plaid_longitude"
+    t.string "plaid_transaction_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

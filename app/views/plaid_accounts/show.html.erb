@@ -1,0 +1,131 @@
+<div>
+  <div>
+    <h1>
+      Plaid account #<%= @the_plaid_account.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/plaid_accounts">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_plaid_account/<%= @the_plaid_account.id %>">
+          Delete plaid account
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Plaid institution
+      </dt>
+      <dd>
+        <%= @the_plaid_account.plaid_institution_id %>
+      </dd>
+
+      <dt>
+        Plaid account
+      </dt>
+      <dd>
+        <%= @the_plaid_account.plaid_account_id %>
+      </dd>
+
+      <dt>
+        Plaid account name
+      </dt>
+      <dd>
+        <%= @the_plaid_account.plaid_account_name %>
+      </dd>
+
+      <dt>
+        Plaid account type
+      </dt>
+      <dd>
+        <%= @the_plaid_account.plaid_account_type %>
+      </dd>
+
+      <dt>
+        Plaid account normal balance
+      </dt>
+      <dd>
+        <%= @the_plaid_account.fc_account_normal_balance %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_plaid_account.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_plaid_account.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit plaid account
+    </h2>
+
+    <form action="/modify_plaid_account/<%= @the_plaid_account.id %>"  method="post" >
+      <div>
+        <label for="plaid_institution_id_box">
+          Plaid institution
+        </label>
+
+        <input type="text" id="plaid_institution_id_box" name="query_plaid_institution_id" value="<%= @the_plaid_account.plaid_institution_id %>">
+      </div>
+
+      <div>
+        <label for="plaid_account_id_box">
+          Plaid account
+        </label>
+
+        <input type="text" id="plaid_account_id_box" name="query_plaid_account_id" value="<%= @the_plaid_account.plaid_account_id %>">
+      </div>
+
+      <div>
+        <label for="plaid_account_name_box">
+          Plaid account name
+        </label>
+
+        <input type="text" id="plaid_account_name_box" name="query_plaid_account_name" value="<%= @the_plaid_account.plaid_account_name %>">
+      </div>
+
+      <div>
+        <label for="plaid_account_type_box">
+          Plaid account type
+        </label>
+
+        <input type="text" id="plaid_account_type_box" name="query_plaid_account_type" value="<%= @the_plaid_account.plaid_account_type %>">
+      </div>
+
+      <div>
+        <label for="fc_account_normal_balance_box">
+          Plaid account normal balance
+        </label>
+
+        <input type="text" id="fc_account_normal_balance_box" name="query_fc_account_normal_balance" value="<%= @the_plaid_account.fc_account_normal_balance %>">
+      </div>
+
+      <button>
+        Update plaid account
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

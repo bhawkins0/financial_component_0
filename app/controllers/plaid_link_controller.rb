@@ -79,7 +79,42 @@ class PlaidLinkController < ApplicationController
   end
 
   def get_transactions
-    p params.fetch("institution_name")
+    client = Plaid::Client.new(env: 'sandbox',
+      client_id: ENV['PLAID_CLIENT_ID'],
+      secret: ENV['PLAID_SECRET'])
+
+    access_token = cookies["#{params.fetch("institution_name")}"]
+    d = Date.today
+    d2 = d << 24 
+    response = client.transactions.get(access_token,
+                                        d2.strftime("%Y-%m-%d"),
+                                        d.strftime("%Y-%m-%d"),
+                                        count: 500,
+                                        offset: 0)
+    total_transactions = response['total_transactions']
+    
+    accounts = response['accounts']
+    accounts.each do |acct|
+      if Account.where(:plaid_account_id => acct['account_id']).at(0) == nil
+        the_plaid_account = PlaidAccount.new
+        the_plaid_account.plaid_institution_id = acct['plaid_institution_id']
+        the_plaid_account.plaid_account_id = acct['plaid_account_id']
+        the_plaid_account.plaid_account_name = acct['plaid_account_name']
+        the_plaid_account.plaid_account_type = acct['plaid_account_type']
+        
+        if ['depository','investment'].include? acct['type']
+          the_plaid_account.fc_account_normal_balance = 'debit'
+        else
+          the_plaid_account.fc_account_normal_balance = 'credit'
+        end
+        if the_plaid_account.valid?
+          the_plaid_account.save
+        end
+      end
+    end
+    
+    transactions = response['transactions']
+    
   end
 
   def get_institution

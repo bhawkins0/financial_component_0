@@ -1,4 +1,42 @@
 Rails.application.routes.draw do
+  # Routes for the Plaid account resource:
+
+  # CREATE
+  post("/insert_plaid_account", { :controller => "plaid_accounts", :action => "create" })
+          
+  # READ
+  get("/plaid_accounts", { :controller => "plaid_accounts", :action => "index" })
+  
+  get("/plaid_accounts/:path_id", { :controller => "plaid_accounts", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_plaid_account/:path_id", { :controller => "plaid_accounts", :action => "update" })
+  
+  # DELETE
+  get("/delete_plaid_account/:path_id", { :controller => "plaid_accounts", :action => "destroy" })
+
+  #------------------------------
+
+  # Routes for the Plaid transaction resource:
+
+  # CREATE
+  post("/insert_plaid_transaction", { :controller => "plaid_transactions", :action => "create" })
+          
+  # READ
+  get("/plaid_transactions", { :controller => "plaid_transactions", :action => "index" })
+  
+  get("/plaid_transactions/:path_id", { :controller => "plaid_transactions", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_plaid_transaction/:path_id", { :controller => "plaid_transactions", :action => "update" })
+  
+  # DELETE
+  get("/delete_plaid_transaction/:path_id", { :controller => "plaid_transactions", :action => "destroy" })
+
+  #------------------------------
+
   # Routes for the User account:
   # LOGIN FORM
   post("/process_login_form", {:controller => "user_authentication", :action => "process_login_form"})

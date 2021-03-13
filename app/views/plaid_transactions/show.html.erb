@@ -1,0 +1,296 @@
+<div>
+  <div>
+    <h1>
+      Plaid transaction #<%= @the_plaid_transaction.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/plaid_transactions">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_plaid_transaction/<%= @the_plaid_transaction.id %>">
+          Delete plaid transaction
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Plaid account
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_account_id %>
+      </dd>
+
+      <dt>
+        Plaid authorized date
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_authorized_date %>
+      </dd>
+
+      <dt>
+        Plaid date
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_date %>
+      </dd>
+
+      <dt>
+        Plaid name
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_name %>
+      </dd>
+
+      <dt>
+        Plaid amount
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_amount %>
+      </dd>
+
+      <dt>
+        Plaid iso currency code
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_iso_currency_code %>
+      </dd>
+
+      <dt>
+        Plaid category
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_category %>
+      </dd>
+
+      <dt>
+        Plaid merchant name
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_merchant_name %>
+      </dd>
+
+      <dt>
+        Plaid address
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_address %>
+      </dd>
+
+      <dt>
+        Plaid city
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_city %>
+      </dd>
+
+      <dt>
+        Plaid region
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_region %>
+      </dd>
+
+      <dt>
+        Plaid postal code
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_postal_code %>
+      </dd>
+
+      <dt>
+        Plaid country
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_country %>
+      </dd>
+
+      <dt>
+        Plaid latitude
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_latitude %>
+      </dd>
+
+      <dt>
+        Plaid longitude
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_longitude %>
+      </dd>
+
+      <dt>
+        Plaid transaction
+      </dt>
+      <dd>
+        <%= @the_plaid_transaction.plaid_transaction_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_plaid_transaction.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_plaid_transaction.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit plaid transaction
+    </h2>
+
+    <form action="/modify_plaid_transaction/<%= @the_plaid_transaction.id %>"  method="post" >
+      <div>
+        <label for="plaid_account_id_box">
+          Plaid account
+        </label>
+
+        <input type="text" id="plaid_account_id_box" name="query_plaid_account_id" value="<%= @the_plaid_transaction.plaid_account_id %>">
+      </div>
+
+      <div>
+        <label for="plaid_authorized_date_box">
+          Plaid authorized date
+        </label>
+
+        <input type="date" id="plaid_authorized_date_box" name="query_plaid_authorized_date" value="<%= @the_plaid_transaction.plaid_authorized_date %>">
+      </div>
+
+      <div>
+        <label for="plaid_date_box">
+          Plaid date
+        </label>
+
+        <input type="date" id="plaid_date_box" name="query_plaid_date" value="<%= @the_plaid_transaction.plaid_date %>">
+      </div>
+
+      <div>
+        <label for="plaid_name_box">
+          Plaid name
+        </label>
+
+        <input type="text" id="plaid_name_box" name="query_plaid_name" value="<%= @the_plaid_transaction.plaid_name %>">
+      </div>
+
+      <div>
+        <label for="plaid_amount_box">
+          Plaid amount
+        </label>
+
+        <input type="text" id="plaid_amount_box" name="query_plaid_amount" value="<%= @the_plaid_transaction.plaid_amount %>">
+      </div>
+
+      <div>
+        <label for="plaid_iso_currency_code_box">
+          Plaid iso currency code
+        </label>
+
+        <input type="text" id="plaid_iso_currency_code_box" name="query_plaid_iso_currency_code" value="<%= @the_plaid_transaction.plaid_iso_currency_code %>">
+      </div>
+
+      <div>
+        <label for="plaid_category_box">
+          Plaid category
+        </label>
+
+        <input type="text" id="plaid_category_box" name="query_plaid_category" value="<%= @the_plaid_transaction.plaid_category %>">
+      </div>
+
+      <div>
+        <label for="plaid_merchant_name_box">
+          Plaid merchant name
+        </label>
+
+        <input type="text" id="plaid_merchant_name_box" name="query_plaid_merchant_name" value="<%= @the_plaid_transaction.plaid_merchant_name %>">
+      </div>
+
+      <div>
+        <label for="plaid_address_box">
+          Plaid address
+        </label>
+
+        <input type="text" id="plaid_address_box" name="query_plaid_address" value="<%= @the_plaid_transaction.plaid_address %>">
+      </div>
+
+      <div>
+        <label for="plaid_city_box">
+          Plaid city
+        </label>
+
+        <input type="text" id="plaid_city_box" name="query_plaid_city" value="<%= @the_plaid_transaction.plaid_city %>">
+      </div>
+
+      <div>
+        <label for="plaid_region_box">
+          Plaid region
+        </label>
+
+        <input type="text" id="plaid_region_box" name="query_plaid_region" value="<%= @the_plaid_transaction.plaid_region %>">
+      </div>
+
+      <div>
+        <label for="plaid_postal_code_box">
+          Plaid postal code
+        </label>
+
+        <input type="text" id="plaid_postal_code_box" name="query_plaid_postal_code" value="<%= @the_plaid_transaction.plaid_postal_code %>">
+      </div>
+
+      <div>
+        <label for="plaid_country_box">
+          Plaid country
+        </label>
+
+        <input type="text" id="plaid_country_box" name="query_plaid_country" value="<%= @the_plaid_transaction.plaid_country %>">
+      </div>
+
+      <div>
+        <label for="plaid_latitude_box">
+          Plaid latitude
+        </label>
+
+        <input type="text" id="plaid_latitude_box" name="query_plaid_latitude" value="<%= @the_plaid_transaction.plaid_latitude %>">
+      </div>
+
+      <div>
+        <label for="plaid_longitude_box">
+          Plaid longitude
+        </label>
+
+        <input type="text" id="plaid_longitude_box" name="query_plaid_longitude" value="<%= @the_plaid_transaction.plaid_longitude %>">
+      </div>
+
+      <div>
+        <label for="plaid_transaction_id_box">
+          Plaid transaction
+        </label>
+
+        <input type="text" id="plaid_transaction_id_box" name="query_plaid_transaction_id" value="<%= @the_plaid_transaction.plaid_transaction_id %>">
+      </div>
+
+      <button>
+        Update plaid transaction
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
