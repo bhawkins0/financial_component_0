@@ -116,25 +116,31 @@ class PlaidLinkController < ApplicationController
     
     transactions = response['transactions']
     transactions.each do |trans|
+      location = trans[:location]
+      p location[:address]
       if PlaidTransaction.where(:plaid_transaction_id	 => trans['transaction_id']).at(0) == nil
         the_plaid_transaction = PlaidTransaction.new
-        the_plaid_transaction.plaid_account_id = params.fetch("query_plaid_account_id")
-        the_plaid_transaction.plaid_authorized_date = params.fetch("query_plaid_authorized_date")
-        the_plaid_transaction.plaid_date = params.fetch("query_plaid_date")
-        the_plaid_transaction.plaid_name = params.fetch("query_plaid_name")
-        the_plaid_transaction.plaid_amount = params.fetch("query_plaid_amount")
-        the_plaid_transaction.plaid_iso_currency_code = params.fetch("query_plaid_iso_currency_code")
-        the_plaid_transaction.plaid_category = params.fetch("query_plaid_category")
-        the_plaid_transaction.plaid_merchant_name = params.fetch("query_plaid_merchant_name")
-        the_plaid_transaction.plaid_address = params.fetch("query_plaid_address")
-        the_plaid_transaction.plaid_city = params.fetch("query_plaid_city")
-        the_plaid_transaction.plaid_region = params.fetch("query_plaid_region")
-        the_plaid_transaction.plaid_postal_code = params.fetch("query_plaid_postal_code")
-        the_plaid_transaction.plaid_country = params.fetch("query_plaid_country")
-        the_plaid_transaction.plaid_latitude = params.fetch("query_plaid_latitude")
-        the_plaid_transaction.plaid_longitude = params.fetch("query_plaid_longitude")
-        the_plaid_transaction.plaid_transaction_id = params.fetch("query_plaid_transaction_id")
-
+        the_plaid_transaction.plaid_account_id = trans[:account_id]
+        if trans[:authorized_date] == nil
+          the_plaid_transaction.plaid_authorized_date = trans[:date]
+        else
+          the_plaid_transaction.plaid_authorized_date = trans[:authorized_date]
+        end
+        the_plaid_transaction.plaid_date = trans[:date]
+        the_plaid_transaction.plaid_name = trans[:name]
+        the_plaid_transaction.plaid_amount = trans[:amount]
+        the_plaid_transaction.plaid_iso_currency_code = trans[:iso_currency_code]
+        the_plaid_transaction.plaid_category = trans[:category]
+        the_plaid_transaction.plaid_merchant_name = trans[:merchant_name]
+        the_plaid_transaction.plaid_address = location[:address]
+        the_plaid_transaction.plaid_city = location[:city]
+        the_plaid_transaction.plaid_region = location[:region]
+        the_plaid_transaction.plaid_postal_code = location[:postal_code]
+        the_plaid_transaction.plaid_country = location[:country]
+        the_plaid_transaction.plaid_latitude = location[:lat]
+        the_plaid_transaction.plaid_longitude = location[:lon]
+        the_plaid_transaction.plaid_transaction_id = trans[:transaction_id]
+        
         if the_plaid_transaction.valid?
           the_plaid_transaction.save
         

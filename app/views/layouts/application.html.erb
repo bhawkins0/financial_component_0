@@ -69,7 +69,7 @@
                       <%@matching_institutions.each do |inst|%>
                         <%if cookies["#{inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"] != nil%>
                           <li class="clickable">
-                            <a href="/<%=inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')%>"><%=inst.plaid_name%></a>
+                            <a href="/plaid/<%=inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')%>"><%=inst.plaid_name%></a>
                           </li>
                         <%end%>
                       <%end%>
