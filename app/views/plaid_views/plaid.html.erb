@@ -23,8 +23,6 @@
   <%end%>
 </div>
 
-
-
 <hr>
 
 <div id="plaid_institutions" class="container overflow-hidden">
@@ -63,8 +61,13 @@
         institution_id: metadata.institution.institution_id
         //institution_name: metadata.institution.name,
       }).done(function() {
-          $("#" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi, '_') + "_div").addClass("border border-success clickable");
-          $("#" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi, '_') + "_div").click(function() {window.location = "/plaid" + b.replace(" ", "_")});
+          $("#" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_') + "_div").addClass("border border-success clickable");
+          $("#" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_') + "_div").click(function() {window.location = "/plaid/" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, "_")});
+          //if(!$('#plaidNavItem').hasClass('collapsible clickable')){
+          //  alert("does not have class")
+          //  $('#plaidNavItem').addClass('collapsible clickable')
+          //};
+          //$('#plaidChildren').append('<li class="clickable"><a href="/' + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi, '_') + '">' + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi, '_') + '</a></li>');
           var a = 1
           console.log(a)
           $('#plaid_institutions > .row > .col-4 > .institution').each(function() {
@@ -76,6 +79,7 @@
               $('#plaid_instructions').text("All of your existing accounts are updated!");
               $('#link-button').text("Connect a new account");
             };
+             location.reload();
         });
       // jQuery methods go here...
     },
@@ -106,6 +110,6 @@
   });
 })(jQuery);
 
-  function institution_div(institution){window.location = "/plaid/" + institution};
+  function institution_div(institution){window.location = "/plaid/" + institution.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_')};
  
 </script>

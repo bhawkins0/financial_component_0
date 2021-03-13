@@ -2,7 +2,7 @@ class PlaidLinkController < ApplicationController
 
   def plaid_index
     #@the_user = User.where(:id => @current_user).at(0)
-    render("/plaid.html.erb")
+    render("plaid_views/plaid.html.erb")
   end
 
 #API ENDPOINTS
@@ -53,11 +53,11 @@ class PlaidLinkController < ApplicationController
     
     #session[:access_token] = access_token
 
-    if cookies["#{the_institution.plaid_name.gsub(' ','_')}"] != nil
-      cookies.delete "#{the_institution.plaid_name.gsub(' ','_')}"
+    if cookies["#{the_institution.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"] != nil
+      cookies.delete "#{the_institution.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"
     end
 
-    cookies["#{the_institution.plaid_name.gsub(' ','_')}"] = access_token
+    cookies["#{the_institution.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"] = access_token
 
     #return access_token
   end

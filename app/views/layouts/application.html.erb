@@ -56,20 +56,20 @@
               <li>
                 <%a = 0%>
                 <%@matching_institutions.each do |inst|%>
-                    <%if cookies["#{inst.plaid_name.gsub(' ','_')}"] != nil%>
+                    <%if cookies["#{inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"] != nil%>
                       <%a = 1%>
                     <%end%>
                 <%end%>
                 <%if a == 1%>
-                  <span class="sideNavItem collapsible clickable">Plaid</span>
-                  <ul class="sideNavItemsChild">
+                  <span class="sideNavItem collapsible clickable" id="plaidNavItem">Plaid</span>
+                  <ul class="sideNavItemsChild" id="plaidChildren">
                       <li>
                           <a href="/plaid">Link</a>
                       </li>
                       <%@matching_institutions.each do |inst|%>
-                        <%if cookies["#{inst.plaid_name.gsub(' ','_')}"] != nil%>
+                        <%if cookies["#{inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"] != nil%>
                           <li class="clickable">
-                            <a href="/<%=inst.plaid_name.gsub(' ','_')%>"><%=inst.plaid_name%></a>
+                            <a href="/<%=inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')%>"><%=inst.plaid_name%></a>
                           </li>
                         <%end%>
                       <%end%>
