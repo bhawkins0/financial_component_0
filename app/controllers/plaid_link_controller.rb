@@ -95,18 +95,19 @@ class PlaidLinkController < ApplicationController
     
     accounts = response['accounts']
     accounts.each do |acct|
-      if Account.where(:plaid_account_id => acct['account_id']).at(0) == nil
+      if PlaidAccount.where(:plaid_account_id => acct['account_id']).at(0) == nil
         the_plaid_account = PlaidAccount.new
-        the_plaid_account.plaid_institution_id = acct['plaid_institution_id']
-        the_plaid_account.plaid_account_id = acct['plaid_account_id']
-        the_plaid_account.plaid_account_name = acct['plaid_account_name']
-        the_plaid_account.plaid_account_type = acct['plaid_account_type']
+        the_plaid_account.plaid_institution_id = PlaidInstitution.where(:plaid_name => params.fetch("institution_name")).at(0).plaid_institution_id
+        the_plaid_account.plaid_account_id = acct[:account_id]
+        the_plaid_account.plaid_account_name = acct[:name]
+        the_plaid_account.plaid_account_type = acct[:type]
         
-        if ['depository','investment'].include? acct['type']
+        if ['depository','investment'].include? acct[:type]
           the_plaid_account.fc_account_normal_balance = 'debit'
         else
           the_plaid_account.fc_account_normal_balance = 'credit'
         end
+
         if the_plaid_account.valid?
           the_plaid_account.save
         end
@@ -114,6 +115,32 @@ class PlaidLinkController < ApplicationController
     end
     
     transactions = response['transactions']
+    transactions.each do |trans|
+      if PlaidTransaction.where(:plaid_transaction_id	 => trans['transaction_id']).at(0) == nil
+        the_plaid_transaction = PlaidTransaction.new
+        the_plaid_transaction.plaid_account_id = params.fetch("query_plaid_account_id")
+        the_plaid_transaction.plaid_authorized_date = params.fetch("query_plaid_authorized_date")
+        the_plaid_transaction.plaid_date = params.fetch("query_plaid_date")
+        the_plaid_transaction.plaid_name = params.fetch("query_plaid_name")
+        the_plaid_transaction.plaid_amount = params.fetch("query_plaid_amount")
+        the_plaid_transaction.plaid_iso_currency_code = params.fetch("query_plaid_iso_currency_code")
+        the_plaid_transaction.plaid_category = params.fetch("query_plaid_category")
+        the_plaid_transaction.plaid_merchant_name = params.fetch("query_plaid_merchant_name")
+        the_plaid_transaction.plaid_address = params.fetch("query_plaid_address")
+        the_plaid_transaction.plaid_city = params.fetch("query_plaid_city")
+        the_plaid_transaction.plaid_region = params.fetch("query_plaid_region")
+        the_plaid_transaction.plaid_postal_code = params.fetch("query_plaid_postal_code")
+        the_plaid_transaction.plaid_country = params.fetch("query_plaid_country")
+        the_plaid_transaction.plaid_latitude = params.fetch("query_plaid_latitude")
+        the_plaid_transaction.plaid_longitude = params.fetch("query_plaid_longitude")
+        the_plaid_transaction.plaid_transaction_id = params.fetch("query_plaid_transaction_id")
+
+        if the_plaid_transaction.valid?
+          the_plaid_transaction.save
+        
+        end
+      end
+    end
     
   end
 
