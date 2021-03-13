@@ -40,7 +40,7 @@ class PlaidLinkController < ApplicationController
     institution = params.fetch("institution_id")
     the_institution = @current_user.institutions.where(:plaid_institution_id => institution).at(0)
     if the_institution == nil
-      get_institution(institution)
+      save_institution(institution)
     end
 
     client = Plaid::Client.new(env: 'sandbox',
@@ -62,7 +62,7 @@ class PlaidLinkController < ApplicationController
     #return access_token
   end
 
-  def get_institution(institution)
+  def save_institution(institution)
     client = Plaid::Client.new(env: 'sandbox',
       client_id: ENV['PLAID_CLIENT_ID'],
       secret: ENV['PLAID_SECRET'])
@@ -76,5 +76,13 @@ class PlaidLinkController < ApplicationController
     inst.fc_user_id = @current_user.id
 
     save_status = inst.save
+  end
+
+  def get_transactions
+    p params.fetch("institution_name")
+  end
+
+  def get_institution
+    render("plaid_views/plaid_institution.html.erb")
   end
 end
