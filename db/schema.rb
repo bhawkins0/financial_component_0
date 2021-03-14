@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_13_053641) do
+ActiveRecord::Schema.define(version: 2021_03_14_055403) do
 
   create_table "plaid_accounts", force: :cascade do |t|
     t.string "plaid_institution_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_053641) do
     t.string "fc_account_normal_balance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "fc_user_id"
   end
 
   create_table "plaid_institutions", force: :cascade do |t|

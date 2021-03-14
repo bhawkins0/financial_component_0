@@ -39,8 +39,10 @@ class PlaidLinkController < ApplicationController
     #@the_user = User.where(:id => @current_user).at(0)
     institution = params.fetch("institution_id")
     the_institution = @current_user.institutions.where(:plaid_institution_id => institution).at(0)
+    
     if the_institution == nil
       save_institution(institution)
+      the_institution = @current_user.institutions.where(:plaid_institution_id => institution).at(0)
     end
 
     client = Plaid::Client.new(env: 'sandbox',
@@ -84,16 +86,37 @@ class PlaidLinkController < ApplicationController
       secret: ENV['PLAID_SECRET'])
 
     access_token = cookies["#{params.fetch("institution_name")}"]
+    matching_accounts = PlaidAccount.where(:fc_user_id => @current_user.id).map_relation_to_array(:plaid_account_id)
+
     d = Date.today
-    d2 = d << 24 
+    if matching_accounts.length == 0
+      d2 = d << 24
+    else
+      d2 = PlaidTransaction.where(:plaid_account_id => matching_accounts).maximum(:plaid_date)
+    end
+
     response = client.transactions.get(access_token,
                                         d2.strftime("%Y-%m-%d"),
                                         d.strftime("%Y-%m-%d"),
                                         count: 500,
                                         offset: 0)
-    total_transactions = response['total_transactions']
-    
+
+    response = client.transactions.get(access_token,
+                                        d2.strftime("%Y-%m-%d"),
+                                        d.strftime("%Y-%m-%d"))
     accounts = response['accounts']
+    transactions = response['transactions']
+    # Manipulate the offset parameter to paginate transactions
+    # and retrieve all available data
+    while transactions.length() < response['total_transactions']
+      response = client.transactions.get(access_token,
+                                          d2.strftime("%Y-%m-%d"),
+                                          d.strftime("%Y-%m-%d"),
+          offset: transactions.length())
+      accounts += response['accounts']
+      transactions += response['transactions']
+    end
+
     accounts.each do |acct|
       if PlaidAccount.where(:plaid_account_id => acct['account_id']).at(0) == nil
         the_plaid_account = PlaidAccount.new
@@ -101,6 +124,7 @@ class PlaidLinkController < ApplicationController
         the_plaid_account.plaid_account_id = acct[:account_id]
         the_plaid_account.plaid_account_name = acct[:name]
         the_plaid_account.plaid_account_type = acct[:type]
+        the_plaid_account.fc_user_id = @current_user.id
         
         if ['depository','investment'].include? acct[:type]
           the_plaid_account.fc_account_normal_balance = 'debit'
@@ -147,7 +171,6 @@ class PlaidLinkController < ApplicationController
         end
       end
     end
-    
   end
 
   def get_institution

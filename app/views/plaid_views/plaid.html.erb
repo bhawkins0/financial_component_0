@@ -6,6 +6,7 @@
   <%if @current_user.institutions.count == 0%>
     <p>Hello! Plaid is an engine used to securely connect to and access data at your Financial Institutions.</p>
     <p>Please click the link below to connect to Plaid and get started!</p>
+    <button id="link-button" class="btn btn-primary">Connect to Plaid</button>
   <%else%>
     <%a = 1%>
     <%@matching_institutions.each do |inst|%>
@@ -80,8 +81,8 @@
               $('#plaid_instructions').text("All of your existing accounts are updated!");
               $('#link-button').text("Connect a new account");
             };
-             location.reload();
         });
+        location.reload();
       // jQuery methods go here...
     },
     onExit: function(err, metadata) {

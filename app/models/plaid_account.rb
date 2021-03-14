@@ -8,6 +8,7 @@
 #  plaid_account_type        :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
+#  fc_user_id                :integer
 #  plaid_account_id          :string
 #  plaid_institution_id      :string
 #
@@ -20,6 +21,12 @@ class PlaidAccount < ApplicationRecord
 
   has_many(:transactions, {
     :class_name => "PlaidTransaction",
-    :foreign_key => "plaid_account_id	"
+    :foreign_key => "plaid_account_id"
   })
+
+  belongs_to(:user, {
+    :foreign_key => "fc_user_id"
+  }
+  
+  )
 end
