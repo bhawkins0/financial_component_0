@@ -27,7 +27,7 @@
 <hr>
 
 <div id="plaid_institutions" class="container overflow-hidden">
-  <div class="row g-5">
+  <div class="row g-5" style="margin=5px 0px;">
     <%@matching_institutions.each do |inst|%>
       <div class="col-4">
         <%if cookies["#{inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"] != nil%>
@@ -60,18 +60,11 @@
       $.post('/get_access_token', {
         public_token: public_token,
         institution_id: metadata.institution.institution_id
-        //institution_name: metadata.institution.name,
       }).done(function() {
           $.get('/get_transactions', {institution_name: b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_')});
           $("#" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_') + "_div").addClass("border border-success clickable");
           $("#" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_') + "_div").click(function() {window.location = "/plaid/" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, "_")});
-          //if(!$('#plaidNavItem').hasClass('collapsible clickable')){
-          //  alert("does not have class")
-          //  $('#plaidNavItem').addClass('collapsible clickable')
-          //};
-          //$('#plaidChildren').append('<li class="clickable"><a href="/' + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi, '_') + '">' + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi, '_') + '</a></li>');
           var a = 1
-          console.log(a)
           $('#plaid_institutions > .row > .col-4 > .institution').each(function() {
               if(!$(this).hasClass('border-success')){
                   a = 0;
@@ -81,8 +74,8 @@
               $('#plaid_instructions').text("All of your existing accounts are updated!");
               $('#link-button').text("Connect a new account");
             };
+            location.reload();
         });
-        location.reload();
       // jQuery methods go here...
     },
     onExit: function(err, metadata) {
