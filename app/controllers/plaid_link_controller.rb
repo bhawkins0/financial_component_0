@@ -167,13 +167,17 @@ class PlaidLinkController < ApplicationController
         
         if the_plaid_transaction.valid?
           the_plaid_transaction.save
-        
         end
       end
     end
+    import_transactions()
   end
 
-  def get_institution
+  def import_transactions
+    
+  end
+
+  def get_institution    
     render("plaid_views/plaid_institution.html.erb")
   end
 end

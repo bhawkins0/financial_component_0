@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_15_044512) do
+ActiveRecord::Schema.define(version: 2021_03_15_061431) do
 
   create_table "financial_component_transactions", force: :cascade do |t|
     t.string "plaid_transaction_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2021_03_15_044512) do
     t.boolean "fc_commit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "fc_transaction_id"
   end
 
   create_table "plaid_accounts", force: :cascade do |t|
