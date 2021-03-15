@@ -1,0 +1,146 @@
+<div>
+  <div>
+    <h1>
+      Financial component transaction #<%= @the_financial_component_transaction.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/financial_component_transactions">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_financial_component_transaction/<%= @the_financial_component_transaction.id %>">
+          Delete financial component transaction
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Plaid transaction
+      </dt>
+      <dd>
+        <%= @the_financial_component_transaction.plaid_transaction_id %>
+      </dd>
+
+      <dt>
+        Fc split
+      </dt>
+      <dd>
+        <%= @the_financial_component_transaction.fc_split_id %>
+      </dd>
+
+      <dt>
+        Fc amount
+      </dt>
+      <dd>
+        <%= @the_financial_component_transaction.fc_amount %>
+      </dd>
+
+      <dt>
+        Fc account number
+      </dt>
+      <dd>
+        <%= @the_financial_component_transaction.fc_account_number %>
+      </dd>
+
+      <dt>
+        Fc transaction type
+      </dt>
+      <dd>
+        <%= @the_financial_component_transaction.fc_transaction_type %>
+      </dd>
+
+      <dt>
+        Fc commit
+      </dt>
+      <dd>
+        <%= @the_financial_component_transaction.fc_commit %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_financial_component_transaction.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_financial_component_transaction.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit financial component transaction
+    </h2>
+
+    <form action="/modify_financial_component_transaction/<%= @the_financial_component_transaction.id %>"  method="post" >
+      <div>
+        <label for="plaid_transaction_id_box">
+          Plaid transaction
+        </label>
+
+        <input type="text" id="plaid_transaction_id_box" name="query_plaid_transaction_id" value="<%= @the_financial_component_transaction.plaid_transaction_id %>">
+      </div>
+
+      <div>
+        <label for="fc_split_id_box">
+          Fc split
+        </label>
+
+        <input type="text" id="fc_split_id_box" name="query_fc_split_id" value="<%= @the_financial_component_transaction.fc_split_id %>">
+      </div>
+
+      <div>
+        <label for="fc_amount_box">
+          Fc amount
+        </label>
+
+        <input type="text" id="fc_amount_box" name="query_fc_amount" value="<%= @the_financial_component_transaction.fc_amount %>">
+      </div>
+
+      <div>
+        <label for="fc_account_number_box">
+          Fc account number
+        </label>
+
+        <input type="text" id="fc_account_number_box" name="query_fc_account_number" value="<%= @the_financial_component_transaction.fc_account_number %>">
+      </div>
+
+      <div>
+        <input type="checkbox" id="fc_transaction_type_box" name="query_fc_transaction_type" value="1" <%= "checked" if @the_financial_component_transaction.fc_transaction_type %>>
+
+        <label for="fc_transaction_type_box">
+            Fc transaction type
+        </label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="fc_commit_box" name="query_fc_commit" value="1" <%= "checked" if @the_financial_component_transaction.fc_commit %>>
+
+        <label for="fc_commit_box">
+            Fc commit
+        </label>
+      </div>
+
+      <button>
+        Update financial component transaction
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

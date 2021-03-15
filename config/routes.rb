@@ -1,4 +1,23 @@
 Rails.application.routes.draw do
+  # Routes for the Financial component transaction resource:
+
+  # CREATE
+  post("/insert_financial_component_transaction", { :controller => "financial_component_transactions", :action => "create" })
+          
+  # READ
+  get("/financial_component_transactions", { :controller => "financial_component_transactions", :action => "index" })
+  
+  get("/financial_component_transactions/:path_id", { :controller => "financial_component_transactions", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_financial_component_transaction/:path_id", { :controller => "financial_component_transactions", :action => "update" })
+  
+  # DELETE
+  get("/delete_financial_component_transaction/:path_id", { :controller => "financial_component_transactions", :action => "destroy" })
+
+  #------------------------------
+
   # Routes for the Plaid account resource:
 
   # CREATE

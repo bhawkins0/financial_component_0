@@ -1,0 +1,162 @@
+<div>
+  <div>
+    <h1>
+      List of all financial component transactions
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new financial component transaction
+    </h2>
+
+    <form action="/insert_financial_component_transaction" method="post">
+      <div>
+        <label for="plaid_transaction_id_box">
+          Plaid transaction
+        </label>
+
+        <input type="text" id="plaid_transaction_id_box" name="query_plaid_transaction_id">
+      </div>
+
+      <div>
+        <label for="fc_split_id_box">
+          Fc split
+        </label>
+
+        <input type="text" id="fc_split_id_box" name="query_fc_split_id">
+      </div>
+
+      <div>
+        <label for="fc_amount_box">
+          Fc amount
+        </label>
+
+        <input type="text" id="fc_amount_box" name="query_fc_amount">
+      </div>
+
+      <div>
+        <label for="fc_account_number_box">
+          Fc account number
+        </label>
+
+        <input type="text" id="fc_account_number_box" name="query_fc_account_number">
+      </div>
+
+      <div>
+        <input type="checkbox" id="fc_transaction_type_box" name="query_fc_transaction_type" value="1">
+
+        <label for="fc_transaction_type_box">Fc transaction type</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="fc_commit_box" name="query_fc_commit" value="1">
+
+        <label for="fc_commit_box">Fc commit</label>
+      </div>
+
+      <button>
+        Create financial component transaction
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Plaid transaction
+        </th>
+
+        <th>
+          Fc split
+        </th>
+
+        <th>
+          Fc amount
+        </th>
+
+        <th>
+          Fc account number
+        </th>
+
+        <th>
+          Fc transaction type
+        </th>
+
+        <th>
+          Fc commit
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_financial_component_transactions.each do |a_financial_component_transaction| %>
+      <tr>
+        <td>
+          <%= a_financial_component_transaction.id %>
+        </td>
+
+        <td>
+          <%= a_financial_component_transaction.plaid_transaction_id %>
+        </td>
+
+        <td>
+          <%= a_financial_component_transaction.fc_split_id %>
+        </td>
+
+        <td>
+          <%= a_financial_component_transaction.fc_amount %>
+        </td>
+
+        <td>
+          <%= a_financial_component_transaction.fc_account_number %>
+        </td>
+
+        <td>
+          <%= a_financial_component_transaction.fc_transaction_type %>
+        </td>
+
+        <td>
+          <%= a_financial_component_transaction.fc_commit %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_financial_component_transaction.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_financial_component_transaction.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/financial_component_transactions/<%= a_financial_component_transaction.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
