@@ -1,1 +1,50 @@
-Hello, world!
+<style>
+ .transactionRow {
+   padding: 8px 5px; font-size:11px
+ }
+</style>
+
+<div class="page_title_div">
+  <h2 class="pageTitle display-4"><%=params.fetch("the_institution")%></h2>
+</div>
+
+<hr>
+
+<div id="plaid_transactions" class="container overflow-hidden">
+  <table id="plaid_transactions_table" class="table">
+    <thead>
+      <tr>
+        <th scope="col">Account</th>
+        <th scope="col">Name</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Merchant Name</th>
+        <th scope="col">Authorized Date</th>
+        <th scope="col" style="display:none">Transaction ID</th>
+        <th scope="col">Debit</th>
+        <th scope="col">Credit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Test</th>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+    function sentenceCase(str) {
+        if ((str === null) || (str === ''))
+            return false;
+        else
+            str = str.toString();
+
+        return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    }
+</script>
