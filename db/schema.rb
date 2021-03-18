@@ -10,16 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_18_212412) do
+ActiveRecord::Schema.define(version: 2021_03_18_220008) do
 
   create_table "financial_component_keywords", force: :cascade do |t|
     t.string "plaid_name"
     t.string "plaid_merchant_name"
     t.string "plaid_category"
     t.integer "fc_split_id"
-    t.integer "transaction_cont"
+    t.integer "transaction_count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "fc_debit"
+    t.string "fc_credit"
   end
 
   create_table "financial_component_transactions", force: :cascade do |t|

@@ -168,30 +168,66 @@ class PlaidLinkController < ApplicationController
           the_plaid_transaction.save
         end
 
-        the_financial_component_transaction = FinancialComponentTransaction.new
-        the_financial_component_transaction.plaid_transaction_id = trans[:date]
-        #Identify Matching Metadata
+        the_financial_component_transaction_1 = FinancialComponentTransaction.new
+        the_financial_component_transaction_2 = FinancialComponentTransaction.new
+
+        the_financial_component_transaction_1.plaid_transaction_id = trans[:date]
+        the_financial_component_transaction_2.plaid_transaction_id = trans[:date]
+
+        the_financial_component_transaction_1.fc_amount = trans[:amount]
+        the_financial_component_transaction_2.fc_amount = trans[:amount]
+
+        the_financial_component_transaction_1.fc_transaction_type = 'debit'
+        the_financial_component_transaction_2.fc_transaction_type = 'credit'
+
+        the_financial_component_transaction_1.fc_commit = false
+        the_financial_component_transaction_2.fc_commit = false
         
-        matching_metadata = PlaidTransaction.where(:plaid_name	=> trans[:name])
+        #Identify Matching Metadata
+        trans_name = trans[:name].gsub(/[^a-z ]/i,'')
+        trans_merchant = trans[:merchant_name].gsub(/[^a-z ]/i,'')
+        trans_category = trans[:category].gsub(/[^a-z ]/i,'')        
 
+        matching_metadata_1 = FinancialComponentKeyword.where(:plaid_name	=> trans_name).order({ :transaction_count => :desc })
+        matching_metadata_2 = FinancialComponentKeyword.where({:plaid_merchant_name	=> trans_merchant,:plaid_category	=> trans_category }).order({ :transaction_count => :desc })
+        matching_metadata_3 = FinancialComponentKeyword.where(:plaid_category	=> trans_category).order({ :transaction_count => :desc })
 
+        if matching_metadata_1 != nil 
+          the_financial_component_transaction_1.fc_split_id = matching_metadata_1[:fc_split_id]
+          the_financial_component_transaction_2.fc_split_id = matching_metadata_1[:fc_split_id]
 
-        the_financial_component_transaction.fc_split_id = params.fetch("query_fc_split_id")
-        the_financial_component_transaction.fc_amount = params.fetch("query_fc_amount")
-        the_financial_component_transaction.fc_account_number = params.fetch("query_fc_account_number")
-        the_financial_component_transaction.fc_transaction_type = params.fetch("query_fc_transaction_type", false)
-        the_financial_component_transaction.fc_commit = params.fetch("query_fc_commit", false)
+          the_financial_component_transaction_1.fc_account_number = matching_metadata_1[:fc_debit]
+          the_financial_component_transaction_2.fc_account_number = matching_metadata_1[:fc_credit]
+        elsif matching_metadata_2 != nil
+          the_financial_component_transaction_1.fc_split_id = matching_metadata_2[:fc_split_id]
+          the_financial_component_transaction_2.fc_split_id = matching_metadata_2[:fc_split_id]
+
+          the_financial_component_transaction_1.fc_account_number = matching_metadata_2[:fc_debit]
+          the_financial_component_transaction_2.fc_account_number = matching_metadata_2[:fc_credit]
+        elsif matching_metadata_3 != nil
+          the_financial_component_transaction_1.fc_split_id = matching_3[:fc_split_id]
+          the_financial_component_transaction_2.fc_split_id = matching_3[:fc_split_id]
+
+          the_financial_component_transaction_1.fc_account_number = matching_3[:fc_debit]
+          the_financial_component_transaction_2.fc_account_number = matching_3[:fc_credit]
+        else
+          the_financial_component_transaction_1.fc_split_id = 0
+          the_financial_component_transaction_2.fc_split_id = 0
+
+          the_financial_component_transaction_1.fc_account_number = 0
+          the_financial_component_transaction_2.fc_account_number = 0
+        end
 
         if the_financial_component_transaction.valid?
           the_financial_component_transaction.save
-
+        end
       end
     end
-    
-    
   end
 
   def get_institution    
+    @matching_transactions = FinancialComponentTransaction.where()
+
     render("plaid_views/plaid_institution.html.erb")
   end
 end

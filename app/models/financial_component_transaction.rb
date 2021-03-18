@@ -19,6 +19,4 @@ class FinancialComponentTransaction < ApplicationRecord
   validates(:fc_commit, { :presence => true })
   validates(:fc_amount, { :presence => true })
   validates(:fc_account_number, { :presence => true })
-
-  
 end
