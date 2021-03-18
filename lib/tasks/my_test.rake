@@ -1,17 +1,13 @@
 task({:test => :environment}) do
-  db_connection = ActiveRecord::Base.connection.raw_connection
-  db_connection.transaction do
-    db_connection.execute(%{
-      CREATE TEMP TABLE selected_accounts (
-        SELECT "TEST" AS N;
-      )
-      ON COMMIT DROP;
-    })
-    records_array = db_connection.execute(%{
-      SELECT * FROM selected_accounts
-    })
-    #records_array = ActiveRecord::Base.connection.execute(sql)
-    #records_array = execute_statement(sql)
-  end
+  test_trans = PlaidTransaction.all.sample
+  #p test_trans
+  a = test_trans[:plaid_name].to_s
+  a = a.gsub(/[0-9]/i,'')
+
+  sql = "SELECT * FROM plaid_transactions WHERE REGEXP_REPLACE(plaid_name,'[[:digit:]]','','g') = '#{a}';"
+  p sql
+  records_array = ActiveRecord::Base.connection.exec_query(sql)
+
+  #matching_metadata = PlaidTransaction.where("plaid_name REGEXP ?" , '/[^a-z ]/i' => test_trans[:plaid_name].gsub(/[^a-z ]/i,''))
   p records_array
 end

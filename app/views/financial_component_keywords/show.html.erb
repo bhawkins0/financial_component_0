@@ -1,0 +1,131 @@
+<div>
+  <div>
+    <h1>
+      Financial component keyword #<%= @the_financial_component_keyword.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/financial_component_keywords">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_financial_component_keyword/<%= @the_financial_component_keyword.id %>">
+          Delete financial component keyword
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Plaid name
+      </dt>
+      <dd>
+        <%= @the_financial_component_keyword.plaid_name %>
+      </dd>
+
+      <dt>
+        Plaid merchant name
+      </dt>
+      <dd>
+        <%= @the_financial_component_keyword.plaid_merchant_name %>
+      </dd>
+
+      <dt>
+        Plaid category
+      </dt>
+      <dd>
+        <%= @the_financial_component_keyword.plaid_category %>
+      </dd>
+
+      <dt>
+        Fc split
+      </dt>
+      <dd>
+        <%= @the_financial_component_keyword.fc_split_id %>
+      </dd>
+
+      <dt>
+        Transaction cont
+      </dt>
+      <dd>
+        <%= @the_financial_component_keyword.transaction_cont %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_financial_component_keyword.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_financial_component_keyword.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit financial component keyword
+    </h2>
+
+    <form action="/modify_financial_component_keyword/<%= @the_financial_component_keyword.id %>"  method="post" >
+      <div>
+        <label for="plaid_name_box">
+          Plaid name
+        </label>
+
+        <input type="text" id="plaid_name_box" name="query_plaid_name" value="<%= @the_financial_component_keyword.plaid_name %>">
+      </div>
+
+      <div>
+        <label for="plaid_merchant_name_box">
+          Plaid merchant name
+        </label>
+
+        <input type="text" id="plaid_merchant_name_box" name="query_plaid_merchant_name" value="<%= @the_financial_component_keyword.plaid_merchant_name %>">
+      </div>
+
+      <div>
+        <label for="plaid_category_box">
+          Plaid category
+        </label>
+
+        <input type="text" id="plaid_category_box" name="query_plaid_category" value="<%= @the_financial_component_keyword.plaid_category %>">
+      </div>
+
+      <div>
+        <label for="fc_split_id_box">
+          Fc split
+        </label>
+
+        <input type="text" id="fc_split_id_box" name="query_fc_split_id" value="<%= @the_financial_component_keyword.fc_split_id %>">
+      </div>
+
+      <div>
+        <label for="transaction_cont_box">
+          Transaction cont
+        </label>
+
+        <input type="text" id="transaction_cont_box" name="query_transaction_cont" value="<%= @the_financial_component_keyword.transaction_cont %>">
+      </div>
+
+      <button>
+        Update financial component keyword
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

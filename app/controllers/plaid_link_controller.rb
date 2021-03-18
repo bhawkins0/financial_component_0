@@ -141,7 +141,6 @@ class PlaidLinkController < ApplicationController
     transactions = response['transactions']
     transactions.each do |trans|
       location = trans[:location]
-      p location[:address]
       if PlaidTransaction.where(:plaid_transaction_id	 => trans['transaction_id']).at(0) == nil
         the_plaid_transaction = PlaidTransaction.new
         the_plaid_transaction.plaid_account_id = trans[:account_id]
@@ -168,12 +167,27 @@ class PlaidLinkController < ApplicationController
         if the_plaid_transaction.valid?
           the_plaid_transaction.save
         end
+
+        the_financial_component_transaction = FinancialComponentTransaction.new
+        the_financial_component_transaction.plaid_transaction_id = trans[:date]
+        #Identify Matching Metadata
+        
+        matching_metadata = PlaidTransaction.where(:plaid_name	=> trans[:name])
+
+
+
+        the_financial_component_transaction.fc_split_id = params.fetch("query_fc_split_id")
+        the_financial_component_transaction.fc_amount = params.fetch("query_fc_amount")
+        the_financial_component_transaction.fc_account_number = params.fetch("query_fc_account_number")
+        the_financial_component_transaction.fc_transaction_type = params.fetch("query_fc_transaction_type", false)
+        the_financial_component_transaction.fc_commit = params.fetch("query_fc_commit", false)
+
+        if the_financial_component_transaction.valid?
+          the_financial_component_transaction.save
+
       end
     end
-    import_transactions()
-  end
-
-  def import_transactions
+    
     
   end
 
