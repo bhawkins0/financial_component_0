@@ -42,18 +42,18 @@
             <td style="display:none"><%=trans.plaid_transaction_id%></td>
             <td>
               <select class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example" onchange="selector_change()">
-                <option selected>Test</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <%i = 1%>
+                <%FinancialComponentAccount.where(:fc_account_type => true).or(FinancialComponentAccount.where(:fc_statement => "balance_sheet")).where.not(:fc_account_reporting_group => nil).each do |acct|%>                
+                  <option value="<%=i%>"><%=acct.fc_account_name%></option>
+                <%end%>
               </select>
             </td>
             <td>
               <select class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example" onchange="selector_change()">
-                <option selected>Test</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <%i = 1%>
+                <%FinancialComponentAccount.where(:fc_account_type => false).or(FinancialComponentAccount.where(:fc_statement => "balance_sheet")).where.not(:fc_account_reporting_group => nil).each do |acct|%>                
+                  <option value="<%=i%>"><%=acct.fc_account_name%></option>
+                <%end%>
               </select>
             </td>
           </tr>
