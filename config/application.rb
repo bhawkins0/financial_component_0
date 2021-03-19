@@ -16,7 +16,7 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 #Manual adds 06MAR2021
-require "sinatra"
+#require "sinatra"
 require "plaid"
 require "base64"
 
