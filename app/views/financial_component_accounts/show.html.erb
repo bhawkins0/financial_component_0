@@ -1,0 +1,146 @@
+<div>
+  <div>
+    <h1>
+      Financial component account #<%= @the_financial_component_account.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/financial_component_accounts">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_financial_component_account/<%= @the_financial_component_account.id %>">
+          Delete financial component account
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Fc statement
+      </dt>
+      <dd>
+        <%= @the_financial_component_account.fc_statement %>
+      </dd>
+
+      <dt>
+        Fc account number
+      </dt>
+      <dd>
+        <%= @the_financial_component_account.fc_account_number %>
+      </dd>
+
+      <dt>
+        Fc account group
+      </dt>
+      <dd>
+        <%= @the_financial_component_account.fc_account_group %>
+      </dd>
+
+      <dt>
+        Fc account reporting group
+      </dt>
+      <dd>
+        <%= @the_financial_component_account.fc_account_reporting_group %>
+      </dd>
+
+      <dt>
+        Fc account type
+      </dt>
+      <dd>
+        <%= @the_financial_component_account.fc_account_type %>
+      </dd>
+
+      <dt>
+        Fc account name
+      </dt>
+      <dd>
+        <%= @the_financial_component_account.fc_account_name %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_financial_component_account.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_financial_component_account.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit financial component account
+    </h2>
+
+    <form action="/modify_financial_component_account/<%= @the_financial_component_account.id %>"  method="post" >
+      <div>
+        <label for="fc_statement_box">
+          Fc statement
+        </label>
+
+        <input type="text" id="fc_statement_box" name="query_fc_statement" value="<%= @the_financial_component_account.fc_statement %>">
+      </div>
+
+      <div>
+        <label for="fc_account_number_box">
+          Fc account number
+        </label>
+
+        <input type="text" id="fc_account_number_box" name="query_fc_account_number" value="<%= @the_financial_component_account.fc_account_number %>">
+      </div>
+
+      <div>
+        <label for="fc_account_group_box">
+          Fc account group
+        </label>
+
+        <input type="text" id="fc_account_group_box" name="query_fc_account_group" value="<%= @the_financial_component_account.fc_account_group %>">
+      </div>
+
+      <div>
+        <label for="fc_account_reporting_group_box">
+          Fc account reporting group
+        </label>
+
+        <input type="text" id="fc_account_reporting_group_box" name="query_fc_account_reporting_group" value="<%= @the_financial_component_account.fc_account_reporting_group %>">
+      </div>
+
+      <div>
+        <input type="checkbox" id="fc_account_type_box" name="query_fc_account_type" value="1" <%= "checked" if @the_financial_component_account.fc_account_type %>>
+
+        <label for="fc_account_type_box">
+            Fc account type
+        </label>
+      </div>
+
+      <div>
+        <label for="fc_account_name_box">
+          Fc account name
+        </label>
+
+        <input type="text" id="fc_account_name_box" name="query_fc_account_name" value="<%= @the_financial_component_account.fc_account_name %>">
+      </div>
+
+      <button>
+        Update financial component account
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

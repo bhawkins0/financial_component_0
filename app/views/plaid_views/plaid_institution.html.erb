@@ -41,7 +41,7 @@
             <td><%=trans.plaid_transaction.plaid_authorized_date%></td>
             <td style="display:none"><%=trans.plaid_transaction_id%></td>
             <td>
-              <select class="form-select form-select-sm selector_width" aria-label=".form-select-sm example">
+              <select class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example" onchange="selector_change()">
                 <option selected>Test</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
@@ -49,7 +49,7 @@
               </select>
             </td>
             <td>
-              <select class="form-select form-select-sm selector_width" aria-label=".form-select-sm example">
+              <select class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example" onchange="selector_change()">
                 <option selected>Test</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
@@ -71,5 +71,14 @@
             str = str.toString();
 
         return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    }
+
+    function selector_change(){
+      //alert("test")
+      //$( "select option:selected" ).each(function() {
+      //$( this ).parent().addClass("bg-success");
+      //});
+      //$( this ).removeClass("bg-light");
+      //$( this.element ).addClass("bg-success");
     }
 </script>

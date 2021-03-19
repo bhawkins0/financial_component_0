@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_18_220008) do
+ActiveRecord::Schema.define(version: 2021_03_19_060806) do
+
+  create_table "financial_component_accounts", force: :cascade do |t|
+    t.string "fc_statement"
+    t.integer "fc_account_number"
+    t.string "fc_account_group"
+    t.string "fc_account_reporting_group"
+    t.boolean "fc_account_type"
+    t.string "fc_account_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "financial_component_keywords", force: :cascade do |t|
     t.string "plaid_name"

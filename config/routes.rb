@@ -1,4 +1,23 @@
 Rails.application.routes.draw do
+  # Routes for the Financial component account resource:
+
+  # CREATE
+  post("/insert_financial_component_account", { :controller => "financial_component_accounts", :action => "create" })
+          
+  # READ
+  get("/financial_component_accounts", { :controller => "financial_component_accounts", :action => "index" })
+  
+  get("/financial_component_accounts/:path_id", { :controller => "financial_component_accounts", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_financial_component_account/:path_id", { :controller => "financial_component_accounts", :action => "update" })
+  
+  # DELETE
+  get("/delete_financial_component_account/:path_id", { :controller => "financial_component_accounts", :action => "destroy" })
+
+  #------------------------------
+
   # Routes for the Financial component keyword resource:
 
   # CREATE

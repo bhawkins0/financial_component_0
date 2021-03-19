@@ -1,0 +1,164 @@
+<div>
+  <div>
+    <h1>
+      List of all financial component accounts
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new financial component account
+    </h2>
+
+    <form action="/insert_financial_component_account" method="post">
+      <div>
+        <label for="fc_statement_box">
+          Fc statement
+        </label>
+
+        <input type="text" id="fc_statement_box" name="query_fc_statement">
+      </div>
+
+      <div>
+        <label for="fc_account_number_box">
+          Fc account number
+        </label>
+
+        <input type="text" id="fc_account_number_box" name="query_fc_account_number">
+      </div>
+
+      <div>
+        <label for="fc_account_group_box">
+          Fc account group
+        </label>
+
+        <input type="text" id="fc_account_group_box" name="query_fc_account_group">
+      </div>
+
+      <div>
+        <label for="fc_account_reporting_group_box">
+          Fc account reporting group
+        </label>
+
+        <input type="text" id="fc_account_reporting_group_box" name="query_fc_account_reporting_group">
+      </div>
+
+      <div>
+        <input type="checkbox" id="fc_account_type_box" name="query_fc_account_type" value="1">
+
+        <label for="fc_account_type_box">Fc account type</label>
+      </div>
+
+      <div>
+        <label for="fc_account_name_box">
+          Fc account name
+        </label>
+
+        <input type="text" id="fc_account_name_box" name="query_fc_account_name">
+      </div>
+
+      <button>
+        Create financial component account
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Fc statement
+        </th>
+
+        <th>
+          Fc account number
+        </th>
+
+        <th>
+          Fc account group
+        </th>
+
+        <th>
+          Fc account reporting group
+        </th>
+
+        <th>
+          Fc account type
+        </th>
+
+        <th>
+          Fc account name
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_financial_component_accounts.each do |a_financial_component_account| %>
+      <tr>
+        <td>
+          <%= a_financial_component_account.id %>
+        </td>
+
+        <td>
+          <%= a_financial_component_account.fc_statement %>
+        </td>
+
+        <td>
+          <%= a_financial_component_account.fc_account_number %>
+        </td>
+
+        <td>
+          <%= a_financial_component_account.fc_account_group %>
+        </td>
+
+        <td>
+          <%= a_financial_component_account.fc_account_reporting_group %>
+        </td>
+
+        <td>
+          <%= a_financial_component_account.fc_account_type %>
+        </td>
+
+        <td>
+          <%= a_financial_component_account.fc_account_name %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_financial_component_account.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_financial_component_account.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/financial_component_accounts/<%= a_financial_component_account.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
