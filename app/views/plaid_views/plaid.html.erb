@@ -3,7 +3,7 @@
 </div>
 
 <div id="link-div" class="pageTitle">
-  <%if @current_user.institutions.count == 0%>
+  <%if @current_user.plaid_institutions.count == 0%>
     <p>Hello! Plaid is an engine used to securely connect to and access data at your Financial Institutions.</p>
     <p>Please click the link below to connect to Plaid and get started!</p>
     <button id="link-button" class="btn btn-primary">Connect to Plaid</button>
@@ -105,6 +105,6 @@
   });
 })(jQuery);
 
-  function institution_div(institution){window.location = "/plaid/" + institution.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_')};
+  function institution_div(institution){window.location = "/plaid/" + institution};//.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_')};
  
 </script>

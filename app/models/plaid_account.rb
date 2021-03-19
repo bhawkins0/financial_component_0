@@ -19,6 +19,8 @@ class PlaidAccount < ApplicationRecord
   validates(:plaid_account_name, { :presence => true })
   validates(:plaid_account_id, { :presence => true })
 
+  belongs_to :plaid_institution, foreign_key: :plaid_institution_id, primary_key: :plaid_institution_id
+
   belongs_to(:user, {
     :foreign_key => "fc_user_id"
   })

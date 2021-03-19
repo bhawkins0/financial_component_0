@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     the_id = session[:user_id]
     @current_user = User.where({ :id => the_id }).first
     if @current_user != nil
-      @matching_institutions = @current_user.institutions
+      @matching_institutions = @current_user.plaid_institutions
     end
   end
   

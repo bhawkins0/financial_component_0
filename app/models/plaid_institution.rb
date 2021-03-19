@@ -11,4 +11,5 @@
 #  plaid_institution_id :string
 #
 class PlaidInstitution < ApplicationRecord
+  belongs_to :user, foreign_key: :fc_user_id, primary_key: :id
 end

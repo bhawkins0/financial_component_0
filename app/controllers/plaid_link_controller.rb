@@ -38,11 +38,11 @@ class PlaidLinkController < ApplicationController
   def get_access_token()
     #@the_user = User.where(:id => @current_user).at(0)
     institution = params.fetch("institution_id")
-    the_institution = @current_user.institutions.where(:plaid_institution_id => institution).at(0)
+    the_institution = @current_user.plaid_institutions.where(:plaid_institution_id => institution).at(0)
     
     if the_institution == nil
       save_institution(institution)
-      the_institution = @current_user.institutions.where(:plaid_institution_id => institution).at(0)
+      the_institution = @current_user.plaid_institutions.where(:plaid_institution_id => institution).at(0)
     end
 
     client = Plaid::Client.new(env: 'sandbox',
@@ -227,7 +227,8 @@ class PlaidLinkController < ApplicationController
   end
 
   def get_institution
-    @matching_transactions = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [:user]]).where(:users => {:id => @current_user.id})    
+    p params.fetch("the_institution")
+    @matching_transactions = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [plaid_institution: [:user]]]).where(:users => {:id => @current_user.id}).where(:plaid_institutions => {:plaid_name => params.fetch("the_institution")})  
     render("plaid_views/plaid_institution.html.erb")
   end
 end

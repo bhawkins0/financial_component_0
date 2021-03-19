@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :email, :presence => true
   has_secure_password
 
-   has_many(:institutions, {
+   has_many(:plaid_institutions, {
     :class_name => "PlaidInstitution",
     :foreign_key => "fc_user_id"
   })
