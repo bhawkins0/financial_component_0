@@ -61,7 +61,7 @@
         public_token: public_token,
         institution_id: metadata.institution.institution_id
       }).done(function() {
-          $.get('/get_transactions', {institution_name: b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_')});
+          $.get('/get_transactions', {institution_name: b});//b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_')});
           $("#" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_') + "_div").addClass("border border-success clickable");
           $("#" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_') + "_div").click(function() {window.location = "/plaid/" + b.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, "_")});
           var a = 1

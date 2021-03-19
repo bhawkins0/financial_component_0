@@ -1,13 +1,11 @@
 task({:test => :environment}) do
-  test_trans = PlaidTransaction.all.sample
-  #p test_trans
-  a = test_trans[:plaid_name].to_s
-  a = a.gsub(/[0-9]/i,'')
-
-  sql = "SELECT * FROM plaid_transactions WHERE REGEXP_REPLACE(plaid_name,'[[:digit:]]','','g') = '#{a}';"
-  p sql
-  records_array = ActiveRecord::Base.connection.exec_query(sql)
-
-  #matching_metadata = PlaidTransaction.where("plaid_name REGEXP ?" , '/[^a-z ]/i' => test_trans[:plaid_name].gsub(/[^a-z ]/i,''))
-  p records_array
+  
+  @current_user = User.where({ :id => 1 }).first
+   #FinancialComponentTransaction.joins(:plaid_transaction)
+  
+    #.joins(:plaid_account).where(plaid_accounts:{fc_user_id: @current_user.id})
+  #.joins(:plaid_account).where(plaid_accounts:{fc_user_id: @current_user.id})  
+    #matching_trans = PlaidTransaction.where(:plaid_transaction_id => matching_transactions.plaid_transaction_id)
+    p matching_transactions
+    #p matching_trans
 end

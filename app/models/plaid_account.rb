@@ -19,14 +19,7 @@ class PlaidAccount < ApplicationRecord
   validates(:plaid_account_name, { :presence => true })
   validates(:plaid_account_id, { :presence => true })
 
-  has_many(:transactions, {
-    :class_name => "PlaidTransaction",
-    :foreign_key => "plaid_account_id"
-  })
-
   belongs_to(:user, {
     :foreign_key => "fc_user_id"
-  }
-  
-  )
+  })
 end

@@ -25,15 +25,23 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">Test</th>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-      </tr>
+      <%debit_acct = 0%>
+      <%@matching_transactions.each do |trans|%>
+        <%if trans.fc_transaction_type == true%>
+          <%debit_acct = trans.fc_account_number%>
+        <%else%>
+          <tr>
+            <th scope="row"><%=trans.plaid_transaction.plaid_account.plaid_account_name%></th>
+            <td><%=trans.plaid_transaction.plaid_name%></td>
+            <td><%=trans.fc_amount%></td>
+            <td><%=trans.plaid_transaction.plaid_merchant_name%></td>
+            <td><%=trans.plaid_transaction.plaid_authorized_date%></td>
+            <td style="display:none"><%=trans.plaid_transaction_id%></td>
+            <td><%=debit_acct%></td>
+            <td><%=trans.fc_account_number%></td>
+          </tr>
+        <%end%>
+      <%end%>
     </tbody>
   </table>
 </div>

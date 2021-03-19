@@ -15,8 +15,10 @@
 #
 class FinancialComponentTransaction < ApplicationRecord
   validates(:plaid_transaction_id, { :presence => true })
-  validates(:fc_transaction_type, { :presence => true })
-  validates(:fc_commit, { :presence => true })
+  #validates(:fc_transaction_type, { :presence => true })
+  #validates(:fc_commit, { :presence => true })
   validates(:fc_amount, { :presence => true })
   validates(:fc_account_number, { :presence => true })
+
+  belongs_to :plaid_transaction, foreign_key: :plaid_transaction_id, primary_key: :plaid_transaction_id
 end

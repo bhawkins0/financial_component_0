@@ -28,4 +28,6 @@ class PlaidTransaction < ApplicationRecord
   validates(:plaid_date, { :presence => true })
   validates(:plaid_amount, { :presence => true })
   validates(:plaid_account_id, { :presence => true })
+
+  belongs_to :plaid_account, foreign_key: :plaid_account_id, primary_key: :plaid_account_id
 end

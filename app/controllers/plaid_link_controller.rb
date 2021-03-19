@@ -85,7 +85,7 @@ class PlaidLinkController < ApplicationController
       client_id: ENV['PLAID_CLIENT_ID'],
       secret: ENV['PLAID_SECRET'])
 
-    access_token = cookies["#{params.fetch("institution_name")}"]
+    access_token = cookies["#{params.fetch("institution_name").gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"]
     matching_accounts = PlaidAccount.where(:fc_user_id => @current_user.id).map_relation_to_array(:plaid_account_id)
 
     d = Date.today
@@ -94,12 +94,6 @@ class PlaidLinkController < ApplicationController
     else
       d2 = PlaidTransaction.where(:plaid_account_id => matching_accounts).maximum(:plaid_date)
     end
-
-    response = client.transactions.get(access_token,
-                                        d2.strftime("%Y-%m-%d"),
-                                        d.strftime("%Y-%m-%d"),
-                                        count: 500,
-                                        offset: 0)
 
     response = client.transactions.get(access_token,
                                         d2.strftime("%Y-%m-%d"),
@@ -171,40 +165,44 @@ class PlaidLinkController < ApplicationController
         the_financial_component_transaction_1 = FinancialComponentTransaction.new
         the_financial_component_transaction_2 = FinancialComponentTransaction.new
 
-        the_financial_component_transaction_1.plaid_transaction_id = trans[:date]
-        the_financial_component_transaction_2.plaid_transaction_id = trans[:date]
+        the_financial_component_transaction_1.plaid_transaction_id = trans[:transaction_id]
+        the_financial_component_transaction_2.plaid_transaction_id = trans[:transaction_id]
+
+        the_financial_component_transaction_1.fc_transaction_id = 1
+        the_financial_component_transaction_2.fc_transaction_id = 2
 
         the_financial_component_transaction_1.fc_amount = trans[:amount]
         the_financial_component_transaction_2.fc_amount = trans[:amount]
-
-        the_financial_component_transaction_1.fc_transaction_type = 'debit'
-        the_financial_component_transaction_2.fc_transaction_type = 'credit'
+        
+        #true = 'debit'
+        the_financial_component_transaction_1.fc_transaction_type = true
+        the_financial_component_transaction_2.fc_transaction_type = false
 
         the_financial_component_transaction_1.fc_commit = false
         the_financial_component_transaction_2.fc_commit = false
         
         #Identify Matching Metadata
-        trans_name = trans[:name].gsub(/[^a-z ]/i,'')
-        trans_merchant = trans[:merchant_name].gsub(/[^a-z ]/i,'')
-        trans_category = trans[:category].gsub(/[^a-z ]/i,'')        
+        trans_name = trans[:name].to_s.gsub(/[^a-z ]/i,'')
+        trans_merchant = trans[:merchant_name].to_s.gsub(/[^a-z ]/i,'')
+        trans_category = trans[:category].to_s.gsub(/[^a-z ]/i,'')        
 
         matching_metadata_1 = FinancialComponentKeyword.where(:plaid_name	=> trans_name).order({ :transaction_count => :desc })
         matching_metadata_2 = FinancialComponentKeyword.where({:plaid_merchant_name	=> trans_merchant,:plaid_category	=> trans_category }).order({ :transaction_count => :desc })
         matching_metadata_3 = FinancialComponentKeyword.where(:plaid_category	=> trans_category).order({ :transaction_count => :desc })
 
-        if matching_metadata_1 != nil 
+        if matching_metadata_1 != [] 
           the_financial_component_transaction_1.fc_split_id = matching_metadata_1[:fc_split_id]
           the_financial_component_transaction_2.fc_split_id = matching_metadata_1[:fc_split_id]
 
           the_financial_component_transaction_1.fc_account_number = matching_metadata_1[:fc_debit]
           the_financial_component_transaction_2.fc_account_number = matching_metadata_1[:fc_credit]
-        elsif matching_metadata_2 != nil
+        elsif matching_metadata_2 != []
           the_financial_component_transaction_1.fc_split_id = matching_metadata_2[:fc_split_id]
           the_financial_component_transaction_2.fc_split_id = matching_metadata_2[:fc_split_id]
 
           the_financial_component_transaction_1.fc_account_number = matching_metadata_2[:fc_debit]
           the_financial_component_transaction_2.fc_account_number = matching_metadata_2[:fc_credit]
-        elsif matching_metadata_3 != nil
+        elsif matching_metadata_3 != []
           the_financial_component_transaction_1.fc_split_id = matching_3[:fc_split_id]
           the_financial_component_transaction_2.fc_split_id = matching_3[:fc_split_id]
 
@@ -218,16 +216,18 @@ class PlaidLinkController < ApplicationController
           the_financial_component_transaction_2.fc_account_number = 0
         end
 
-        if the_financial_component_transaction.valid?
-          the_financial_component_transaction.save
+        if the_financial_component_transaction_1.valid?
+          the_financial_component_transaction_1.save
+        end
+        if the_financial_component_transaction_2.valid?
+          the_financial_component_transaction_2.save
         end
       end
     end
   end
 
-  def get_institution    
-    @matching_transactions = FinancialComponentTransaction.where()
-
+  def get_institution
+    @matching_transactions = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [:user]]).where(:users => {:id => @current_user.id})    
     render("plaid_views/plaid_institution.html.erb")
   end
 end

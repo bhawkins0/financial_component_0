@@ -11,8 +11,4 @@
 #  plaid_institution_id :string
 #
 class PlaidInstitution < ApplicationRecord
-     has_many(:accounts, {
-    :class_name => "PlaidAccount",
-    :foreign_key => "plaid_institution_id	"
-  })
 end
