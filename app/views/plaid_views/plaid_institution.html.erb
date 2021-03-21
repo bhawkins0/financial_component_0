@@ -9,7 +9,7 @@
 
 <div class="page_title_div">
   <h2 class="pageTitle display-4"><%=params.fetch("the_institution")%></h2>
-  <div class="pageTitle pageTitleRight display-4"><button id="commitAudit" class="btn btn-primary">Commit</button></div>
+  <div class="pageTitle pageTitleRight display-4"><button id="commitAudit" class="btn btn-primary btn-lg">Commit</button></div>
 </div>
 
 <hr>
@@ -17,7 +17,7 @@
 <div id="plaid_transactions" class="container-fluid overflow-hidden">
   <div class="row">
       <div class="col"><h6>Account</h6></div>
-      <div class="col"><h6>Name</h6></div>
+      <div class="col-3"><h6>Name</h6></div>
       <div class="col"><h6>Amount</h6></div>
       <div class="col"><h6>Merchant Name</h6></div>
       <div class="col"><h6>Authorized Date</h6></div>
@@ -27,10 +27,12 @@
   
   <%h=1%>
   <%debit_acct = 0%>
+  <%credit_acct = 0%>
   <%@matching_transactions.each do |trans|%>
     <%if trans.fc_transaction_type == true%>
       <%debit_acct = trans.fc_account_number%>
     <%else%>
+      <%credit_acct = trans.fc_account_number%>
       <hr>
       <div id="<%=trans.plaid_transaction_id%>" class="row lh-2">
         <div class="col"><%=trans.plaid_transaction.plaid_account.plaid_account_name%></div>
@@ -43,7 +45,14 @@
           <select id="1" class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example">
             <%i = 1%>
             <%FinancialComponentAccount.where(:fc_account_type => true).or(FinancialComponentAccount.where(:fc_statement => "balance_sheet")).where.not(:fc_account_reporting_group => nil).each do |acct|%>                
-              <option value="<%=i%>"><%=acct.fc_account_name%></option>
+              <%if i == 1%>
+                <option value="0"></option>
+              <%end%>
+              <%if acct.fc_account_number == debit_acct%>
+                <option value="<%=i%>" selected><%=acct.fc_account_name%></option>
+              <%else%>
+                <option value="<%=i%>"><%=acct.fc_account_name%></option>
+              <%end%>
               <%i = i + 1%>
             <%end%>
           </select>
@@ -52,7 +61,14 @@
           <select id="0" class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example">
             <%i = 1%>
             <%FinancialComponentAccount.where(:fc_account_type => false).or(FinancialComponentAccount.where(:fc_statement => "balance_sheet")).where.not(:fc_account_reporting_group => nil).each do |acct|%>                
-              <option value="<%=i%>"><%=acct.fc_account_name%></option>
+              <%if i == 1%>
+                <option value="0"></option>
+              <%end%>
+              <%if acct.fc_account_number == credit_acct%>
+                <option value="<%=i%>" selected><%=acct.fc_account_name%></option>
+              <%else%>
+                <option value="<%=i%>"><%=acct.fc_account_name%></option>
+              <%end%>
               <%i = i + 1%>
             <%end%>
           </select>
