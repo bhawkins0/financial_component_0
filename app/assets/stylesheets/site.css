@@ -105,6 +105,15 @@ body {
   display: inline-block; 
 }
 
+.lh-2{
+  min-height:45px;
+}
+
+.pageTitleRight {
+  float: right;
+  padding: 15px;
+}
+
 .pageTitle{
   margin-top:18px;
   margin-bottom:18px;

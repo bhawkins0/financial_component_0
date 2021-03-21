@@ -9,58 +9,58 @@
 
 <div class="page_title_div">
   <h2 class="pageTitle display-4"><%=params.fetch("the_institution")%></h2>
+  <div class="pageTitle pageTitleRight display-4"><button id="commitAudit" class="btn btn-primary">Commit</button></div>
 </div>
 
 <hr>
 
-<div id="plaid_transactions" class="container overflow-hidden">
-  <table id="plaid_transactions_table" class="table">
-    <thead>
-      <tr>
-        <th scope="col">Account</th>
-        <th scope="col">Name</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Merchant Name</th>
-        <th scope="col">Authorized Date</th>
-        <th scope="col" style="display:none">Transaction ID</th>
-        <th scope="col">Debit</th>
-        <th scope="col">Credit</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%debit_acct = 0%>
-      <%@matching_transactions.each do |trans|%>
-        <%if trans.fc_transaction_type == true%>
-          <%debit_acct = trans.fc_account_number%>
-        <%else%>
-          <tr>
-            <th scope="row"><%=trans.plaid_transaction.plaid_account.plaid_account_name%></th>
-            <td><%=trans.plaid_transaction.plaid_name%></td>
-            <td><%=trans.fc_amount%></td>
-            <td><%=trans.plaid_transaction.plaid_merchant_name%></td>
-            <td><%=trans.plaid_transaction.plaid_authorized_date%></td>
-            <td style="display:none"><%=trans.plaid_transaction_id%></td>
-            <td>
-              <select class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example" onchange="selector_change()">
-                <%i = 1%>
-                <%FinancialComponentAccount.where(:fc_account_type => true).or(FinancialComponentAccount.where(:fc_statement => "balance_sheet")).where.not(:fc_account_reporting_group => nil).each do |acct|%>                
-                  <option value="<%=i%>"><%=acct.fc_account_name%></option>
-                <%end%>
-              </select>
-            </td>
-            <td>
-              <select class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example" onchange="selector_change()">
-                <%i = 1%>
-                <%FinancialComponentAccount.where(:fc_account_type => false).or(FinancialComponentAccount.where(:fc_statement => "balance_sheet")).where.not(:fc_account_reporting_group => nil).each do |acct|%>                
-                  <option value="<%=i%>"><%=acct.fc_account_name%></option>
-                <%end%>
-              </select>
-            </td>
-          </tr>
-        <%end%>
-      <%end%>
-    </tbody>
-  </table>
+<div id="plaid_transactions" class="container-fluid overflow-hidden">
+  <div class="row">
+      <div class="col"><h6>Account</h6></div>
+      <div class="col"><h6>Name</h6></div>
+      <div class="col"><h6>Amount</h6></div>
+      <div class="col"><h6>Merchant Name</h6></div>
+      <div class="col"><h6>Authorized Date</h6></div>
+      <div class="col"><h6>Debit</h6></div>
+      <div class="col"><h6>Credit</h6></div>
+  </div>
+  
+  <%h=1%>
+  <%debit_acct = 0%>
+  <%@matching_transactions.each do |trans|%>
+    <%if trans.fc_transaction_type == true%>
+      <%debit_acct = trans.fc_account_number%>
+    <%else%>
+      <hr>
+      <div id="<%=trans.plaid_transaction_id%>" class="row lh-2">
+        <div class="col"><%=trans.plaid_transaction.plaid_account.plaid_account_name%></div>
+        <div class="col-3"><%=trans.plaid_transaction.plaid_name%></div>
+        <div class="col"><%=trans.fc_amount%></div>
+        <div class="col"><%=trans.plaid_transaction.plaid_merchant_name%></div>
+        <div class="col"><%=trans.plaid_transaction.plaid_authorized_date%></div>
+        <!--<div class="col" style="display:none"><%=trans.plaid_transaction_id%></div>-->
+        <div class="col">
+          <select id="1" class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example">
+            <%i = 1%>
+            <%FinancialComponentAccount.where(:fc_account_type => true).or(FinancialComponentAccount.where(:fc_statement => "balance_sheet")).where.not(:fc_account_reporting_group => nil).each do |acct|%>                
+              <option value="<%=i%>"><%=acct.fc_account_name%></option>
+              <%i = i + 1%>
+            <%end%>
+          </select>
+        </div>
+        <div class="col">
+          <select id="0" class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example">
+            <%i = 1%>
+            <%FinancialComponentAccount.where(:fc_account_type => false).or(FinancialComponentAccount.where(:fc_statement => "balance_sheet")).where.not(:fc_account_reporting_group => nil).each do |acct|%>                
+              <option value="<%=i%>"><%=acct.fc_account_name%></option>
+              <%i = i + 1%>
+            <%end%>
+          </select>
+        </div>
+      </div>
+      <%h=h+1%>
+    <%end%>
+  <%end%>
 </div>
 
 <script>
@@ -73,12 +73,20 @@
         return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     }
 
-    function selector_change(){
-      //alert("test")
-      //$( "select option:selected" ).each(function() {
-      //$( this ).parent().addClass("bg-success");
-      //});
-      //$( this ).removeClass("bg-light");
-      //$( this.element ).addClass("bg-success");
-    }
+    $(document).ready(function(){
+      $("select").change(function(){
+        var a = $("option:selected", this).text();
+        var b = $(this).parents(".row").attr('id');
+        var c = $(this).attr('id');
+        $.post('/plaid/save_account', {
+          acct_name: a,
+          trans_id: b,
+          trans_type: c
+        })
+      });
+    });
+
+  $('#commitAudit').on('click', function(e) {
+    window.location = "/commit_audit"
+  });
 </script>

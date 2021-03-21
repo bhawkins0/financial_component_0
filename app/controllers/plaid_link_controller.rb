@@ -227,8 +227,30 @@ class PlaidLinkController < ApplicationController
   end
 
   def get_institution
-    p params.fetch("the_institution")
     @matching_transactions = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [plaid_institution: [:user]]]).where(:users => {:id => @current_user.id}).where(:plaid_institutions => {:plaid_name => params.fetch("the_institution")})  
     render("plaid_views/plaid_institution.html.erb")
+  end
+
+  def save_account
+    acct_name = params.fetch("acct_name");
+    trans_id = params.fetch("trans_id");
+    trans_type = params.fetch("trans_type").to_i;
+
+    the_account = FinancialComponentAccount.where(:fc_account_name => acct_name).at(0)
+    
+    if trans_type == 1
+      the_transaction = FinancialComponentTransaction.where({:plaid_transaction_id => trans_id,:fc_transaction_type => 1}).at(0)
+    else
+      the_transaction = FinancialComponentTransaction.where({:plaid_transaction_id => trans_id,:fc_transaction_type => 0}).at(0)
+    end
+
+    the_transaction.fc_account_number = the_account.fc_account_number
+    if the_transaction.valid?
+      the_transaction.save
+    end
+  end
+
+  def commit_audit
+    
   end
 end
