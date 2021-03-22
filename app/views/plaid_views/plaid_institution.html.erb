@@ -44,7 +44,7 @@
         <div class="col">
           <select id="1" class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example">
             <%i = 1%>
-            <%FinancialComponentAccount.where(:fc_account_type => true).or(FinancialComponentAccount.where(:fc_statement => "balance_sheet")).where.not(:fc_account_reporting_group => nil).each do |acct|%>                
+            <%FinancialComponentAccount.where({:fc_account_type => true,:fc_account_name => @matching_accounts}).or(FinancialComponentAccount.where({:fc_statement => "balance_sheet",:fc_account_name => @matching_accounts})).each do |acct|%>
               <%if i == 1%>
                 <option value="0"></option>
               <%end%>
@@ -60,7 +60,7 @@
         <div class="col">
           <select id="0" class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example">
             <%i = 1%>
-            <%FinancialComponentAccount.where(:fc_account_type => false).or(FinancialComponentAccount.where(:fc_statement => "balance_sheet")).where.not(:fc_account_reporting_group => nil).each do |acct|%>                
+            <%FinancialComponentAccount.where({:fc_account_type => false,:fc_account_name => @matching_accounts}).or(FinancialComponentAccount.where({:fc_statement => "balance_sheet",:fc_account_name => @matching_accounts})).each do |acct|%>
               <%if i == 1%>
                 <option value="0"></option>
               <%end%>
