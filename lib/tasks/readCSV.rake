@@ -1,4 +1,4 @@
-task({:test => :environment}) do
+task({:readCSV => :environment}) do
   new_customers = CSV.read('lib/tasks/f_accounts2.csv', { :col_sep => ';' })
   CSV.foreach('lib/tasks/f_accounts2.csv', { :col_sep => ';' }) { |row| 
 
