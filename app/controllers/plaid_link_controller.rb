@@ -184,27 +184,33 @@ class PlaidLinkController < ApplicationController
         #Identify Matching Metadata
         trans_name = trans[:name].to_s.gsub(/[^a-z ]/i,'')
         trans_merchant = trans[:merchant_name].to_s.gsub(/[^a-z ]/i,'')
-        trans_category = trans[:category].to_s.gsub(/[^a-z ]/i,'')        
+        trans_category = trans[:category].to_s.gsub(/[^a-z ]/i,'')
 
-        matching_metadata_1 = FinancialComponentKeyword.where(:plaid_name	=> trans_name).order({ :transaction_count => :desc })
-        matching_metadata_2 = FinancialComponentKeyword.where({:plaid_merchant_name	=> trans_merchant,:plaid_category	=> trans_category }).order({ :transaction_count => :desc })
-        matching_metadata_3 = FinancialComponentKeyword.where(:plaid_category	=> trans_category).order({ :transaction_count => :desc })
+        p trans_category
 
-        if matching_metadata_1 != [] 
+        matching_metadata_1 = FinancialComponentKeyword.where(:plaid_name	=> trans_name).order({ :transaction_count => :desc }).at(0)
+        matching_metadata_2 = FinancialComponentKeyword.where({:plaid_merchant_name	=> trans_merchant,:plaid_category	=> trans_category }).order({ :transaction_count => :desc }).at(0)
+        matching_metadata_3 = FinancialComponentKeyword.where(:plaid_category	=> trans_category).order({ :transaction_count => :desc }).at(0)
+
+        p matching_metadata_1
+        p matching_metadata_2
+        p matching_metadata_3
+
+        if matching_metadata_1 != nil 
           the_financial_component_transaction_1.fc_split_id = matching_metadata_1[:fc_split_id]
           the_financial_component_transaction_2.fc_split_id = matching_metadata_1[:fc_split_id]
 
           the_financial_component_transaction_1.fc_account_number = matching_metadata_1[:fc_debit]
           the_financial_component_transaction_2.fc_account_number = matching_metadata_1[:fc_credit]
-        elsif matching_metadata_2 != []
+        elsif matching_metadata_2 != nil
           the_financial_component_transaction_1.fc_split_id = matching_metadata_2[:fc_split_id]
           the_financial_component_transaction_2.fc_split_id = matching_metadata_2[:fc_split_id]
 
           the_financial_component_transaction_1.fc_account_number = matching_metadata_2[:fc_debit]
           the_financial_component_transaction_2.fc_account_number = matching_metadata_2[:fc_credit]
-        elsif matching_metadata_3 != []
-          the_financial_component_transaction_1.fc_split_id = matching_3[:fc_split_id]
-          the_financial_component_transaction_2.fc_split_id = matching_3[:fc_split_id]
+        elsif matching_metadata_3 != nil
+          the_financial_component_transaction_1.fc_split_id = matching_metadata_3[:fc_split_id]
+          the_financial_component_transaction_2.fc_split_id = matching_metadata_3[:fc_split_id]
 
           the_financial_component_transaction_1.fc_account_number = matching_3[:fc_debit]
           the_financial_component_transaction_2.fc_account_number = matching_3[:fc_credit]

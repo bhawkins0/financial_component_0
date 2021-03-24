@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_19_060806) do
+ActiveRecord::Schema.define(version: 2021_03_24_000836) do
 
   create_table "financial_component_accounts", force: :cascade do |t|
     t.string "fc_statement"
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 2021_03_19_060806) do
     t.integer "transaction_count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "fc_debit"
-    t.string "fc_credit"
+    t.integer "fc_debit"
+    t.integer "fc_credit"
   end
 
   create_table "financial_component_transactions", force: :cascade do |t|

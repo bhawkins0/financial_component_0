@@ -1,0 +1,483 @@
+﻿Category,Account
+"[""Bank Fees""]",52700
+"[""Bank Fees"", ""Overdraft""]",52700
+"[""Bank Fees"", ""ATM""]",52700
+"[""Bank Fees"", ""Late Payment""]",52700
+"[""Bank Fees"", ""Fraud Dispute""]",52700
+"[""Bank Fees"", ""Foreign Transaction""]",52700
+"[""Bank Fees"", ""Wire Transfer""]",52700
+"[""Bank Fees"", ""Insufficient Funds""]",52700
+"[""Bank Fees"", ""Cash Advance""]",52700
+"[""Bank Fees"", ""Excess Activity""]",52700
+"[""Cash Advance""]",11100
+"[""Community"", ""Day Care and Preschools""]",54500
+"[""Community"", ""Education""]",53100
+"[""Community"", ""Education"", ""Vocational Schools""]",53100
+"[""Community"", ""Education"", ""Tutoring and Educational Services""]",53100
+"[""Community"", ""Education"", ""Primary and Secondary Schools""]",53100
+"[""Community"", ""Education"", ""Fraternities and Sororities""]",53100
+"[""Community"", ""Education"", ""Driving Schools""]",53100
+"[""Community"", ""Education"", ""Dance Schools""]",53100
+"[""Community"", ""Education"", ""Culinary Lessons and Schools""]",53100
+"[""Community"", ""Education"", ""Computer Training""]",53100
+"[""Community"", ""Education"", ""Colleges and Universities""]",53100
+"[""Community"", ""Education"", ""Art School""]",53100
+"[""Community"", ""Education"", ""Adult Education""]",53100
+"[""Community"", ""Government Departments and Agencies""]",52900
+"[""Community"", ""Organizations and Associations""]",54800
+"[""Community"", ""Organizations and Associations"", ""Youth Organizations""]",54800
+"[""Community"", ""Organizations and Associations"", ""Environmental""]",54800
+"[""Community"", ""Organizations and Associations"", ""Charities and Non-Profits""]",54800
+"[""Community"", ""Post Offices""]",52900
+"[""Community"", ""Public and Social Services""]",52900
+"[""Community"", ""Religious""]",54800
+"[""Community"", ""Religious"", ""Temple""]",54800
+"[""Community"", ""Religious"", ""Synagogues""]",54800
+"[""Community"", ""Religious"", ""Mosques""]",54800
+"[""Community"", ""Religious"", ""Churches""]",54800
+"[""Food and Drink""]",54100
+"[""Food and Drink"", ""Bar""]",54100
+"[""Food and Drink"", ""Bar"", ""Wine Bar""]",54100
+"[""Food and Drink"", ""Bar"", ""Sports Bar""]",54100
+"[""Food and Drink"", ""Bar"", ""Hotel Lounge""]",54100
+"[""Food and Drink"", ""Breweries""]",54100
+"[""Food and Drink"", ""Internet Cafes""]",54100
+"[""Food and Drink"", ""Nightlife""]",54100
+"[""Food and Drink"", ""Nightlife"", ""Strip Club""]",54300
+"[""Food and Drink"", ""Nightlife"", ""Night Clubs""]",54300
+"[""Food and Drink"", ""Nightlife"", ""Karaoke""]",54300
+"[""Food and Drink"", ""Nightlife"", ""Jazz and Blues Cafe""]",54300
+"[""Food and Drink"", ""Nightlife"", ""Hookah Lounges""]",54300
+"[""Food and Drink"", ""Nightlife"", ""Adult Entertainment""]",54300
+"[""Food and Drink"", ""Restaurants""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Winery""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Vegan and Vegetarian""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Turkish""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Thai""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Swiss""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Sushi""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Steakhouses""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Spanish""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Seafood""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Scandinavian""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Portuguese""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Pizza""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Moroccan""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Middle Eastern""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Mexican""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Mediterranean""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Latin American""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Korean""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Juice Bar""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Japanese""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Italian""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Indonesian""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Indian""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Ice Cream""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Greek""]",54100
+"[""Food and Drink"", ""Restaurants"", ""German""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Gastropub""]",54100
+"[""Food and Drink"", ""Restaurants"", ""French""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Food Truck""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Fish and Chips""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Filipino""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Fast Food""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Falafel""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Ethiopian""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Eastern European""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Donuts""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Distillery""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Diners""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Dessert""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Delis""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Cupcake Shop""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Cuban""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Coffee Shop""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Chinese""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Caribbean""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Cajun""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Cafe""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Burrito""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Burgers""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Breakfast Spot""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Brazilian""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Barbecue""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Bakery""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Bagel Shop""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Australian""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Asian""]",54100
+"[""Food and Drink"", ""Restaurants"", ""American""]",54100
+"[""Food and Drink"", ""Restaurants"", ""African""]",54100
+"[""Food and Drink"", ""Restaurants"", ""Afghan""]",54100
+"[""Healthcare""]",52100
+"[""Healthcare"", ""Healthcare Services""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Psychologists""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Pregnancy and Sexual Health""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Podiatrists""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Physical Therapy""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Optometrists""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Nutritionists""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Nurses""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Mental Health""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Medical Supplies and Labs""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Hospitals, Clinics and Medical Centers""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Emergency Services""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Dentists""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Counseling and Therapy""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Chiropractors""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Blood Banks and Centers""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Alternative Medicine""]",52100
+"[""Healthcare"", ""Healthcare Services"", ""Acupuncture""]",52100
+"[""Healthcare"", ""Physicians""]",52100
+"[""Healthcare"", ""Physicians"", ""Urologists""]",52100
+"[""Healthcare"", ""Physicians"", ""Respiratory""]",52100
+"[""Healthcare"", ""Physicians"", ""Radiologists""]",52100
+"[""Healthcare"", ""Physicians"", ""Psychiatrists""]",52100
+"[""Healthcare"", ""Physicians"", ""Plastic Surgeons""]",52100
+"[""Healthcare"", ""Physicians"", ""Pediatricians""]",52100
+"[""Healthcare"", ""Physicians"", ""Pathologists""]",52100
+"[""Healthcare"", ""Physicians"", ""Orthopedic Surgeons""]",52100
+"[""Healthcare"", ""Physicians"", ""Ophthalmologists""]",52100
+"[""Healthcare"", ""Physicians"", ""Oncologists""]",52100
+"[""Healthcare"", ""Physicians"", ""Obstetricians and Gynecologists""]",52100
+"[""Healthcare"", ""Physicians"", ""Neurologists""]",52100
+"[""Healthcare"", ""Physicians"", ""Internal Medicine""]",52100
+"[""Healthcare"", ""Physicians"", ""General Surgery""]",52100
+"[""Healthcare"", ""Physicians"", ""Gastroenterologists""]",52100
+"[""Healthcare"", ""Physicians"", ""Family Medicine""]",52100
+"[""Healthcare"", ""Physicians"", ""Ear, Nose and Throat""]",52100
+"[""Healthcare"", ""Physicians"", ""Dermatologists""]",52100
+"[""Healthcare"", ""Physicians"", ""Cardiologists""]",52100
+"[""Healthcare"", ""Physicians"", ""Anesthesiologists""]",52100
+"[""Payment""]",21100
+"[""Payment"", ""Credit Card""]",21100
+"[""Payment"", ""Rent""]",52301
+"[""Payment"", ""Loan""]",21200
+"[""Recreation""]",54300
+"[""Recreation"", ""Arts and Entertainment""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Theatrical Productions""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Symphony and Opera""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Sports Venues""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Social Clubs""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Psychics and Astrologers""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Party Centers""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Music and Show Venues""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Museums""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Movie Theatres""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Fairgrounds and Rodeos""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Entertainment""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Dance Halls and Saloons""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Circuses and Carnivals""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Casinos and Gaming""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Bowling""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Billiards and Pool""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Art Dealers and Galleries""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Arcades and Amusement Parks""]",54300
+"[""Recreation"", ""Arts and Entertainment"", ""Aquarium""]",54300
+"[""Recreation"", ""Athletic Fields""]",54300
+"[""Recreation"", ""Baseball""]",54300
+"[""Recreation"", ""Basketball""]",54300
+"[""Recreation"", ""Batting Cages""]",54300
+"[""Recreation"", ""Boating""]",54300
+"[""Recreation"", ""Campgrounds and RV Parks""]",54300
+"[""Recreation"", ""Canoes and Kayaks""]",54300
+"[""Recreation"", ""Combat Sports""]",54300
+"[""Recreation"", ""Cycling""]",54300
+"[""Recreation"", ""Dance""]",54300
+"[""Recreation"", ""Equestrian""]",54300
+"[""Recreation"", ""Football""]",54300
+"[""Recreation"", ""Go Carts""]",54300
+"[""Recreation"", ""Golf""]",54300
+"[""Recreation"", ""Gun Ranges""]",54300
+"[""Recreation"", ""Gymnastics""]",54300
+"[""Recreation"", ""Gyms and Fitness Centers""]",52200
+"[""Recreation"", ""Hiking""]",54300
+"[""Recreation"", ""Hockey""]",54300
+"[""Recreation"", ""Hot Air Balloons""]",54300
+"[""Recreation"", ""Hunting and Fishing""]",54300
+"[""Recreation"", ""Landmarks""]",54300
+"[""Recreation"", ""Landmarks"", ""Monuments and Memorials""]",54300
+"[""Recreation"", ""Landmarks"", ""Historic Sites""]",54300
+"[""Recreation"", ""Landmarks"", ""Gardens""]",54300
+"[""Recreation"", ""Landmarks"", ""Buildings and Structures""]",54300
+"[""Recreation"", ""Miniature Golf""]",54300
+"[""Recreation"", ""Outdoors""]",54300
+"[""Recreation"", ""Outdoors"", ""Rivers""]",54300
+"[""Recreation"", ""Outdoors"", ""Mountains""]",54300
+"[""Recreation"", ""Outdoors"", ""Lakes""]",54300
+"[""Recreation"", ""Outdoors"", ""Forests""]",54300
+"[""Recreation"", ""Outdoors"", ""Beaches""]",54300
+"[""Recreation"", ""Paintball""]",54300
+"[""Recreation"", ""Parks""]",54300
+"[""Recreation"", ""Parks"", ""Playgrounds""]",54300
+"[""Recreation"", ""Parks"", ""Picnic Areas""]",54300
+"[""Recreation"", ""Parks"", ""Natural Parks""]",54300
+"[""Recreation"", ""Personal Trainers""]",54300
+"[""Recreation"", ""Race Tracks""]",54300
+"[""Recreation"", ""Racquet Sports""]",54300
+"[""Recreation"", ""Racquetball""]",54300
+"[""Recreation"", ""Rafting""]",54300
+"[""Recreation"", ""Recreation Centers""]",54300
+"[""Recreation"", ""Rock Climbing""]",54300
+"[""Recreation"", ""Running""]",54300
+"[""Recreation"", ""Scuba Diving""]",54300
+"[""Recreation"", ""Skating""]",54300
+"[""Recreation"", ""Skydiving""]",54300
+"[""Recreation"", ""Snow Sports""]",54300
+"[""Recreation"", ""Soccer""]",54300
+"[""Recreation"", ""Sports and Recreation Camps""]",54300
+"[""Recreation"", ""Sports Clubs""]",54300
+"[""Recreation"", ""Stadiums and Arenas""]",54300
+"[""Recreation"", ""Swimming""]",54300
+"[""Recreation"", ""Tennis""]",54300
+"[""Recreation"", ""Water Sports""]",54300
+"[""Recreation"", ""Yoga and Pilates""]",54300
+"[""Recreation"", ""Zoo""]",54300
+"[""Service"", ""Advertising and Marketing""]",53200
+"[""Service"", ""Advertising and Marketing"", ""Writing, Copywriting and Technical Writing""]",53200
+"[""Service"", ""Advertising and Marketing"", ""Search Engine Marketing and Optimization""]",53200
+"[""Service"", ""Advertising and Marketing"", ""Public Relations""]",53200
+"[""Service"", ""Advertising and Marketing"", ""Promotional Items""]",53200
+"[""Service"", ""Advertising and Marketing"", ""Print, TV, Radio and Outdoor Advertising""]",53200
+"[""Service"", ""Advertising and Marketing"", ""Online Advertising""]",53200
+"[""Service"", ""Advertising and Marketing"", ""Market Research and Consulting""]",53200
+"[""Service"", ""Advertising and Marketing"", ""Direct Mail and Email Marketing Services""]",53200
+"[""Service"", ""Advertising and Marketing"", ""Creative Services""]",53200
+"[""Service"", ""Advertising and Marketing"", ""Advertising Agencies and Media Buyers""]",53200
+"[""Service"", ""Automotive""]",52600
+"[""Service"", ""Automotive"", ""Towing""]",52600
+"[""Service"", ""Automotive"", ""Motorcycle, Moped and Scooter Repair""]",52600
+"[""Service"", ""Automotive"", ""Maintenance and Repair""]",52600
+"[""Service"", ""Automotive"", ""Car Wash and Detail""]",52600
+"[""Service"", ""Automotive"", ""Car Appraisers""]",52600
+"[""Service"", ""Automotive"", ""Auto Transmission""]",52600
+"[""Service"", ""Automotive"", ""Auto Tires""]",52600
+"[""Service"", ""Automotive"", ""Auto Smog Check""]",52600
+"[""Service"", ""Automotive"", ""Auto Oil and Lube""]",52600
+"[""Service"", ""Business and Strategy Consulting""]",53200
+"[""Service"", ""Business Services""]",53200
+"[""Service"", ""Business Services"", ""Printing and Publishing""]",53200
+"[""Service"", ""Cable""]",52306
+"[""Service"", ""Cleaning""]",52520
+"[""Service"", ""Computers""]",12600
+"[""Service"", ""Computers"", ""Maintenance and Repair""]",12600
+"[""Service"", ""Computers"", ""Software Development""]",12600
+"[""Service"", ""Construction""]",52520
+"[""Service"", ""Construction"", ""Specialty""]",52520
+"[""Service"", ""Construction"", ""Roofers""]",52520
+"[""Service"", ""Construction"", ""Painting""]",52520
+"[""Service"", ""Construction"", ""Masonry""]",52520
+"[""Service"", ""Construction"", ""Infrastructure""]",52520
+"[""Service"", ""Construction"", ""Heating, Ventilating and Air Conditioning""]",52520
+"[""Service"", ""Construction"", ""Electricians""]",52520
+"[""Service"", ""Construction"", ""Contractors""]",52520
+"[""Service"", ""Construction"", ""Carpet and Flooring""]",52520
+"[""Service"", ""Construction"", ""Carpenters""]",52520
+"[""Service"", ""Dating and Escort""]",54600
+"[""Service"", ""Financial""]",52700
+"[""Service"", ""Financial"", ""Taxes""]",52700
+"[""Service"", ""Financial"", ""Student Aid and Grants""]",53100
+"[""Service"", ""Financial"", ""Stock Brokers""]",52700
+"[""Service"", ""Financial"", ""Loans and Mortgages""]",52700
+"[""Service"", ""Financial"", ""Holding and Investment Offices""]",52700
+"[""Service"", ""Financial"", ""Fund Raising""]",52700
+"[""Service"", ""Financial"", ""Financial Planning and Investments""]",52700
+"[""Service"", ""Financial"", ""Credit Reporting""]",52700
+"[""Service"", ""Financial"", ""Collections""]",52700
+"[""Service"", ""Financial"", ""Check Cashing""]",52700
+"[""Service"", ""Financial"", ""Business Brokers and Franchises""]",52700
+"[""Service"", ""Financial"", ""Banking and Finance""]",52700
+"[""Service"", ""Financial"", ""ATMs""]",52700
+"[""Service"", ""Financial"", ""Accounting and Bookkeeping""]",52700
+"[""Service"", ""Food and Beverage""]",54100
+"[""Service"", ""Food and Beverage"", ""Distribution""]",54100
+"[""Service"", ""Food and Beverage"", ""Catering""]",54100
+"[""Service"", ""Home Improvement""]",52520
+"[""Service"", ""Home Improvement"", ""Upholstery""]",52520
+"[""Service"", ""Home Improvement"", ""Tree Service""]",52520
+"[""Service"", ""Home Improvement"", ""Swimming Pool Maintenance and Services""]",52520
+"[""Service"", ""Home Improvement"", ""Storage""]",52520
+"[""Service"", ""Home Improvement"", ""Roofers""]",52520
+"[""Service"", ""Home Improvement"", ""Pools and Spas""]",52520
+"[""Service"", ""Home Improvement"", ""Plumbing""]",52520
+"[""Service"", ""Home Improvement"", ""Pest Control""]",52520
+"[""Service"", ""Home Improvement"", ""Painting""]",52520
+"[""Service"", ""Home Improvement"", ""Movers""]",52520
+"[""Service"", ""Home Improvement"", ""Mobile Homes""]",52520
+"[""Service"", ""Home Improvement"", ""Lighting Fixtures""]",52520
+"[""Service"", ""Home Improvement"", ""Landscaping and Gardeners""]",52520
+"[""Service"", ""Home Improvement"", ""Kitchens""]",52520
+"[""Service"", ""Home Improvement"", ""Interior Design""]",52520
+"[""Service"", ""Home Improvement"", ""Housewares""]",52520
+"[""Service"", ""Home Improvement"", ""Home Inspection Services""]",52520
+"[""Service"", ""Home Improvement"", ""Home Appliances""]",52520
+"[""Service"", ""Home Improvement"", ""Heating, Ventilation and Air Conditioning""]",52520
+"[""Service"", ""Home Improvement"", ""Hardware and Services""]",52520
+"[""Service"", ""Home Improvement"", ""Fences, Fireplaces and Garage Doors""]",52520
+"[""Service"", ""Home Improvement"", ""Electricians""]",52520
+"[""Service"", ""Home Improvement"", ""Doors and Windows""]",52520
+"[""Service"", ""Home Improvement"", ""Contractors""]",52520
+"[""Service"", ""Home Improvement"", ""Carpet and Flooring""]",52520
+"[""Service"", ""Home Improvement"", ""Carpenters""]",52520
+"[""Service"", ""Home Improvement"", ""Architects""]",52520
+"[""Service"", ""Household""]",52520
+"[""Service"", ""Internet Services""]",52306
+"[""Service"", ""Personal Care""]",54300
+"[""Service"", ""Personal Care"", ""Tattooing""]",54300
+"[""Service"", ""Personal Care"", ""Tanning Salons""]",54300
+"[""Service"", ""Personal Care"", ""Spas""]",54300
+"[""Service"", ""Personal Care"", ""Skin Care""]",54300
+"[""Service"", ""Personal Care"", ""Piercing""]",54300
+"[""Service"", ""Personal Care"", ""Massage Clinics and Therapists""]",54300
+"[""Service"", ""Personal Care"", ""Manicures and Pedicures""]",54300
+"[""Service"", ""Personal Care"", ""Laundry and Garment Services""]",54300
+"[""Service"", ""Personal Care"", ""Hair Salons and Barbers""]",54300
+"[""Service"", ""Personal Care"", ""Hair Removal""]",54300
+"[""Service"", ""Real Estate""]",12200
+"[""Service"", ""Real Estate"", ""Real Estate Development and Title Companies""]",12200
+"[""Service"", ""Real Estate"", ""Real Estate Appraiser""]",12200
+"[""Service"", ""Real Estate"", ""Real Estate Agents""]",12200
+"[""Service"", ""Real Estate"", ""Property Management""]",12200
+"[""Service"", ""Real Estate"", ""Corporate Housing""]",12200
+"[""Service"", ""Real Estate"", ""Commercial Real Estate""]",12200
+"[""Service"", ""Real Estate"", ""Building and Land Surveyors""]",12200
+"[""Service"", ""Real Estate"", ""Boarding Houses""]",12200
+"[""Service"", ""Real Estate"", ""Apartments, Condos and Houses""]",12200
+"[""Service"", ""Real Estate"", ""Rent""]",52301
+"[""Service"", ""Security and Safety""]",52520
+"[""Service"", ""Storage""]",52520
+"[""Service"", ""Subscription""]",54400
+"[""Service"", ""Tailors""]",54300
+"[""Service"", ""Telecommunication Services""]",52306
+"[""Service"", ""Transportation""]",52600
+"[""Service"", ""Travel Agents and Tour Operators""]",52600
+"[""Service"", ""Utilities"", ""Water""]",52302
+"[""Service"", ""Utilities"", ""Sanitary and Waste Management""]",52302
+"[""Service"", ""Utilities"", ""Heating, Ventilating, and Air Conditioning""]",52304
+"[""Service"", ""Utilities"", ""Gas""]",52304
+"[""Service"", ""Utilities"", ""Electric""]",52303
+"[""Service"", ""Water and Waste Management""]",52302
+"[""Service"", ""Web Design and Development""]",53200
+"[""Shops""]",54300
+"[""Shops"", ""Adult""]",54300
+"[""Shops"", ""Antiques""]",54300
+"[""Shops"", ""Arts and Crafts""]",54300
+"[""Shops"", ""Auctions""]",54300
+"[""Shops"", ""Automotive""]",52600
+"[""Shops"", ""Automotive"", ""Used Car Dealers""]",52600
+"[""Shops"", ""Automotive"", ""Salvage Yards""]",52600
+"[""Shops"", ""Automotive"", ""RVs and Motor Homes""]",52600
+"[""Shops"", ""Automotive"", ""Motorcycles, Mopeds and Scooters""]",52600
+"[""Shops"", ""Automotive"", ""Classic and Antique Car""]",52600
+"[""Shops"", ""Automotive"", ""Car Parts and Accessories""]",52600
+"[""Shops"", ""Automotive"", ""Car Dealers and Leasing""]",52600
+"[""Shops"", ""Beauty Products""]",54300
+"[""Shops"", ""Bicycles""]",52200
+"[""Shops"", ""Bookstores""]",53100
+"[""Shops"", ""Children""]",54500
+"[""Shops"", ""Clothing and Accessories""]",54300
+"[""Shops"", ""Clothing and Accessories"", ""Women's Store""]",54500
+"[""Shops"", ""Clothing and Accessories"", ""Swimwear""]",54300
+"[""Shops"", ""Clothing and Accessories"", ""Shoe Store""]",54300
+"[""Shops"", ""Clothing and Accessories"", ""Men's Store""]",54300
+"[""Shops"", ""Clothing and Accessories"", ""Lingerie Store""]",54500
+"[""Shops"", ""Clothing and Accessories"", ""Kids' Store""]",54500
+"[""Shops"", ""Computers and Electronics""]",12600
+"[""Shops"", ""Computers and Electronics"", ""Video Games""]",12600
+"[""Shops"", ""Computers and Electronics"", ""Mobile Phones""]",12600
+"[""Shops"", ""Computers and Electronics"", ""Cameras""]",12600
+"[""Shops"", ""Convenience Stores""]",52400
+"[""Shops"", ""Department Stores""]",54300
+"[""Shops"", ""Digital Purchase""]",12600
+"[""Shops"", ""Discount Stores""]",54300
+"[""Shops"", ""Electrical Equipment""]",12600
+"[""Shops"", ""Equipment Rental""]",12400
+"[""Shops"", ""Flea Markets""]",54300
+"[""Shops"", ""Florists""]",54300
+"[""Shops"", ""Food and Beverage Store""]",54100
+"[""Shops"", ""Food and Beverage Store"", ""Specialty""]",54100
+"[""Shops"", ""Food and Beverage Store"", ""Health Food""]",54100
+"[""Shops"", ""Food and Beverage Store"", ""Farmers Markets""]",54100
+"[""Shops"", ""Food and Beverage Store"", ""Beer, Wine and Spirits""]",54100
+"[""Shops"", ""Fuel Dealer""]",52600
+"[""Shops"", ""Furniture and Home Decor""]",52410
+"[""Shops"", ""Newsstands""]",54400
+"[""Shops"", ""Office Supplies""]",53200
+"[""Shops"", ""Outlet""]",54300
+"[""Shops"", ""Outlet"", ""Women's Store""]",54600
+"[""Shops"", ""Outlet"", ""Swimwear""]",54300
+"[""Shops"", ""Outlet"", ""Shoe Store""]",54300
+"[""Shops"", ""Outlet"", ""Men's Store""]",54300
+"[""Shops"", ""Outlet"", ""Lingerie Store""]",54600
+"[""Shops"", ""Outlet"", ""Kids' Store""]",54500
+"[""Shops"", ""Outlet"", ""Boutique""]",54300
+"[""Shops"", ""Outlet"", ""Accessories Store""]",54300
+"[""Shops"", ""Pawn Shops""]",54300
+"[""Shops"", ""Pets""]",54500
+"[""Shops"", ""Pharmacies""]",52100
+"[""Shops"", ""Shopping Centers and Malls""]",54300
+"[""Shops"", ""Sporting Goods""]",52200
+"[""Shops"", ""Supermarkets and Groceries""]",52403
+"[""Shops"", ""Tobacco""]",54300
+"[""Shops"", ""Toys""]",54500
+"[""Shops"", ""Vintage and Thrift""]",54300
+"[""Shops"", ""Wedding and Bridal""]",54600
+"[""Shops"", ""Wholesale""]",54300
+"[""Shops"", ""Lawn and Garden""]",52520
+"[""Tax""]",51205
+"[""Tax"", ""Refund""]",49999
+"[""Tax"", ""Payment""]",51205
+"[""Transfer""]",11100
+"[""Transfer"", ""Internal Account Transfer""]",11100
+"[""Transfer"", ""ACH""]",11100
+"[""Transfer"", ""Billpay""]",11100
+"[""Transfer"", ""Check""]",11100
+"[""Transfer"", ""Credit""]",11100
+"[""Transfer"", ""Debit""]",11100
+"[""Transfer"", ""Deposit""]",11100
+"[""Transfer"", ""Deposit"", ""Check""]",11100
+"[""Transfer"", ""Deposit"", ""ATM""]",11100
+"[""Transfer"", ""Keep the Change Savings Program""]",11100
+"[""Transfer"", ""Payroll""]",11100
+"[""Transfer"", ""Payroll"", ""Benefits""]",11100
+"[""Transfer"", ""Third Party""]",11100
+"[""Transfer"", ""Third Party"", ""Venmo""]",11100
+"[""Transfer"", ""Third Party"", ""Square Cash""]",11100
+"[""Transfer"", ""Third Party"", ""Square""]",11100
+"[""Transfer"", ""Third Party"", ""PayPal""]",11100
+"[""Transfer"", ""Third Party"", ""Dwolla""]",11100
+"[""Transfer"", ""Third Party"", ""Coinbase""]",11100
+"[""Transfer"", ""Third Party"", ""Chase QuickPay""]",11100
+"[""Transfer"", ""Third Party"", ""Acorns""]",11100
+"[""Transfer"", ""Third Party"", ""Digit""]",11100
+"[""Transfer"", ""Third Party"", ""Betterment""]",11100
+"[""Transfer"", ""Third Party"", ""Plaid""]",11100
+"[""Transfer"", ""Withdrawal""]",11100
+"[""Transfer"", ""Withdrawal"", ""Check""]",11100
+"[""Transfer"", ""Withdrawal"", ""ATM""]",11100
+"[""Travel""]",54200
+"[""Travel"", ""Airlines and Aviation Services""]",54200
+"[""Travel"", ""Airports""]",54200
+"[""Travel"", ""Boat""]",54200
+"[""Travel"", ""Bus Stations""]",54200
+"[""Travel"", ""Car and Truck Rentals""]",54200
+"[""Travel"", ""Car Service""]",54200
+"[""Travel"", ""Car Service"", ""Ride Share""]",54200
+"[""Travel"", ""Charter Buses""]",54200
+"[""Travel"", ""Cruises""]",54200
+"[""Travel"", ""Gas Stations""]",54200
+"[""Travel"", ""Heliports""]",54200
+"[""Travel"", ""Limos and Chauffeurs""]",54200
+"[""Travel"", ""Lodging""]",54200
+"[""Travel"", ""Lodging"", ""Resorts""]",54200
+"[""Travel"", ""Lodging"", ""Lodges and Vacation Rentals""]",54200
+"[""Travel"", ""Lodging"", ""Hotels and Motels""]",54200
+"[""Travel"", ""Lodging"", ""Hostels""]",54200
+"[""Travel"", ""Lodging"", ""Cottages and Cabins""]",54200
+"[""Travel"", ""Lodging"", ""Bed and Breakfasts""]",54200
+"[""Travel"", ""Parking""]",54200
+"[""Travel"", ""Public Transportation Services""]",54200
+"[""Travel"", ""Rail""]",54200
+"[""Travel"", ""Taxi""]",54200
+"[""Travel"", ""Tolls and Fees""]",54200
+"[""Travel"", ""Transportation Centers""]",54200

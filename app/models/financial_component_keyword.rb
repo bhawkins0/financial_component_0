@@ -3,8 +3,8 @@
 # Table name: financial_component_keywords
 #
 #  id                  :integer          not null, primary key
-#  fc_credit           :string
-#  fc_debit            :string
+#  fc_credit           :integer
+#  fc_debit            :integer
 #  plaid_category      :string
 #  plaid_merchant_name :string
 #  plaid_name          :string

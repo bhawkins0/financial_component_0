@@ -27,20 +27,26 @@
 <hr>
 
 <div id="plaid_institutions" class="container overflow-hidden">
-  <div class="row g-5" style="margin=5px 0px;">
-    <%@matching_institutions.each do |inst|%>
+  <%i=0%>
+  <%@matching_institutions.each do |inst|%>
+    <%if i % 3 == 0 %>
+      <div class="row gx-3">
+    <%end%>
       <div class="col-4">
         <%if cookies["#{inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"] != nil%>
-          <div  id="<%=inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,"_")%>_div" class="p-3 border border-success bg-light text-center institution clickable" style="height:100%;" onclick="institution_div('<%=inst.plaid_name%>')">
+          <div  id="<%=inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,"_")%>_div" class="p-3 border border-success bg-light text-center institution clickable" onclick="institution_div('<%=inst.plaid_name%>')">
         <%else%>
-          <div  id="<%=inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,"_")%>_div" class="p-3 border bg-light text-center institution" style="height:100%">
+          <div  id="<%=inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,"_")%>_div" class="p-3 border bg-light text-center institution">
         <%end%>        
           <div><%=inst.plaid_name%></div>
           <%= image_tag "data:image/jpeg;base64,#{inst.plaid_logo}", class: "rounded float-start thumbnailArrangement" %></span>
         </div>
       </div>
+    <%if i % 3 == 2 %>
+      </div>
     <%end%>
-  </div>
+    <%i = i + 1%>
+  <%end%>
 </div>
 
 <script type="text/javascript">
