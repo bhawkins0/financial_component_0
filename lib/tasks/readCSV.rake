@@ -23,6 +23,7 @@ task({:readCSV => :environment}) do
   a = FinancialComponentKeyword.new
   a.plaid_category = row[0].to_s.gsub(/[^a-z ]/i,'')
   a.fc_debit = row[1]
+  a.fc_credit = row[2]
   a.save
 
 }

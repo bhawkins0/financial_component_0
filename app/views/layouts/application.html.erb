@@ -68,6 +68,7 @@
                       </li>
                       <%@matching_institutions.each do |inst|%>
                         <%if cookies["#{inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"] != nil%>
+                          <hr class="sideNavHr">
                           <li class="clickable">
                             <a href="/plaid/<%=inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')%>"><%=inst.plaid_name%></a>
                           </li>
@@ -84,9 +85,11 @@
                       <li>
                           <a href="#statements">Income</a>
                       </li>
+                      <hr class="sideNavHr">
                       <li>
                           <a href="#statements">Cash Flow</a>
                       </li>
+                      <hr class="sideNavHr">
                       <li>
                           <a href="#statements">Balance Sheet</a>
                       </li>

@@ -89,10 +89,10 @@ class PlaidLinkController < ApplicationController
     matching_accounts = PlaidAccount.where(:fc_user_id => @current_user.id).map_relation_to_array(:plaid_account_id)
 
     d = Date.today
-    if matching_accounts.length == 0
+    d2 = PlaidTransaction.where(:plaid_account_id => matching_accounts).maximum(:plaid_date)
+    
+    if d2 == nil
       d2 = d << 24
-    else
-      d2 = PlaidTransaction.where(:plaid_account_id => matching_accounts).maximum(:plaid_date)
     end
 
     response = client.transactions.get(access_token,
@@ -100,15 +100,18 @@ class PlaidLinkController < ApplicationController
                                         d.strftime("%Y-%m-%d"))
     accounts = response['accounts']
     transactions = response['transactions']
+
     # Manipulate the offset parameter to paginate transactions
     # and retrieve all available data
+    
     while transactions.length() < response['total_transactions']
       response = client.transactions.get(access_token,
                                           d2.strftime("%Y-%m-%d"),
                                           d.strftime("%Y-%m-%d"),
           offset: transactions.length())
-      accounts += response['accounts']
-      transactions += response['transactions']
+      #COMMENTED OUT FOR TESTING PURPOSES - UNCOMMENT
+      #accounts += response['accounts']
+      #transactions += response['transactions']
     end
 
     accounts.each do |acct|
@@ -132,7 +135,8 @@ class PlaidLinkController < ApplicationController
       end
     end
     
-    transactions = response['transactions']
+    #p "TRANSACTIONS2:"
+    #p transactions
     transactions.each do |trans|
       location = trans[:location]
       if PlaidTransaction.where(:plaid_transaction_id	 => trans['transaction_id']).at(0) == nil
@@ -186,15 +190,9 @@ class PlaidLinkController < ApplicationController
         trans_merchant = trans[:merchant_name].to_s.gsub(/[^a-z ]/i,'')
         trans_category = trans[:category].to_s.gsub(/[^a-z ]/i,'')
 
-        p trans_category
-
         matching_metadata_1 = FinancialComponentKeyword.where(:plaid_name	=> trans_name).order({ :transaction_count => :desc }).at(0)
         matching_metadata_2 = FinancialComponentKeyword.where({:plaid_merchant_name	=> trans_merchant,:plaid_category	=> trans_category }).order({ :transaction_count => :desc }).at(0)
         matching_metadata_3 = FinancialComponentKeyword.where(:plaid_category	=> trans_category).order({ :transaction_count => :desc }).at(0)
-
-        p matching_metadata_1
-        p matching_metadata_2
-        p matching_metadata_3
 
         if matching_metadata_1 != nil 
           the_financial_component_transaction_1.fc_split_id = matching_metadata_1[:fc_split_id]
@@ -212,8 +210,8 @@ class PlaidLinkController < ApplicationController
           the_financial_component_transaction_1.fc_split_id = matching_metadata_3[:fc_split_id]
           the_financial_component_transaction_2.fc_split_id = matching_metadata_3[:fc_split_id]
 
-          the_financial_component_transaction_1.fc_account_number = matching_3[:fc_debit]
-          the_financial_component_transaction_2.fc_account_number = matching_3[:fc_credit]
+          the_financial_component_transaction_1.fc_account_number = matching_metadata_3[:fc_debit]
+          the_financial_component_transaction_2.fc_account_number = matching_metadata_3[:fc_credit]
         else
           the_financial_component_transaction_1.fc_split_id = 0
           the_financial_component_transaction_2.fc_split_id = 0
@@ -233,7 +231,7 @@ class PlaidLinkController < ApplicationController
   end
 
   def get_institution
-    @matching_transactions = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [plaid_institution: [:user]]]).where(:users => {:id => @current_user.id}).where(:plaid_institutions => {:plaid_name => params.fetch("the_institution")})  
+    @matching_transactions = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [plaid_institution: [:user]]]).where(:users => {:id => @current_user.id}).where(:plaid_institutions => {:plaid_name => params.fetch("the_institution")}).order({ :plaid_date => :desc }).order(:plaid_transaction_id).order(:fc_transaction_id)
     @matching_accounts = FinancialComponentAccount.where(:fc_account_name => FinancialComponentAccount.where.not(:fc_account_reporting_group => nil).map_relation_to_array(:fc_account_reporting_group)).distinct.map_relation_to_array(:fc_account_name)
     render("plaid_views/plaid_institution.html.erb")
   end

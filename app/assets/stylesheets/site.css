@@ -58,6 +58,7 @@ body {
 .sideNav {
     width: 160px;
     margin-right: 18px;
+    padding-right: 10px;
     background-color: rgb(0,110,192);
     overflow-x: hidden;
 }
@@ -208,6 +209,10 @@ a {
 
 .topnav-right {
     float: right;
+}
+
+hr.sideNavHr {
+  border-top: 1px solid silver;
 }
 
 /* Sticky footer styles
