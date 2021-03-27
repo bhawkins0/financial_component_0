@@ -138,5 +138,5 @@ Rails.application.routes.draw do
   get("/get_transactions",{:controller=>"plaid_link",:action=>"get_transactions"})
   get("/plaid/:the_institution",{:controller=>"plaid_link",:action=>"get_institution"})
   post("/plaid/save_account",{:controller=>"plaid_link",:action=>"save_account"})
-  get("/commit_audit",{:controller=>"plaid_link",:action=>"commit_audit"})
+  get("/commit_audit/:the_institution",{:controller=>"plaid_link",:action=>"commit_audit"})
 end

@@ -231,7 +231,7 @@ class PlaidLinkController < ApplicationController
   end
 
   def get_institution
-    @matching_transactions = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [plaid_institution: [:user]]]).where(:users => {:id => @current_user.id}).where(:plaid_institutions => {:plaid_name => params.fetch("the_institution")}).order({ :plaid_date => :desc }).order(:plaid_transaction_id).order(:fc_transaction_id)
+    @matching_transactions = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [plaid_institution: [:user]]]).where(:users => {:id => @current_user.id}).where(:plaid_institutions => {:plaid_name => params.fetch("the_institution")}).where(:fc_commit => false).order(:plaid_account_name).order({ :plaid_authorized_date => :desc }).order(:plaid_transaction_id).order(:fc_transaction_id)
     @matching_accounts = FinancialComponentAccount.where(:fc_account_name => FinancialComponentAccount.where.not(:fc_account_reporting_group => nil).map_relation_to_array(:fc_account_reporting_group)).distinct.map_relation_to_array(:fc_account_name)
     render("plaid_views/plaid_institution.html.erb")
   end
@@ -256,6 +256,27 @@ class PlaidLinkController < ApplicationController
   end
 
   def commit_audit
-    
+    @matching_transactions = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [plaid_institution: [:user]]]).where(:users => {:id => @current_user.id}).where(:plaid_institutions => {:plaid_name => params.fetch("the_institution")}).where(:fc_commit => false).order(:plaid_account_name).order({ :plaid_authorized_date => :desc }).order(:plaid_transaction_id).order(:fc_transaction_id)
+    i = 0
+    trans_debit = FinancialComponentTransaction.new
+    trans_credit = FinancialComponentTransaction.new
+    @matching_transactions.each do |trans|
+
+      if trans.fc_transaction_type == true
+        trans_debit = trans
+      else
+        trans_credit = trans
+        if trans_debit.fc_account_number != 0 and trans_credit.fc_account_number != 0 and trans_debit.valid? and trans_credit.valid?
+          trans_debit.fc_commit = true
+          trans_credit.fc_commit = true
+
+          trans_debit.save
+          trans_credit.save
+
+          i = i + 1
+        end
+      end
+    end
+      render :json => i
   end
 end

@@ -9,7 +9,7 @@
 
 <div class="page_title_div">
   <h2 class="pageTitle display-4"><%=params.fetch("the_institution")%></h2>
-  <div class="pageTitle pageTitleRight display-4"><button id="commitAudit" class="btn btn-primary btn-lg">Commit</button></div>
+  <div class="pageTitle pageTitleRight display-4"><button id="commitAudit" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Commit</button></div>
 </div>
 
 <hr>
@@ -41,7 +41,7 @@
         <div class="col"><%=trans.plaid_transaction.plaid_authorized_date%></div>
         <!--<div class="col" style="display:none"><%=trans.plaid_transaction_id%></div>-->
         <div class="col">
-          <select id="1" class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example">
+          <select id="1" class="form-select form-select-sm selector_width badge text-dark bg-light" aria-label=".form-select-sm example">
             <%i = 1%>
             <%FinancialComponentAccount.where({:fc_account_type => true,:fc_account_name => @matching_accounts}).or(FinancialComponentAccount.where({:fc_statement => "balance_sheet",:fc_account_name => @matching_accounts})).each do |acct|%>
               <%if i == 1%>
@@ -57,7 +57,7 @@
           </select>
         </div>
         <div class="col">
-          <select id="0" class="form-select form-select-sm selector_width badge bg-light" aria-label=".form-select-sm example">
+          <select id="0" class="form-select form-select-sm selector_width badge text-dark bg-light" aria-label=".form-select-sm example">
             <%i = 1%>
             <%FinancialComponentAccount.where({:fc_account_type => false,:fc_account_name => @matching_accounts}).or(FinancialComponentAccount.where({:fc_statement => "balance_sheet",:fc_account_name => @matching_accounts})).each do |acct|%>
               <%if i == 1%>
@@ -75,6 +75,24 @@
       </div>
     <%end%>
   <%end%>
+</div>
+
+<div class="modal fade" id="fcModal_1" tabindex="-1" aria-labelledby="fcModal_1_Label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="fcModal_1_Label">Financial Component Import</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="fcModal_1_Body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -98,9 +116,26 @@
           trans_type: c
         })
       });
-    });
 
-  $('#commitAudit').on('click', function(e) {
-    window.location = "/commit_audit"
-  });
+      $("#commitAudit").click(function(){
+        $.get('/commit_audit/<%=params.fetch("the_institution")%>', function(data) {
+          if (data == 0) {
+            $('#fcModal_1_Body').text("Please ensure transactions have both a debit and credit account specified before saving.");
+            $('#fcModal_1').modal("show");
+          } else if (data == 1) {
+            $('#fcModal_1_Body').text(data + " transaction successfully imported!");
+            $('#fcModal_1').modal("show");
+          }
+          else {
+            $('#fcModal_1_Body').text(data + " transactions successfully imported!");
+            $('#fcModal_1').modal("show");
+          };
+        });
+      });
+      $("#fcModal_1").on('hide.bs.modal', function(){
+        location.reload();
+      });
+      
+    });
 </script>
+
