@@ -26,7 +26,8 @@ body {
 }
 
 /* Set padding to keep content from hitting the edges */
-.body-content {
+.body-content,
+.topNav {
     padding-left: 15px;
     padding-right: 15px;
     /*height:100%;*/
@@ -102,22 +103,19 @@ body {
         text-decoration: none;
     }
 
-.page_title_div h2 {
-  display: inline-block; 
-}
-
 .lh-2{
   min-height:45px;
 }
 
-.pageTitleRight {
-  float: right;
-  padding: 0px 15px;
+.page_title_div{
+  padding: 18px 0px;
 }
 
 .pageTitle{
-  margin-top:18px;
-  margin-bottom:18px;
+  display: flex;
+  align-items: center;
+  /*justify-content: center;*/
+  height:72px;
 }
 
 .thumbnailArrangement{
@@ -151,12 +149,26 @@ body {
         background: #548235; 
     }
 
+/*To be implemented*/
+  
+/* @media all and (min-width: 480px) {
+    .deskContent {display:block;}
+    .phoneContent {display:none;}
+}
+
+@media all and (max-width: 479px) {
+    .deskContent {display:none;}
+    .phoneContent {display:block;}
+} */
+
 /*REVISIT BELOW*/
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
+    text-overflow: ellipsis;
+    padding-right:30px;
 }
 
 /* styles for validation helpers */

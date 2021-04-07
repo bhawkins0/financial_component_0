@@ -5,22 +5,44 @@
   .selector_width{
     width:100px;
   }
+
+/*   @media only screen and (max-width: 600px) {
+//   body {
+//     background-color: lightblue;
+//   }
+// }*/
 </style>
 
-<div class="page_title_div">
-  <h2 class="pageTitle display-4"><%=params.fetch("the_institution")%></h2>
-  <div class="pageTitle pageTitleRight display-4"><button id="commitAudit" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Commit</button></div>
+<div class="container">
+  <div class="row page_title_div">
+    <div class="col-7 pageTitle">
+      <h2 class="display-4"><%=params.fetch("the_institution")%></h2>
+    </div>
+    <div class="col pageTitle">
+      <select id="commit_selector" class="form-select form-select-sm text-dark bg-light clickable" aria-label=".form-select-sm example">
+        <%i = 0%>
+        <%@matching_commits.each do |commit|%>
+          <option value="<%=i%>"><%=commit.to_s%></option>
+          <%i = i + 1%>
+        <%end%>
+        <option value="<%=i%>" selected>Unaudited</option>
+      </select>
+    </div>
+    <div class="col pageTitle justify-content-center">
+      <button id="commitAudit" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Commit</button>
+    </div>
+  </div>
 </div>
 
 <hr>
 
 <div id="plaid_transactions" class="container-fluid overflow-hidden">
   <div class="row">
-      <div class="col"><h6>Account</h6></div>
-      <div class="col-3"><h6>Name</h6></div>
-      <div class="col"><h6>Amount</h6></div>
-      <div class="col"><h6>Merchant Name</h6></div>
-      <div class="col"><h6>Authorized Date</h6></div>
+      <div class="col-2 deskContent"><h6>Account</h6></div>
+      <div class="col-2"><h6>Name</h6></div>
+      <div class="col-1"><h6>Amount</h6></div>
+      <div class="col-2"><h6>Merchant Name</h6></div>
+      <div class="col deskContent"><h6>Authorized Date</h6></div>
       <div class="col"><h6>Debit</h6></div>
       <div class="col"><h6>Credit</h6></div>
   </div>
@@ -34,14 +56,14 @@
       <%credit_acct = trans.fc_account_number%>
       <hr>
       <div id="<%=trans.plaid_transaction_id%>" class="row lh-2">
-        <div class="col"><%=trans.plaid_transaction.plaid_account.plaid_account_name%></div>
-        <div class="col-3"><%=trans.plaid_transaction.plaid_name%></div>
-        <div class="col"><%=trans.fc_amount%></div>
-        <div class="col"><%=trans.plaid_transaction.plaid_merchant_name%></div>
-        <div class="col"><%=trans.plaid_transaction.plaid_authorized_date%></div>
+        <div class="col-2 deskContent"><%=trans.plaid_transaction.plaid_account.plaid_account_name%></div>
+        <div class="col-2"><%=trans.plaid_transaction.plaid_name%></div>
+        <div class="col-1"><%=trans.fc_amount%></div>
+        <div class="col-2"><%=trans.plaid_transaction.plaid_merchant_name%></div>
+        <div class="col deskContent"><%=trans.plaid_transaction.plaid_authorized_date%></div>
         <!--<div class="col" style="display:none"><%=trans.plaid_transaction_id%></div>-->
         <div class="col">
-          <select id="1" class="form-select form-select-sm selector_width badge text-dark bg-light" aria-label=".form-select-sm example">
+          <select id="1" class="form-select form-select-sm selector_width badge text-dark bg-light clickable" aria-label=".form-select-sm example">
             <%i = 1%>
             <%FinancialComponentAccount.where({:fc_account_type => true,:fc_account_name => @matching_accounts}).or(FinancialComponentAccount.where({:fc_statement => "balance_sheet",:fc_account_name => @matching_accounts})).each do |acct|%>
               <%if i == 1%>
@@ -57,7 +79,7 @@
           </select>
         </div>
         <div class="col">
-          <select id="0" class="form-select form-select-sm selector_width badge text-dark bg-light" aria-label=".form-select-sm example">
+          <select id="0" class="form-select form-select-sm selector_width badge text-dark bg-light clickable" aria-label=".form-select-sm example">
             <%i = 1%>
             <%FinancialComponentAccount.where({:fc_account_type => false,:fc_account_name => @matching_accounts}).or(FinancialComponentAccount.where({:fc_statement => "balance_sheet",:fc_account_name => @matching_accounts})).each do |acct|%>
               <%if i == 1%>
@@ -105,8 +127,15 @@
         return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     }
 
-    $(document).ready(function(){
+    $(document).ready(function(){      
       $("select").change(function(){
+        if($(this).attr('id') == 'commit_selector'){
+          $.post( "/plaid/get_commit/", { institution: '<%=params.fetch("the_institution")%>', transaction_filter:  $("option:selected", this).text() })
+            .done(function() {
+              alert( "Test" );
+            });
+        }
+        else{
         var a = $("option:selected", this).text();
         var b = $(this).parents(".row").attr('id');
         var c = $(this).attr('id');
@@ -114,7 +143,7 @@
           acct_name: a,
           trans_id: b,
           trans_type: c
-        })
+        })};
       });
 
       $("#commitAudit").click(function(){

@@ -233,6 +233,7 @@ class PlaidLinkController < ApplicationController
   def get_institution
     @matching_transactions = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [plaid_institution: [:user]]]).where(:users => {:id => @current_user.id}).where(:plaid_institutions => {:plaid_name => params.fetch("the_institution")}).where(:fc_commit => false).order(:plaid_account_name).order({ :plaid_authorized_date => :desc }).order(:plaid_transaction_id).order(:fc_transaction_id)
     @matching_accounts = FinancialComponentAccount.where(:fc_account_name => FinancialComponentAccount.where.not(:fc_account_reporting_group => nil).map_relation_to_array(:fc_account_reporting_group)).distinct.map_relation_to_array(:fc_account_name)
+    @matching_commits = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [plaid_institution: [:user]]]).where(:users => {:id => @current_user.id}).where(:plaid_institutions => {:plaid_name => params.fetch("the_institution")}).where(:fc_commit => true).order({ :updated_at => :desc }).distinct.pluck('date(financial_component_transactions.updated_at)')    
     render("plaid_views/plaid_institution.html.erb")
   end
 
@@ -278,5 +279,14 @@ class PlaidLinkController < ApplicationController
       end
     end
       render :json => i
+  end
+
+  def get_commit
+    p params.fetch("institution")
+    p params.fetch("transaction_filter")
+    #@matching_transactions = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [plaid_institution: [:user]]]).where(:users => {:id => @current_user.id}).where(:plaid_institutions => {:plaid_name => params.fetch("the_institution")}).where(:fc_commit => false).order(:plaid_account_name).order({ :plaid_authorized_date => :desc }).order(:plaid_transaction_id).order(:fc_transaction_id)
+    #@matching_accounts = FinancialComponentAccount.where(:fc_account_name => FinancialComponentAccount.where.not(:fc_account_reporting_group => nil).map_relation_to_array(:fc_account_reporting_group)).distinct.map_relation_to_array(:fc_account_name)
+    #@matching_commits = FinancialComponentTransaction.joins(plaid_transaction: [plaid_account: [plaid_institution: [:user]]]).where(:users => {:id => @current_user.id}).where(:plaid_institutions => {:plaid_name => params.fetch("the_institution")}).where(:fc_commit => true).order({ :updated_at => :desc }).distinct.pluck('date(financial_component_transactions.updated_at)')    
+    #render("plaid_views/plaid_institution.html.erb")
   end
 end

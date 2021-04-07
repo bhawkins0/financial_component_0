@@ -1,12 +1,20 @@
+<style>
+  .institution{
+    height:100%;
+  }
+</style>
+
 <div class="page_title_div">
   <h2 class="pageTitle display-4">Plaid</h2>
 </div>
 
 <div id="link-div" class="pageTitle">
   <%if @current_user.plaid_institutions.count == 0%>
-    <p>Hello! Plaid is an engine used to securely connect to and access data at your Financial Institutions.</p>
-    <p>Please click the link below to connect to Plaid and get started!</p>
-    <button id="link-button" class="btn btn-primary">Connect to Plaid</button>
+    <div>
+      <p>Hello! Plaid is an engine used to securely connect to and access data at your Financial Institutions.</p>
+      <p>Please click the link below to connect to Plaid and get started!</p>
+      <button id="link-button" class="btn btn-primary">Connect to Plaid</button>
+    </div>
   <%else%>
     <%a = 1%>
     <%@matching_institutions.each do |inst|%>
@@ -15,11 +23,15 @@
         <%end%>
     <%end%>
     <%if a == 0%>
-      <p id="plaid_instructions">Please sign in to your financial institutions to refresh your data.</p>
-      <button id="link-button" class="btn btn-primary">Connect to Plaid</button>
+      <div>
+        <p id="plaid_instructions">Please sign in to your financial institutions to refresh your data.</p>
+        <button id="link-button" class="btn btn-primary">Connect to Plaid</button>
+      </div>
     <%else%>
-      <p id="plaid_instructions">All of your existing accounts are updated!</p>
-      <button id="link-button" class="btn btn-primary">Connect a new account</button>
+      <div>
+        <p id="plaid_instructions">All of your existing accounts are updated!</p>
+        <button id="link-button" class="btn btn-primary">Connect a new account</button>
+      </div>
     <%end%>
   <%end%>
 </div>
@@ -39,7 +51,7 @@
           <div  id="<%=inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,"_")%>_div" class="p-3 border bg-light text-center institution">
         <%end%>        
           <div><%=inst.plaid_name%></div>
-          <%= image_tag "data:image/jpeg;base64,#{inst.plaid_logo}", class: "rounded float-start thumbnailArrangement" %></span>
+          <%= image_tag "data:image/jpeg;base64,#{inst.plaid_logo}", class: "rounded mx-auto thumbnailArrangement" %></span>
         </div>
       </div>
     <%if i % 3 == 2 %>
@@ -111,6 +123,8 @@
   });
 })(jQuery);
 
-  function institution_div(institution){window.location = "/plaid/" + institution};//.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\//\s]/gi, '_')};
+  function institution_div(institution){
+    window.location = "/plaid/" + institution
+  };
  
 </script>
