@@ -251,6 +251,7 @@ class PlaidLinkController < ApplicationController
     end
 
     the_transaction.fc_account_number = the_account.fc_account_number
+    p the_transaction.valid?
     if the_transaction.valid?
       the_transaction.save
     end
@@ -297,8 +298,5 @@ class PlaidLinkController < ApplicationController
     respond_to do |format|
         format.js
     end
-
-    #render json: render_to_string('plaid_link/_plaid_institution_transactions', layout: false, locals: {matching_transactions: @matching_transactions, matching_accounts: @matching_accounts})
-    
   end
 end

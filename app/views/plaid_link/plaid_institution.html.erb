@@ -19,7 +19,7 @@
       <h2 class="display-4"><%=params.fetch("the_institution")%></h2>
     </div>
     <div class="col pageTitle">
-      <select id="commit_selector" class="form-select form-select-sm text-dark bg-light clickable" aria-label=".form-select-sm example">
+      <select id="commit_selector" class="form-select form-select-sm text-dark bg-light clickable" aria-label=".form-select-sm example" onchange="commit_selector_change(this[this.value].text)">
         <%i = 0%>
         <%@matching_commits.each do |commit|%>
           <option value="<%=i%>"><%=commit.to_s%></option>
@@ -67,10 +67,8 @@
         return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     };
 
-    $(document).ready(function(){      
-      $("select").change(function(){          
-        if($(this).attr('id') == 'commit_selector'){
-              $.ajax({
+    function commit_selector_change(item){
+      $.ajax({
                 beforeSend: function(xhr) {
                   xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
                 },
@@ -78,31 +76,43 @@
                 type: "POST",
                 data: {
                   the_institution: '<%=params.fetch("the_institution")%>',
-                  transaction_filter:  $("option:selected", this).text() }
+                  transaction_filter:  item}
               });
-          ////$.post( "/plaid/get_commit/", { the_institution: '<%=params.fetch("the_institution")%>', transaction_filter:  $("option:selected", this).text() });
-          ////$.post( "/plaid/get_commit/", { the_institution: '<%=params.fetch("the_institution")%>', transaction_filter:  $("option:selected", this).text() })
-          ////  .done(function( data ) {
-          ////    alert("test");
-              //$("#plaid_transactions_records").css("background-color", "yellow");
-              ////const oldTransactions = document.querySelector("#plaid_transactions_records");
-              ////const newTransactions = document.createElement('div');
-              ////newTransactions.setAttribute("id", "plaid_transactions_records");
-              //newTransactions.attr('id') = 'plaid_transactions_records';
-              ////newTransactions.innerHTML = data;
-              ////oldTransactions.parentNode.replaceChild(newTransactions, oldTransactions);
-            ////});
-        }
-        else{
-        var a = $("option:selected", this).text();
-        var b = $(this).parents(".row").attr('id');
-        var c = $(this).attr('id');
-        $.post('/plaid/save_account', {
-          acct_name: a,
-          trans_id: b,
-          trans_type: c
-        })};
-      });
+    };
+
+    function account_selector_change(item, this_parent, this_id){
+      //alert(item + this_parent + this_id)
+      $.post('/plaid/save_account', {
+        acct_name: item,
+        trans_id: this_parent,
+        trans_type: this_id
+    });
+    };
+
+    $(document).ready(function(){      
+      //$("select").change(function(){          
+        //if($(this).attr('id') == 'commit_selector'){
+              //$.ajax({
+              //  beforeSend: function(xhr) {
+              //    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+              //  },
+              //  url: "/plaid/get_commit/",
+              //  type: "POST",
+              //  data: {
+              //    the_institution: '<%=params.fetch("the_institution")%>',
+              //    transaction_filter:  $("option:selected", this).text() }
+              //});
+        //}
+        //else{
+          //var a = $("option:selected", this).text();
+          //var b = $(this).parents(".row").attr('id');
+          //var c = $(this).attr('id');
+          //$.post('/plaid/save_account', {
+            //acct_name: a,
+            //trans_id: b,
+            //trans_type: c
+        //})};
+      //});
 
       $("#commitAudit").click(function(){
         $.get('/commit_audit/<%=params.fetch("the_institution")%>', function(data) {

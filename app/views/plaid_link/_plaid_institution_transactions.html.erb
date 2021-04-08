@@ -7,7 +7,7 @@
       <div class="col"><h6>Debit</h6></div>
       <div class="col"><h6>Credit</h6></div>
   </div>
-  
+
   <div id="plaid_transactions_records">
   <%debit_acct = 0%>
   <%credit_acct = 0%>
@@ -25,7 +25,7 @@
         <div class="col deskContent"><%=trans.plaid_transaction.plaid_authorized_date%></div>
         <!--<div class="col" style="display:none"><%=trans.plaid_transaction_id%></div>-->
         <div class="col">
-          <select id="1" class="form-select form-select-sm selector_width badge text-dark bg-light clickable" aria-label=".form-select-sm example">
+          <select id="1" class="form-select form-select-sm selector_width badge text-dark bg-light clickable" aria-label=".form-select-sm example" onchange="account_selector_change(this[this.value].text,this.closest('.row').id,this.id)">
             <%i = 1%>
             <%FinancialComponentAccount.where({:fc_account_type => true,:fc_account_name => matching_accounts}).or(FinancialComponentAccount.where({:fc_statement => "balance_sheet",:fc_account_name => matching_accounts})).each do |acct|%>
               <%if i == 1%>
@@ -41,7 +41,7 @@
           </select>
         </div>
         <div class="col">
-          <select id="0" class="form-select form-select-sm selector_width badge text-dark bg-light clickable" aria-label=".form-select-sm example">
+          <select id="0" class="form-select form-select-sm selector_width badge text-dark bg-light clickable" aria-label=".form-select-sm example" onchange="account_selector_change(this[this.value].text,this.closest('.row').id,this.id)">
             <%i = 1%>
             <%FinancialComponentAccount.where({:fc_account_type => false,:fc_account_name => matching_accounts}).or(FinancialComponentAccount.where({:fc_statement => "balance_sheet",:fc_account_name => matching_accounts})).each do |acct|%>
               <%if i == 1%>
