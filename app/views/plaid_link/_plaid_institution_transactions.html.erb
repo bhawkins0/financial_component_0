@@ -1,0 +1,52 @@
+  <div id="plaid_transactions_records">
+  <%debit_acct = 0%>
+  <%credit_acct = 0%>
+  <%matching_transactions.each do |trans|%>
+    <%if trans.fc_transaction_type == true%>
+      <%debit_acct = trans.fc_account_number%>
+    <%else%>
+      <%credit_acct = trans.fc_account_number%>
+      <hr>
+      <div id="<%=trans.plaid_transaction_id%>" class="row lh-2">
+        <div class="col-2 deskContent"><%=trans.plaid_transaction.plaid_account.plaid_account_name%></div>
+        <div class="col-2"><%=trans.plaid_transaction.plaid_name%></div>
+        <div class="col-1"><%=trans.fc_amount%></div>
+        <div class="col-2"><%=trans.plaid_transaction.plaid_merchant_name%></div>
+        <div class="col deskContent"><%=trans.plaid_transaction.plaid_authorized_date%></div>
+        <!--<div class="col" style="display:none"><%=trans.plaid_transaction_id%></div>-->
+        <div class="col">
+          <select id="1" class="form-select form-select-sm selector_width badge text-dark bg-light clickable" aria-label=".form-select-sm example">
+            <%i = 1%>
+            <%FinancialComponentAccount.where({:fc_account_type => true,:fc_account_name => matching_accounts}).or(FinancialComponentAccount.where({:fc_statement => "balance_sheet",:fc_account_name => matching_accounts})).each do |acct|%>
+              <%if i == 1%>
+                <option value="0"></option>
+              <%end%>
+              <%if acct.fc_account_number == debit_acct%>
+                <option value="<%=i%>" selected><%=acct.fc_account_name%></option>
+              <%else%>
+                <option value="<%=i%>"><%=acct.fc_account_name%></option>
+              <%end%>
+              <%i = i + 1%>
+            <%end%>
+          </select>
+        </div>
+        <div class="col">
+          <select id="0" class="form-select form-select-sm selector_width badge text-dark bg-light clickable" aria-label=".form-select-sm example">
+            <%i = 1%>
+            <%FinancialComponentAccount.where({:fc_account_type => false,:fc_account_name => matching_accounts}).or(FinancialComponentAccount.where({:fc_statement => "balance_sheet",:fc_account_name => matching_accounts})).each do |acct|%>
+              <%if i == 1%>
+                <option value="0"></option>
+              <%end%>
+              <%if acct.fc_account_number == credit_acct%>
+                <option value="<%=i%>" selected><%=acct.fc_account_name%></option>
+              <%else%>
+                <option value="<%=i%>"><%=acct.fc_account_name%></option>
+              <%end%>
+              <%i = i + 1%>
+            <%end%>
+          </select>
+        </div>
+      </div>
+    <%end%>
+  <%end%>
+  </div>

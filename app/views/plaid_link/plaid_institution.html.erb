@@ -25,7 +25,7 @@
           <option value="<%=i%>"><%=commit.to_s%></option>
           <%i = i + 1%>
         <%end%>
-        <option value="<%=i%>" selected>Unaudited</option>
+        <option value="<%=i%>" data-remote="true" data-url="/get_commit" data-params='the_institution=<%=params.fetch("the_institution")%>,transaction_filter=Unaudited' selected>Unaudited</option>
       </select>
     </div>
     <div class="col pageTitle justify-content-center">
@@ -33,7 +33,6 @@
     </div>
   </div>
 </div>
-
 <hr>
 
 <div id="plaid_transactions" class="container-fluid overflow-hidden">
@@ -46,57 +45,9 @@
       <div class="col"><h6>Debit</h6></div>
       <div class="col"><h6>Credit</h6></div>
   </div>
-  
-  <%debit_acct = 0%>
-  <%credit_acct = 0%>
-  <%@matching_transactions.each do |trans|%>
-    <%if trans.fc_transaction_type == true%>
-      <%debit_acct = trans.fc_account_number%>
-    <%else%>
-      <%credit_acct = trans.fc_account_number%>
-      <hr>
-      <div id="<%=trans.plaid_transaction_id%>" class="row lh-2">
-        <div class="col-2 deskContent"><%=trans.plaid_transaction.plaid_account.plaid_account_name%></div>
-        <div class="col-2"><%=trans.plaid_transaction.plaid_name%></div>
-        <div class="col-1"><%=trans.fc_amount%></div>
-        <div class="col-2"><%=trans.plaid_transaction.plaid_merchant_name%></div>
-        <div class="col deskContent"><%=trans.plaid_transaction.plaid_authorized_date%></div>
-        <!--<div class="col" style="display:none"><%=trans.plaid_transaction_id%></div>-->
-        <div class="col">
-          <select id="1" class="form-select form-select-sm selector_width badge text-dark bg-light clickable" aria-label=".form-select-sm example">
-            <%i = 1%>
-            <%FinancialComponentAccount.where({:fc_account_type => true,:fc_account_name => @matching_accounts}).or(FinancialComponentAccount.where({:fc_statement => "balance_sheet",:fc_account_name => @matching_accounts})).each do |acct|%>
-              <%if i == 1%>
-                <option value="0"></option>
-              <%end%>
-              <%if acct.fc_account_number == debit_acct%>
-                <option value="<%=i%>" selected><%=acct.fc_account_name%></option>
-              <%else%>
-                <option value="<%=i%>"><%=acct.fc_account_name%></option>
-              <%end%>
-              <%i = i + 1%>
-            <%end%>
-          </select>
-        </div>
-        <div class="col">
-          <select id="0" class="form-select form-select-sm selector_width badge text-dark bg-light clickable" aria-label=".form-select-sm example">
-            <%i = 1%>
-            <%FinancialComponentAccount.where({:fc_account_type => false,:fc_account_name => @matching_accounts}).or(FinancialComponentAccount.where({:fc_statement => "balance_sheet",:fc_account_name => @matching_accounts})).each do |acct|%>
-              <%if i == 1%>
-                <option value="0"></option>
-              <%end%>
-              <%if acct.fc_account_number == credit_acct%>
-                <option value="<%=i%>" selected><%=acct.fc_account_name%></option>
-              <%else%>
-                <option value="<%=i%>"><%=acct.fc_account_name%></option>
-              <%end%>
-              <%i = i + 1%>
-            <%end%>
-          </select>
-        </div>
-      </div>
-    <%end%>
-  <%end%>
+
+  <%= render partial: "plaid_link/plaid_institution_transactions.html.erb", locals: {matching_transactions: @matching_transactions, matching_accounts: @matching_accounts} %>
+
 </div>
 
 <div class="modal fade" id="fcModal_1" tabindex="-1" aria-labelledby="fcModal_1_Label" aria-hidden="true">
@@ -125,15 +76,34 @@
             str = str.toString();
 
         return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
-    }
+    };
 
+    function update_transactions(data){alert("test")};
     $(document).ready(function(){      
-      $("select").change(function(){
+      $("select").change(function(){          
         if($(this).attr('id') == 'commit_selector'){
-          $.post( "/plaid/get_commit/", { institution: '<%=params.fetch("the_institution")%>', transaction_filter:  $("option:selected", this).text() })
-            .done(function() {
-              alert( "Test" );
-            });
+              $.ajax({
+                beforeSend: function(xhr) {
+                  xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                },
+                url: "/plaid/get_commit/",
+                type: "POST",
+                data: {
+                  the_institution: '<%=params.fetch("the_institution")%>',
+                  transaction_filter:  $("option:selected", this).text() }
+              });
+          ////$.post( "/plaid/get_commit/", { the_institution: '<%=params.fetch("the_institution")%>', transaction_filter:  $("option:selected", this).text() });
+          ////$.post( "/plaid/get_commit/", { the_institution: '<%=params.fetch("the_institution")%>', transaction_filter:  $("option:selected", this).text() })
+          ////  .done(function( data ) {
+          ////    alert("test");
+              //$("#plaid_transactions_records").css("background-color", "yellow");
+              ////const oldTransactions = document.querySelector("#plaid_transactions_records");
+              ////const newTransactions = document.createElement('div');
+              ////newTransactions.setAttribute("id", "plaid_transactions_records");
+              //newTransactions.attr('id') = 'plaid_transactions_records';
+              ////newTransactions.innerHTML = data;
+              ////oldTransactions.parentNode.replaceChild(newTransactions, oldTransactions);
+            ////});
         }
         else{
         var a = $("option:selected", this).text();
