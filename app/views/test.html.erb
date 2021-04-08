@@ -1,1 +1,146 @@
 <h2 class="pageTitle display-4">Hello, world!</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Account Verification: Enter Verification Code - Mailgun</title>
+    <link rel="stylesheet" href="/static/react/main.e396d56f59a5bfc2730a.css" />
+    <link rel="icon" href="/static/react/favicon.png" />
+
+    <script src="/static/react/vendor/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/static/react/vendor/jquery.validate.1.16.0.min.js"></script>
+    
+</head>
+
+<body>
+    <div class="mg-login">
+        <header class="header">
+            <a href="https://app.mailgun.com/app/dashboard">
+                <img class="link-image" src="/static/react/551b328670654319fd5915ded6cbb62d.svg" width="141"
+                    height="40" />
+            </a>
+        </header>
+        <div class="container">
+            <div class="content">
+                
+
+    <h1 class="h3">Account Verification</h1>
+      
+    <p>
+        <b>Verification code sent!</b> Most carriers deliver the verification code within 10 seconds. If you do not receive
+        the code within five minutes, please <a href="/activate/cfee94d054e2f829e3c11b9956a1c0d3">try again</a> or contact
+        <a href="mailto:help@mailgun.com">help@mailgun.com</a> for assistance. Once you've received the verification code,
+        please enter it below and click validate.
+    </p>
+    <div class="billing-container">
+        <form id="auth_code_form" class="form" action="/activate/cfee94d054e2f829e3c11b9956a1c0d3/sms_verify" method="post">
+            <input type="hidden" name="csrf_token" value="ImU4OWE1MjFmMjA4Y2RhYjhiYjI1ZjMzNzFmOGRlODU3ZWEwYTllYjgi.E1AiOg.wBAoBCfCeLKOdm-gxDOA4jDOwU0"/>
+            <div class="form-row">
+                <div class="form-item">
+                    <div class="form-label" for="code">Verification Code</div>
+                    <div class="form-input">
+                        <input type="text" name="code" id="code" class="text required rs-input-large" value="" autocomplete="off" autofocus>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-item">
+                    <button type="submit" class="btn submit nomargin">Validate</button>
+                    <a href="/activate/cfee94d054e2f829e3c11b9956a1c0d3" class="link">Send New Code</a>
+                </div>
+            </p>
+        </form>
+    </div>
+
+
+            </div>
+        </div>
+        
+    </div>
+    
+    <script>
+
+        $(document).ready(function () {
+            authCodeValidator = $('#auth_code_form').validate({
+                errorClass: "mg-notification error",
+                errorElement: "div",
+                rules: {
+                    code: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 6
+                    }
+                },
+                messages: {
+                    code: {
+                        required: "Please enter a verification code.",
+                        minlength: "Invalid verification code: must be six digits in length.",
+                        maxlength: "Invalid verification code: must be six digits in length."
+                    }
+                }
+            });
+        });
+
+    </script>
+
+</body>
+<script>
+    window.csrf_token = 'ImU4OWE1MjFmMjA4Y2RhYjhiYjI1ZjMzNzFmOGRlODU3ZWEwYTllYjgi.E1AiOg.wBAoBCfCeLKOdm-gxDOA4jDOwU0';
+</script>
+
+</html>

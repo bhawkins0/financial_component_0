@@ -16,6 +16,7 @@ gem 'sassc-rails'
 gem 'faker'
 
 gem 'plaid'
+gem "twilio-ruby"
 
 group :development do
   gem 'listen', '~> 3.2'

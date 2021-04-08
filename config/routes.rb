@@ -111,6 +111,10 @@ Rails.application.routes.draw do
   # DELETE RECORD
   get("/cancel_user_account", { :controller => "user_authentication", :action => "destroy" })
 
+  #SETTINGS
+  get("/settings/profile", { :controller => "user_authentication", :action => "get_user_profile" })
+  get("/settings/add_mobile", { :controller => "user_authentication", :action => "add_mobile" })
+  post("/validate_mobile", { :controller => "user_authentication", :action => "validate_mobile" })
   # ------------------------------
 
   # SIGN IN FORM

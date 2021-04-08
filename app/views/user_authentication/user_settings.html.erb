@@ -1,0 +1,50 @@
+<div class="page_title_div">
+  <h2 class="pageTitle display-4">My Profile</h2>
+</div>
+
+<div class="container">
+  <div class="row g-2 g-lg-3">
+    <div class="col-2 border-bottom">
+      <div class="p-3">Name</div>
+    </div>
+    <div class="col-4 border-bottom">
+      <div class="p-3"><%=@current_user.first_name + " " + @current_user.last_name%></div>
+    </div>
+    <div class="col-5">
+    </div>
+
+    <div class="col-2 border-bottom">
+      <div class="p-3">Email</div>
+    </div>
+    <div class="col-4 border-bottom">
+      <div class="p-3"><%=@current_user.email%></div>
+    </div>
+    <div class="col-5">
+    </div>
+
+    <div class="col-2 border-bottom">
+      <div class="p-3">Password</div>
+    </div>
+    <div class="col-4 border-bottom">
+      <div class="p-3"><a href="change_password">Change</a></div>
+    </div>
+    <div class="col-5">
+    </div>
+
+    <div class="col-2 border-bottom">
+      <div class="p-3">Mobile</div>
+    </div>
+    <div class="col-4 border-bottom">
+      <div class="p-3">
+        <%if @current_user.mobile == nil%>
+          <a href="/settings/add_mobile">Add</a>
+        <%else%>
+          <%=@current_user.mobile%>
+        <%end%>
+      </div>
+    </div>
+    <div class="col-5">
+    </div>
+
+  </div>
+</div>

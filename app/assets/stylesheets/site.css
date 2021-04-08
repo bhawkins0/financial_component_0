@@ -108,7 +108,7 @@ body {
 }
 
 .page_title_div{
-  padding-top: 18px;
+  padding: 18px 0px;
 }
 
 .pageTitle{
@@ -223,8 +223,8 @@ a {
     float: right;
 }
 
-hr.sideNavHr {
-  border-top: 1px solid silver;
+hr.muted_hr {
+  border-top: 0.5px solid silver;
 }
 
 /* Sticky footer styles

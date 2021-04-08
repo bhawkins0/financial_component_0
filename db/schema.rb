@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_000836) do
+ActiveRecord::Schema.define(version: 2021_04_08_050356) do
 
   create_table "financial_component_accounts", force: :cascade do |t|
     t.string "fc_statement"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_000836) do
     t.string "last_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "mobile"
   end
 
 end

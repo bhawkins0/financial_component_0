@@ -102,4 +102,28 @@ class UserAuthenticationController < ApplicationController
     redirect_to("/", { :notice => "User account cancelled" })
   end
  
+  def get_user_profile
+    render({ :template => "user_authentication/user_settings.html.erb" })
+  end
+
+  def add_mobile
+    render({ :template => "user_authentication/add_mobile.html.erb" })
+  end
+
+  def validate_mobile
+    #twilio_sid = ENV.fetch("TWILIO_ACCOUNT_SID")
+    #twilio_token = ENV.fetch("TWILIO_AUTH_TOKEN")
+    #twilio_sending_number = ENV.fetch("TWILIO_SENDING_PHONE_NUMBER")
+    #twilio_client = Twilio::REST::Client.new(twilio_sid, twilio_token)
+    
+    #sms_parameters = {
+    #  :from => twilio_sending_number,
+    #  :to => params.fetch("recipient") # Put your own phone number here if you want to see it in action
+    #  :body => "Your verification Code is"
+    #}
+
+    #twilio_client.api.account.messages.create(sms_parameters)
+
+  end
+
 end
