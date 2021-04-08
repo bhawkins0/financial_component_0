@@ -1,0 +1,1 @@
+$("#plaid_transactions").html("<%= escape_javascript(render partial: "plaid_link/plaid_institution_transactions.html.erb", locals: {matching_transactions: @matching_transactions, matching_accounts: @matching_accounts}) %>");

@@ -36,18 +36,7 @@
 <hr>
 
 <div id="plaid_transactions" class="container-fluid overflow-hidden">
-  <div class="row">
-      <div class="col-2 deskContent"><h6>Account</h6></div>
-      <div class="col-2"><h6>Name</h6></div>
-      <div class="col-1"><h6>Amount</h6></div>
-      <div class="col-2"><h6>Merchant Name</h6></div>
-      <div class="col deskContent"><h6>Authorized Date</h6></div>
-      <div class="col"><h6>Debit</h6></div>
-      <div class="col"><h6>Credit</h6></div>
-  </div>
-
   <%= render partial: "plaid_link/plaid_institution_transactions.html.erb", locals: {matching_transactions: @matching_transactions, matching_accounts: @matching_accounts} %>
-
 </div>
 
 <div class="modal fade" id="fcModal_1" tabindex="-1" aria-labelledby="fcModal_1_Label" aria-hidden="true">
@@ -78,7 +67,6 @@
         return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     };
 
-    function update_transactions(data){alert("test")};
     $(document).ready(function(){      
       $("select").change(function(){          
         if($(this).attr('id') == 'commit_selector'){

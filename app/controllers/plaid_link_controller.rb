@@ -298,8 +298,7 @@ class PlaidLinkController < ApplicationController
         format.js
     end
 
-    render json: { data: render_to_string('plaid_link/_plaid_institution_transactions', layout: false, locals: {matching_transactions: @matching_transactions, matching_accounts: @matching_accounts})}
+    #render json: render_to_string('plaid_link/_plaid_institution_transactions', layout: false, locals: {matching_transactions: @matching_transactions, matching_accounts: @matching_accounts})
     
-    #render "plaid_link/plaid_institution.html.erb"
   end
 end
