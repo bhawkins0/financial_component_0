@@ -111,19 +111,58 @@ class UserAuthenticationController < ApplicationController
   end
 
   def validate_mobile
-    #twilio_sid = ENV.fetch("TWILIO_ACCOUNT_SID")
-    #twilio_token = ENV.fetch("TWILIO_AUTH_TOKEN")
-    #twilio_sending_number = ENV.fetch("TWILIO_SENDING_PHONE_NUMBER")
-    #twilio_client = Twilio::REST::Client.new(twilio_sid, twilio_token)
-    
-    #sms_parameters = {
-    #  :from => twilio_sending_number,
-    #  :to => params.fetch("recipient") # Put your own phone number here if you want to see it in action
-    #  :body => "Your verification Code is"
-    #}
+    recipient = params.fetch("recipient")
+    # Your Account Sid and Auth Token from twilio.com/console
+    # and set the environment variables. See http://twil.io/secure
+    account_sid = ENV['TWILIO_ACCOUNT_SID']
+    auth_token = ENV['TWILIO_AUTH_TOKEN']
+    @client = Twilio::REST::Client.new(account_sid, auth_token)
 
-    #twilio_client.api.account.messages.create(sms_parameters)
+    service = @client.verify.services.create(
+                                        friendly_name: 'FinComp Verification'
+                                      )
 
+    # Download the helper library from https://www.twilio.com/docs/ruby/install
+
+    verification = @client.verify
+                          .services(service.sid)
+                          .verifications
+                          .create(to: recipient.gsub('-',''), channel: 'sms')
+
+    session.store(:twilio_sid, verification.sid)
+    session.store(:twilio_service_sid, verification.service_sid)
+    ##session.store(:twilio_sid, 'test')
+    ##session.store(:twilio_service_sid, 'test2')
+
+    @verification_stage = 1
+
+    respond_to do |format|
+        format.js
+    end
   end
 
+  def validate_mobile_code
+    account_sid = ENV['TWILIO_ACCOUNT_SID']
+    auth_token = ENV['TWILIO_AUTH_TOKEN']
+    @client = Twilio::REST::Client.new(account_sid, auth_token)
+
+    verification_check = @client.verify
+      .services(session.fetch('twilio_service_sid'))
+      .verification_checks
+      .create(verification_sid: session.fetch('twilio_sid'), code: params.fetch("code"))
+
+    if verification_check.status == 'approved'
+      @twilio_status = 'approved'
+      phone_number = verification_check.to
+      p phone_number
+      @current_user.mobile = phone_number
+      if @current_user.valid?
+        @current_user.save
+      end
+    end
+    
+    respond_to do |format|
+        format.js
+    end
+  end
 end

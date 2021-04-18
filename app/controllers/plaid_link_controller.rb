@@ -13,11 +13,11 @@ class PlaidLinkController < ApplicationController
       secret: ENV['PLAID_SECRET'])
     response = client.link_token.create(
       user: {
-        client_user_id: @current_user.to_s,
-        legal_name: "John Doe",
-        phone_number: "+1 415 555 0123",
+        client_user_id: @current_user.id.to_s,
+        legal_name: @current_user.first_name + " " + @current_user.last_name,
+        phone_number: @current_user.mobile,
         phone_number_verified_time: "2020-01-01T00:00:00Z",
-        email_address: "example@plaid.com"
+        email_address: @current_user.email
       },
       client_name: 'Plaid Test App',
       products: %w[auth transactions],
