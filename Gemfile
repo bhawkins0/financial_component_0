@@ -17,6 +17,7 @@ gem 'faker'
 
 gem 'plaid'
 gem "twilio-ruby"
+gem 'sendgrid-ruby'
 
 group :development do
   gem 'listen', '~> 3.2'

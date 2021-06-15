@@ -21,6 +21,7 @@ require "plaid"
 require "base64"
 require "csv"
 require "sqlite3"
+require "sendgrid-ruby"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

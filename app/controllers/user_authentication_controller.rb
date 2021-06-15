@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
-  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :process_login_form, :about, :contact] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :process_login_form, :reset_password, :about, :contact] })
 
   def process_login_form
     a = params.fetch("commit")
@@ -119,7 +119,7 @@ class UserAuthenticationController < ApplicationController
     @client = Twilio::REST::Client.new(account_sid, auth_token)
 
     service = @client.verify.services.create(
-                                        friendly_name: 'FinComp Verification'
+                                        friendly_name: 'Financial Component'
                                       )
 
     # Download the helper library from https://www.twilio.com/docs/ruby/install
@@ -131,8 +131,6 @@ class UserAuthenticationController < ApplicationController
 
     session.store(:twilio_sid, verification.sid)
     session.store(:twilio_service_sid, verification.service_sid)
-    ##session.store(:twilio_sid, 'test')
-    ##session.store(:twilio_service_sid, 'test2')
 
     @verification_stage = 1
 
@@ -164,5 +162,25 @@ class UserAuthenticationController < ApplicationController
     respond_to do |format|
         format.js
     end
+  end
+
+  include SendGrid
+  def reset_password
+    # using SendGrid's Ruby Library
+    # https://github.com/sendgrid/sendgrid-ruby
+
+    from = Email.new(email: 'bhawkins2012@gmail.com')
+    to = Email.new(email: 'bhawkins2012@gmail.com')
+    subject = 'Sending with SendGrid is Fun'
+    content = Content.new(type: 'text/plain', value: 'and easy to do anywhere, even with Ruby')
+    mail = Mail.new(from, subject, to, content)
+
+    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    response = sg.client.mail._('send').post(request_body: mail.to_json)
+    puts response.status_code
+    puts response.body
+    puts response.headers
+
+    redirect_to("/")
   end
 end

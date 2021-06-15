@@ -97,7 +97,7 @@ Rails.application.routes.draw do
   # Routes for the User account:
   # LOGIN FORM
   post("/process_login_form", {:controller => "user_authentication", :action => "process_login_form"})
-
+  get("/forgot_password", { :controller => "user_authentication", :action => "reset_password" })        
   # SIGN UP FORM
   get("/sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        
   # CREATE RECORD

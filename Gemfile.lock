@@ -300,6 +300,7 @@ GEM
       rspec-support (~> 3.9)
     rspec-support (3.9.3)
     ruby2_keywords (0.0.2)
+    ruby_http_client (3.5.2)
     safe_yaml (1.0.5)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -309,6 +310,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    sendgrid-ruby (6.4.0)
+      ruby_http_client (~> 3.4)
     simple_form (5.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -395,6 +398,7 @@ DEPENDENCIES
   rspec-html-matchers
   rspec-rails
   sassc-rails
+  sendgrid-ruby
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets (< 4)
