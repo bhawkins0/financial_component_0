@@ -1,4 +1,42 @@
 Rails.application.routes.draw do
+  # Routes for the Financial component transaction split template resource:
+
+  # CREATE
+  post("/insert_financial_component_transaction_split_template", { :controller => "financial_component_transaction_split_templates", :action => "create" })
+          
+  # READ
+  get("/financial_component_transaction_split_templates", { :controller => "financial_component_transaction_split_templates", :action => "index" })
+  
+  get("/financial_component_transaction_split_templates/:path_id", { :controller => "financial_component_transaction_split_templates", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_financial_component_transaction_split_template/:path_id", { :controller => "financial_component_transaction_split_templates", :action => "update" })
+  
+  # DELETE
+  get("/delete_financial_component_transaction_split_template/:path_id", { :controller => "financial_component_transaction_split_templates", :action => "destroy" })
+
+  #------------------------------
+
+  # Routes for the Financial component transaction split resource:
+
+  # CREATE
+  post("/insert_financial_component_transaction_split", { :controller => "financial_component_transaction_splits", :action => "create" })
+          
+  # READ
+  get("/financial_component_transaction_splits", { :controller => "financial_component_transaction_splits", :action => "index" })
+  
+  get("/financial_component_transaction_splits/:path_id", { :controller => "financial_component_transaction_splits", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_financial_component_transaction_split/:path_id", { :controller => "financial_component_transaction_splits", :action => "update" })
+  
+  # DELETE
+  get("/delete_financial_component_transaction_split/:path_id", { :controller => "financial_component_transaction_splits", :action => "destroy" })
+
+  #------------------------------
+
   # Routes for the Financial component account resource:
 
   # CREATE

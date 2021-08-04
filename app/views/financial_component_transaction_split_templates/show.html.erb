@@ -1,0 +1,116 @@
+<div>
+  <div>
+    <h1>
+      Financial component transaction split template #<%= @the_financial_component_transaction_split_template.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/financial_component_transaction_split_templates">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_financial_component_transaction_split_template/<%= @the_financial_component_transaction_split_template.id %>">
+          Delete financial component transaction split template
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Fc transaction split template name
+      </dt>
+      <dd>
+        <%= @the_financial_component_transaction_split_template.fc_transaction_split_template_name %>
+      </dd>
+
+      <dt>
+        Fc transaction split percent
+      </dt>
+      <dd>
+        <%= @the_financial_component_transaction_split_template.fc_transaction_split_percent %>
+      </dd>
+
+      <dt>
+        Fc account number
+      </dt>
+      <dd>
+        <%= @the_financial_component_transaction_split_template.fc_account_number %>
+      </dd>
+
+      <dt>
+        Fc transaction split type
+      </dt>
+      <dd>
+        <%= @the_financial_component_transaction_split_template.fc_transaction_split_type %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_financial_component_transaction_split_template.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_financial_component_transaction_split_template.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit financial component transaction split template
+    </h2>
+
+    <form action="/modify_financial_component_transaction_split_template/<%= @the_financial_component_transaction_split_template.id %>"  method="post" >
+      <div>
+        <label for="fc_transaction_split_template_name_box">
+          Fc transaction split template name
+        </label>
+
+        <input type="text" id="fc_transaction_split_template_name_box" name="query_fc_transaction_split_template_name" value="<%= @the_financial_component_transaction_split_template.fc_transaction_split_template_name %>">
+      </div>
+
+      <div>
+        <label for="fc_transaction_split_percent_box">
+          Fc transaction split percent
+        </label>
+
+        <input type="text" id="fc_transaction_split_percent_box" name="query_fc_transaction_split_percent" value="<%= @the_financial_component_transaction_split_template.fc_transaction_split_percent %>">
+      </div>
+
+      <div>
+        <label for="fc_account_number_box">
+          Fc account number
+        </label>
+
+        <input type="text" id="fc_account_number_box" name="query_fc_account_number" value="<%= @the_financial_component_transaction_split_template.fc_account_number %>">
+      </div>
+
+      <div>
+        <input type="checkbox" id="fc_transaction_split_type_box" name="query_fc_transaction_split_type" value="1" <%= "checked" if @the_financial_component_transaction_split_template.fc_transaction_split_type %>>
+
+        <label for="fc_transaction_split_type_box">
+            Fc transaction split type
+        </label>
+      </div>
+
+      <button>
+        Update financial component transaction split template
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

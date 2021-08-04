@@ -1,0 +1,132 @@
+<div>
+  <div>
+    <h1>
+      List of all financial component transaction split templates
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new financial component transaction split template
+    </h2>
+
+    <form action="/insert_financial_component_transaction_split_template" method="post">
+      <div>
+        <label for="fc_transaction_split_template_name_box">
+          Fc transaction split template name
+        </label>
+
+        <input type="text" id="fc_transaction_split_template_name_box" name="query_fc_transaction_split_template_name">
+      </div>
+
+      <div>
+        <label for="fc_transaction_split_percent_box">
+          Fc transaction split percent
+        </label>
+
+        <input type="text" id="fc_transaction_split_percent_box" name="query_fc_transaction_split_percent">
+      </div>
+
+      <div>
+        <label for="fc_account_number_box">
+          Fc account number
+        </label>
+
+        <input type="text" id="fc_account_number_box" name="query_fc_account_number">
+      </div>
+
+      <div>
+        <input type="checkbox" id="fc_transaction_split_type_box" name="query_fc_transaction_split_type" value="1">
+
+        <label for="fc_transaction_split_type_box">Fc transaction split type</label>
+      </div>
+
+      <button>
+        Create financial component transaction split template
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Fc transaction split template name
+        </th>
+
+        <th>
+          Fc transaction split percent
+        </th>
+
+        <th>
+          Fc account number
+        </th>
+
+        <th>
+          Fc transaction split type
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_financial_component_transaction_split_templates.each do |a_financial_component_transaction_split_template| %>
+      <tr>
+        <td>
+          <%= a_financial_component_transaction_split_template.id %>
+        </td>
+
+        <td>
+          <%= a_financial_component_transaction_split_template.fc_transaction_split_template_name %>
+        </td>
+
+        <td>
+          <%= a_financial_component_transaction_split_template.fc_transaction_split_percent %>
+        </td>
+
+        <td>
+          <%= a_financial_component_transaction_split_template.fc_account_number %>
+        </td>
+
+        <td>
+          <%= a_financial_component_transaction_split_template.fc_transaction_split_type %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_financial_component_transaction_split_template.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_financial_component_transaction_split_template.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/financial_component_transaction_split_templates/<%= a_financial_component_transaction_split_template.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

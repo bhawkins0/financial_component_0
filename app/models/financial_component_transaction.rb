@@ -9,7 +9,6 @@
 #  fc_transaction_type  :boolean
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  fc_split_id          :integer
 #  fc_transaction_id    :integer
 #  plaid_transaction_id :string
 #

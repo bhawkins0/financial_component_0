@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_08_050356) do
+ActiveRecord::Schema.define(version: 2021_08_03_041223) do
 
   create_table "financial_component_accounts", force: :cascade do |t|
     t.string "fc_statement"
@@ -35,9 +35,27 @@ ActiveRecord::Schema.define(version: 2021_04_08_050356) do
     t.integer "fc_credit"
   end
 
+  create_table "financial_component_transaction_split_templates", force: :cascade do |t|
+    t.string "fc_transaction_split_template_name"
+    t.float "fc_transaction_split_percent"
+    t.integer "fc_account_number"
+    t.boolean "fc_transaction_split_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "financial_component_transaction_splits", force: :cascade do |t|
+    t.integer "plaid_transaction_id"
+    t.integer "fc_account_number"
+    t.integer "fc_transaction_split_template_id"
+    t.float "fc_amount"
+    t.boolean "fc_transaction_split_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "financial_component_transactions", force: :cascade do |t|
     t.string "plaid_transaction_id"
-    t.integer "fc_split_id"
     t.float "fc_amount"
     t.integer "fc_account_number"
     t.boolean "fc_transaction_type"
