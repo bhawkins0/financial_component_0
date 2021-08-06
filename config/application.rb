@@ -20,7 +20,9 @@ require "sprockets/railtie"
 require "plaid"
 require "base64"
 require "csv"
-require "sqlite3"
+if Rails.env.development?
+  require "sqlite3"
+end
 require "sendgrid-ruby"
 
 # Require the gems listed in Gemfile, including any gems
