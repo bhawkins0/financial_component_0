@@ -9,7 +9,7 @@
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  fc_transaction_split_template_id :integer
-#  plaid_transaction_id             :integer
+#  plaid_transaction_id             :string
 #
 class FinancialComponentTransactionSplit < ApplicationRecord
     validates(:plaid_transaction_id, { :presence => true })
