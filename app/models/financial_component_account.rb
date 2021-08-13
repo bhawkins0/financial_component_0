@@ -10,7 +10,7 @@
 #  fc_account_type            :boolean
 #  fc_statement               :string
 #  created_at                 :datetime         not null
-#  updated_at                 :datetime         not null
+#  updated_at                 :datetime         default(NULL), not null
 #
 class FinancialComponentAccount < ApplicationRecord
 end

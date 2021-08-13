@@ -10,7 +10,7 @@
 #  plaid_name          :string
 #  transaction_count   :integer
 #  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  updated_at          :datetime         default(NULL), not null
 #  fc_split_id         :integer
 #
 class FinancialComponentKeyword < ApplicationRecord
