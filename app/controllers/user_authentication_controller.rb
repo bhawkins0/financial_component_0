@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
-  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :process_login_form, :reset_password,:validate_password_reset, :about, :contact] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :process_login_form, :reset_password,:validate_password_reset, :validate_email, :about, :contact] })
 
   def process_login_form
     a = params.fetch("commit")
@@ -165,7 +165,18 @@ class UserAuthenticationController < ApplicationController
   end
 
   def validate_email
-    
+    email_exists = user = User.where({ :email => params.fetch("email") }).first
+
+    if email_exists == nil
+      @email_exists = 1
+    else 
+      @email_exists = 2
+      session[:email] = params.fetch("email")
+    end
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   include SendGrid

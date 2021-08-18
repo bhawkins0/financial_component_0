@@ -135,6 +135,7 @@ Rails.application.routes.draw do
   # Routes for the User account:
   # LOGIN FORM
   post("/process_login_form", {:controller => "user_authentication", :action => "process_login_form"})
+  post("/validate_email", { :controller => "user_authentication", :action => "validate_email" })
   get("/forgot_password", { :controller => "user_authentication", :action => "reset_password" })
   post("/validate_password_reset", { :controller => "user_authentication", :action => "validate_password_reset" })
   

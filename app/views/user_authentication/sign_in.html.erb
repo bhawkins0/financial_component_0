@@ -34,7 +34,7 @@
               beforeSend: function(xhr) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
               },
-              url: "/forgot_password",
+              url: "/validate_email",
               type: "POST",
               data: {
                 email: email
@@ -51,8 +51,7 @@
       validate_email(email);
     } else {
       $result.text("Please enter a valid email address.");
-    }
-    
+    };
     return false; 
   });
 </script>
