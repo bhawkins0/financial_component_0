@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
-  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :process_login_form, :reset_password, :about, :contact] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :process_login_form, :reset_password,:validate_password_reset, :about, :contact] })
 
   def process_login_form
     a = params.fetch("commit")
@@ -164,23 +164,56 @@ class UserAuthenticationController < ApplicationController
     end
   end
 
+  def validate_email
+
+  end
+
   include SendGrid
   def reset_password
     # using SendGrid's Ruby Library
     # https://github.com/sendgrid/sendgrid-ruby
 
-    from = Email.new(email: 'bhawkins2012@gmail.com')
-    to = Email.new(email: 'bhawkins2012@gmail.com')
-    subject = 'Sending with SendGrid is Fun'
-    content = Content.new(type: 'text/plain', value: 'and easy to do anywhere, even with Ruby')
-    mail = Mail.new(from, subject, to, content)
+    session[:vCode] = rand(1000..9999)
+    
+    #p session[:vCode]
+    #from = Email.new(email: 'bhawkins2012@gmail.com')
+    #to = Email.new(email: 'bhawkins2012@gmail.com')
+    #subject = 'Financial Component Password Reset'
+    #content = Content.new(type: 'text/plain', value: 'Please see below for a validation code to reset your password to Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + @vCode.to_s)
+    #mail = Mail.new(from, subject, to, content)
 
-    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-    response = sg.client.mail._('send').post(request_body: mail.to_json)
-    puts response.status_code
-    puts response.body
-    puts response.headers
+    #sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    #response = sg.client.mail._('send').post(request_body: mail.to_json)
+    #puts response.status_code
+    #puts response.body
+    #puts response.headers
+    
+    render({ :template => "user_authentication/reset_password.html.erb" })
 
-    redirect_to("/")
   end
+
+  def validate_password_reset
+    @verification_stage = 1
+
+    if params.fetch("code") == session[:vCode]
+      session.delete(:vCode)
+
+      @password_reset_status = 1
+
+      @user = @current_user
+      @user.password = params.fetch("query_password")
+      @user.password_confirmation = params.fetch("query_password_confirmation")
+    
+      if @user.valid?
+        @user.save
+
+        redirect_to("/", { :notice => "User account updated successfully."})
+      else
+        respond_to do |format|
+          format.js
+        end
+      end
+    end
+  end
+
 end

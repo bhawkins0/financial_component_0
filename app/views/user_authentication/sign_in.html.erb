@@ -2,12 +2,13 @@
 
 <%= form_for :userauthentication, url: "/process_login_form", method: "post" do |f| %>
 
-  <%= f.text_field :query_email, class: "form_textbox form-control", value:"Email", onblur: "if(this.value == '') { this.value = 'Email'}", onfocus: "if(this.value == 'Email') {this.value = ''};"%>
+  <%= f.text_field :query_email, class: "form_textbox form-control", id: "login_email", value:"Email", onblur: "if(this.value == '') { this.value = 'Email'}", onfocus: "if(this.value == 'Email') {this.value = ''};"%>
 
   <%= f.password_field :query_password, class: "form_textbox form-control", value:"Password", onblur: "if(this.value == '') { this.value = 'Password'; }", onfocus: "if(this.value == 'Password') { this.value = ''};"%>
 
     <div class="form_prompts">
-        <a href="/forgot_password">Forgot your password?</a>
+        #<a href="/forgot_password">Forgot your password?</a>
+        <a id=forgot_password_link href="/forgot_password">Forgot your password?</a>
         &bull;
         <a href="/resend_email">Resend email confirmation</a>
     </div>
@@ -18,4 +19,29 @@
 
 <div class="div_spacing text-success"><%=notice%></div>
 
-<div class="div_spacing text-danger"><%=alert%></div>
+<div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
+
+<script>
+  function validateEmail(email) 
+  {
+      var re = /\S+@\S+\.\S+/;
+      return re.test(email);
+  }
+
+  $('#forgot_password_link').click(function(){ ;
+    const $result = $("#login_alert");
+    const email = $("#login_email").val();
+    $result.text("");
+
+    if (validateEmail(email)) {
+      $result.text(email + " is valid :)");
+      $result.css("color", "green");
+    } else {
+      $result.text("Please enter a valid email address.");
+    }
+    
+    return false; 
+  });
+
+
+</script>
