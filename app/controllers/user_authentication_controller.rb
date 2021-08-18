@@ -165,7 +165,7 @@ class UserAuthenticationController < ApplicationController
   end
 
   def validate_email
-
+    
   end
 
   include SendGrid

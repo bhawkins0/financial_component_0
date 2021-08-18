@@ -7,8 +7,7 @@
   <%= f.password_field :query_password, class: "form_textbox form-control", value:"Password", onblur: "if(this.value == '') { this.value = 'Password'; }", onfocus: "if(this.value == 'Password') { this.value = ''};"%>
 
     <div class="form_prompts">
-        #<a href="/forgot_password">Forgot your password?</a>
-        <a id=forgot_password_link href="/forgot_password">Forgot your password?</a>
+        <a id=forgot_password_link href="#">Forgot your password?</a>
         &bull;
         <a href="/resend_email">Resend email confirmation</a>
     </div>
@@ -19,7 +18,9 @@
 
 <div class="div_spacing text-success"><%=notice%></div>
 
-<div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
+<div id="email_verification">
+  <%= render partial: "user_authentication/email_verification.html.erb", locals: {email_exists: @email_exists} %>
+</div>
 
 <script>
   function validateEmail(email) 
@@ -28,20 +29,30 @@
       return re.test(email);
   }
 
+  function validate_email(email){
+    $.ajax({
+              beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+              },
+              url: "/forgot_password",
+              type: "POST",
+              data: {
+                email: email
+              }
+            });
+  };
+
   $('#forgot_password_link').click(function(){ ;
     const $result = $("#login_alert");
     const email = $("#login_email").val();
     $result.text("");
 
     if (validateEmail(email)) {
-      $result.text(email + " is valid :)");
-      $result.css("color", "green");
+      validate_email(email);
     } else {
       $result.text("Please enter a valid email address.");
     }
     
     return false; 
   });
-
-
 </script>
