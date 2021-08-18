@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
-  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :process_login_form, :reset_password,:validate_password_reset, :validate_email, :about, :contact] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :process_login_form, :reset_password,:validate_password_reset, :validate_email, :update_password, :about, :contact] })
 
   def process_login_form
     a = params.fetch("commit")
@@ -165,7 +165,7 @@ class UserAuthenticationController < ApplicationController
   end
 
   def validate_email
-    email_exists = user = User.where({ :email => params.fetch("email") }).first
+    email_exists = User.where({ :email => params.fetch("email") }).first
 
     if email_exists == nil
       @email_exists = 1
@@ -187,14 +187,14 @@ class UserAuthenticationController < ApplicationController
     session[:vCode] = rand(1000..9999)
     
     #p session[:vCode]
-    #from = Email.new(email: 'bhawkins2012@gmail.com')
-    #to = Email.new(email: 'bhawkins2012@gmail.com')
-    #subject = 'Financial Component Password Reset'
-    #content = Content.new(type: 'text/plain', value: 'Please see below for a validation code to reset your password to Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + @vCode.to_s)
-    #mail = Mail.new(from, subject, to, content)
+    from = Email.new(email: 'bhawkins2012@gmail.com')
+    to = Email.new(email: session[:email])
+    subject = 'Financial Component Password Reset'
+    content = Content.new(type: 'text/plain', value: 'Please see below for a validation code to reset your password to Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + @vCode.to_s)
+    mail = Mail.new(from, subject, to, content)
 
-    #sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-    #response = sg.client.mail._('send').post(request_body: mail.to_json)
+    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    response = sg.client.mail._('send').post(request_body: mail.to_json)
     #puts response.status_code
     #puts response.body
     #puts response.headers
@@ -206,25 +206,29 @@ class UserAuthenticationController < ApplicationController
   def validate_password_reset
     @verification_stage = 1
 
-    if params.fetch("code") == session[:vCode]
+    if params.fetch("code") == session[:vCode].to_s
       session.delete(:vCode)
 
       @password_reset_status = 1
-
-      @user = @current_user
-      @user.password = params.fetch("query_password")
-      @user.password_confirmation = params.fetch("query_password_confirmation")
-    
-      if @user.valid?
-        @user.save
-
-        redirect_to("/", { :notice => "User account updated successfully."})
-      else
+      
+    else
         respond_to do |format|
           format.js
         end
-      end
     end
   end
 
+  def update_password
+    @user = User.where({ :email => session[:email] }).first
+    @user.password = params.fetch("query_password")
+    @user.password_confirmation = params.fetch("query_password_confirmation")
+  
+    if @user.valid?
+      @user.save
+
+      reset_session
+      
+      redirect_to("/", { :notice => "User account updated successfully."})
+    end
+  end
 end

@@ -138,6 +138,7 @@ Rails.application.routes.draw do
   post("/validate_email", { :controller => "user_authentication", :action => "validate_email" })
   get("/forgot_password", { :controller => "user_authentication", :action => "reset_password" })
   post("/validate_password_reset", { :controller => "user_authentication", :action => "validate_password_reset" })
+  post("/update_password", { :controller => "user_authentication", :action => "update_password" })
   
   # SIGN UP FORM
   get("/sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        
