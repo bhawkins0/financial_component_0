@@ -190,7 +190,7 @@ class UserAuthenticationController < ApplicationController
     from = Email.new(email: 'bhawkins2012@gmail.com')
     to = Email.new(email: session[:email])
     subject = 'Financial Component Password Reset'
-    content = Content.new(type: 'text/plain', value: 'Please see below for a validation code to reset your password to Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + @vCode.to_s)
+    content = Content.new(type: 'text/plain', value: 'Please see below for a validation code to reset your password to Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + session[:vCode].to_s)
     mail = Mail.new(from, subject, to, content)
 
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
