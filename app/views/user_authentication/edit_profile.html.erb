@@ -6,34 +6,63 @@
   <form action="/modify_user" method="post">
     <div class="row mb-3">
       <label for="first_name_box" class="col-sm-2 col-form-label border-bottom p-3">First Name</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control-plaintext border-bottom p-3" id="first_name_box" name="query_first_name" value="<%= @current_user.first_name %>">
+      <div class="col-sm-4 border-bottom p-3">
+        <input type="text" class="form-control-plaintext bg-light" id="first_name_box" name="query_first_name" placeholder="<%= @current_user.first_name %>">
       </div>
+      <div class="col-sm-6"></div>
         
       <label for="last_name_box" class="col-sm-2 col-form-label border-bottom p-3">Last Name</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control-plaintext border-bottom p-3" id="last_name_box" name="query_last_name" value="<%= @current_user.last_name %>">
+      <div class="col-sm-4 border-bottom p-3">
+        <input type="text" class="form-control-plaintext bg-light" id="last_name_box" name="query_last_name" placeholder="<%= @current_user.last_name %>">
       </div>
+      <div class="col-sm-6"></div>
 
       <label for="email_box" class="col-sm-2 col-form-label border-bottom p-3">Email</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control-plaintext border-bottom p-3" id="email_box" name="query_email" value="<%= @current_user.email %>">
+      <div class="col-sm-4 border-bottom p-3">
+        <input type="text" class="form-control-plaintext bg-light" id="email_box" name="query_email" placeholder="<%= @current_user.email %>">
       </div>
+      <div class="col-sm-6"></div>
 
       <label for="password_box" class="col-sm-2 col-form-label border-bottom p-3">Password</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control-plaintext border-bottom p-3" id="password_box" name="query_password" placeholder="Choose a password..." type="password">
+      <div class="col-sm-10 border-bottom p-3">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control-plaintext bg-light" id="password_box" name="query_password" placeholder="Choose a password..." type="password" aria-label="Password" aria-describedby="basic-addon2">
+          <span class="input-group-text" id="basic-addon2" onclick="password_show_hide();">
+            <i class="fas fa-eye" id="show_eye"></i>
+            <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+          </span>
+        </div>
       </div>
+      <!--<div class="col-sm-6"></div>-->
 
       <label for="mobile_box" class="col-sm-2 col-form-label border-bottom p-3">Mobile</label>
-      <div class="col-sm-10">
+      <div class="col-sm-4 border-bottom p-3">
         <%if @current_user.mobile == nil%>
           <a href="/settings/add_mobile">Add</a>
         <%else%>
-          <input type="text" class="form-control-plaintext border-bottom p-3" id="mobile_box" name="query_mobile" value="<%= @current_user.mobile %>">
+          <input type="text" class="form-control-plaintext bg-light" id="mobile_box" name="query_mobile" placeholder="<%= @current_user.mobile %>">
         <%end%>
       </div>
+      <div class="col-sm-6"></div>
     </div>
   </form>
 </div>
+
+<script>
+  function password_show_hide() {
+    var x = document.getElementById("password_box");
+    var show_eye = document.getElementById("show_eye");
+    var hide_eye = document.getElementById("hide_eye");
+    hide_eye.classList.remove("d-none");
+    if (x.type === "password") {
+      x.type = "text";
+      show_eye.style.display = "none";
+      hide_eye.style.display = "block";
+    } else {
+      x.type = "password";
+      show_eye.style.display = "block";
+      hide_eye.style.display = "none";
+    }
+  }
+</script>
     
