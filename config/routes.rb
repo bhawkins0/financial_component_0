@@ -2,133 +2,133 @@ Rails.application.routes.draw do
   # Routes for the Financial component transaction split template resource:
 
   # CREATE
-  post("/insert_financial_component_transaction_split_template", { :controller => "financial_component_transaction_split_templates", :action => "create" })
+  ##post("/insert_financial_component_transaction_split_template", { :controller => "financial_component_transaction_split_templates", :action => "create" })
           
   # READ
-  get("/financial_component_transaction_split_templates", { :controller => "financial_component_transaction_split_templates", :action => "index" })
+  ##get("/financial_component_transaction_split_templates", { :controller => "financial_component_transaction_split_templates", :action => "index" })
   
-  get("/financial_component_transaction_split_templates/:path_id", { :controller => "financial_component_transaction_split_templates", :action => "show" })
+  ##get("/financial_component_transaction_split_templates/:path_id", { :controller => "financial_component_transaction_split_templates", :action => "show" })
   
   # UPDATE
   
-  post("/modify_financial_component_transaction_split_template/:path_id", { :controller => "financial_component_transaction_split_templates", :action => "update" })
+  ##post("/modify_financial_component_transaction_split_template/:path_id", { :controller => "financial_component_transaction_split_templates", :action => "update" })
   
   # DELETE
-  get("/delete_financial_component_transaction_split_template/:path_id", { :controller => "financial_component_transaction_split_templates", :action => "destroy" })
+  ##get("/delete_financial_component_transaction_split_template/:path_id", { :controller => "financial_component_transaction_split_templates", :action => "destroy" })
 
   #------------------------------
 
   # Routes for the Financial component transaction split resource:
 
   # CREATE
-  post("/insert_financial_component_transaction_split", { :controller => "financial_component_transaction_splits", :action => "create" })
+  ##post("/insert_financial_component_transaction_split", { :controller => "financial_component_transaction_splits", :action => "create" })
           
   # READ
-  get("/financial_component_transaction_splits", { :controller => "financial_component_transaction_splits", :action => "index" })
+  ##get("/financial_component_transaction_splits", { :controller => "financial_component_transaction_splits", :action => "index" })
   
-  get("/financial_component_transaction_splits/:path_id", { :controller => "financial_component_transaction_splits", :action => "show" })
+  ##get("/financial_component_transaction_splits/:path_id", { :controller => "financial_component_transaction_splits", :action => "show" })
   
   # UPDATE
   
-  post("/modify_financial_component_transaction_split/:path_id", { :controller => "financial_component_transaction_splits", :action => "update" })
+  ##post("/modify_financial_component_transaction_split/:path_id", { :controller => "financial_component_transaction_splits", :action => "update" })
   
   # DELETE
-  get("/delete_financial_component_transaction_split/:path_id", { :controller => "financial_component_transaction_splits", :action => "destroy" })
+  ##get("/delete_financial_component_transaction_split/:path_id", { :controller => "financial_component_transaction_splits", :action => "destroy" })
 
   #------------------------------
 
   # Routes for the Financial component account resource:
 
   # CREATE
-  post("/insert_financial_component_account", { :controller => "financial_component_accounts", :action => "create" })
+  ##post("/insert_financial_component_account", { :controller => "financial_component_accounts", :action => "create" })
           
   # READ
-  get("/financial_component_accounts", { :controller => "financial_component_accounts", :action => "index" })
+  ##get("/financial_component_accounts", { :controller => "financial_component_accounts", :action => "index" })
   
-  get("/financial_component_accounts/:path_id", { :controller => "financial_component_accounts", :action => "show" })
+  ##get("/financial_component_accounts/:path_id", { :controller => "financial_component_accounts", :action => "show" })
   
   # UPDATE
   
-  post("/modify_financial_component_account/:path_id", { :controller => "financial_component_accounts", :action => "update" })
+  ##post("/modify_financial_component_account/:path_id", { :controller => "financial_component_accounts", :action => "update" })
   
   # DELETE
-  get("/delete_financial_component_account/:path_id", { :controller => "financial_component_accounts", :action => "destroy" })
+  ##get("/delete_financial_component_account/:path_id", { :controller => "financial_component_accounts", :action => "destroy" })
 
   #------------------------------
 
   # Routes for the Financial component keyword resource:
 
   # CREATE
-  post("/insert_financial_component_keyword", { :controller => "financial_component_keywords", :action => "create" })
+  ##post("/insert_financial_component_keyword", { :controller => "financial_component_keywords", :action => "create" })
           
   # READ
-  get("/financial_component_keywords", { :controller => "financial_component_keywords", :action => "index" })
+  ##get("/financial_component_keywords", { :controller => "financial_component_keywords", :action => "index" })
   
-  get("/financial_component_keywords/:path_id", { :controller => "financial_component_keywords", :action => "show" })
+  ##get("/financial_component_keywords/:path_id", { :controller => "financial_component_keywords", :action => "show" })
   
   # UPDATE
   
-  post("/modify_financial_component_keyword/:path_id", { :controller => "financial_component_keywords", :action => "update" })
+  ##post("/modify_financial_component_keyword/:path_id", { :controller => "financial_component_keywords", :action => "update" })
   
   # DELETE
-  get("/delete_financial_component_keyword/:path_id", { :controller => "financial_component_keywords", :action => "destroy" })
+  ##get("/delete_financial_component_keyword/:path_id", { :controller => "financial_component_keywords", :action => "destroy" })
 
   #------------------------------
 
   # Routes for the Financial component transaction resource:
 
   # CREATE
-  post("/insert_financial_component_transaction", { :controller => "financial_component_transactions", :action => "create" })
+  ##post("/insert_financial_component_transaction", { :controller => "financial_component_transactions", :action => "create" })
           
   # READ
-  get("/financial_component_transactions", { :controller => "financial_component_transactions", :action => "index" })
+  ##get("/financial_component_transactions", { :controller => "financial_component_transactions", :action => "index" })
   
-  get("/financial_component_transactions/:path_id", { :controller => "financial_component_transactions", :action => "show" })
+  ##get("/financial_component_transactions/:path_id", { :controller => "financial_component_transactions", :action => "show" })
   
   # UPDATE
   
-  post("/modify_financial_component_transaction/:path_id", { :controller => "financial_component_transactions", :action => "update" })
+  ##post("/modify_financial_component_transaction/:path_id", { :controller => "financial_component_transactions", :action => "update" })
   
   # DELETE
-  get("/delete_financial_component_transaction/:path_id", { :controller => "financial_component_transactions", :action => "destroy" })
+  ##get("/delete_financial_component_transaction/:path_id", { :controller => "financial_component_transactions", :action => "destroy" })
 
   #------------------------------
 
   # Routes for the Plaid account resource:
 
   # CREATE
-  post("/insert_plaid_account", { :controller => "plaid_accounts", :action => "create" })
+  ##post("/insert_plaid_account", { :controller => "plaid_accounts", :action => "create" })
           
   # READ
-  get("/plaid_accounts", { :controller => "plaid_accounts", :action => "index" })
+  ##get("/plaid_accounts", { :controller => "plaid_accounts", :action => "index" })
   
-  get("/plaid_accounts/:path_id", { :controller => "plaid_accounts", :action => "show" })
+  ##get("/plaid_accounts/:path_id", { :controller => "plaid_accounts", :action => "show" })
   
   # UPDATE
   
-  post("/modify_plaid_account/:path_id", { :controller => "plaid_accounts", :action => "update" })
+  ##post("/modify_plaid_account/:path_id", { :controller => "plaid_accounts", :action => "update" })
   
   # DELETE
-  get("/delete_plaid_account/:path_id", { :controller => "plaid_accounts", :action => "destroy" })
+  ##get("/delete_plaid_account/:path_id", { :controller => "plaid_accounts", :action => "destroy" })
 
   #------------------------------
 
   # Routes for the Plaid transaction resource:
 
   # CREATE
-  post("/insert_plaid_transaction", { :controller => "plaid_transactions", :action => "create" })
+  ##post("/insert_plaid_transaction", { :controller => "plaid_transactions", :action => "create" })
           
   # READ
-  get("/plaid_transactions", { :controller => "plaid_transactions", :action => "index" })
+  ##get("/plaid_transactions", { :controller => "plaid_transactions", :action => "index" })
   
-  get("/plaid_transactions/:path_id", { :controller => "plaid_transactions", :action => "show" })
+  ##get("/plaid_transactions/:path_id", { :controller => "plaid_transactions", :action => "show" })
   
   # UPDATE
   
-  post("/modify_plaid_transaction/:path_id", { :controller => "plaid_transactions", :action => "update" })
+  ##post("/modify_plaid_transaction/:path_id", { :controller => "plaid_transactions", :action => "update" })
   
   # DELETE
-  get("/delete_plaid_transaction/:path_id", { :controller => "plaid_transactions", :action => "destroy" })
+  ##get("/delete_plaid_transaction/:path_id", { :controller => "plaid_transactions", :action => "destroy" })
 
   #------------------------------
 
@@ -171,11 +171,12 @@ Rails.application.routes.draw do
   #------------------------------
 
   #NAVBAR ROUTES
-  get("/",{:controller=>"application", :action=>"index"})
+  get("/",{:controller=>"user_authentication", :action=>"sign_in_form"})
+  get("/index",{:controller=>"application", :action=>"index"})
   get("/about",{:controller=>"application", :action=>"about"})
   get("/contact",{:controller=>"application", :action=>"contact"})
 
-  get("/test",{:controller=>"application", :action=>"test"})
+  #get("/test",{:controller=>"application", :action=>"test"})
 
   #PLAID ROUTES
   get("/plaid", {:controller=>"plaid_link",:action=>"plaid_index"})

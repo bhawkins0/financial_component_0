@@ -32,7 +32,7 @@ class UserAuthenticationController < ApplicationController
       else
         session[:user_id] = user.id
         
-        redirect_to("/", { :notice => "Signed in successfully." })
+        redirect_to("/index", { :notice => "Signed in successfully." })
       end
     else
       redirect_to("/sign_in", { :alert => "No user with that email address." })
@@ -68,7 +68,7 @@ class UserAuthenticationController < ApplicationController
     if save_status == true
       session[:user_id] = @user.id
    
-      redirect_to("/", { :notice => "User account created successfully."})
+      redirect_to("/index", { :notice => "User account created successfully."})
     else
       redirect_to("/sign_up", { :alert => "User account failed to create successfully."})
     end
@@ -89,7 +89,7 @@ class UserAuthenticationController < ApplicationController
     if @user.valid?
       @user.save
 
-      redirect_to("/", { :notice => "User account updated successfully."})
+      redirect_to("/index", { :notice => "User account updated successfully."})
     else
       render({ :template => "user_authentication/edit_profile_with_errors.html.erb" })
     end
@@ -228,7 +228,7 @@ class UserAuthenticationController < ApplicationController
 
       reset_session
       
-      redirect_to("/", { :notice => "User account updated successfully."})
+      redirect_to("/index", { :notice => "User account updated successfully."})
     end
   end
 end
