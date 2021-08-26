@@ -80,20 +80,26 @@ class UserAuthenticationController < ApplicationController
   end
 
   def update
-    @user = @current_user
-    @user.email = params.fetch("query_email")
-    @user.password = params.fetch("query_password")
-    @user.password_confirmation = params.fetch("query_password_confirmation")
-    @user.first_name = params.fetch("query_first_name")
-    @user.last_name = params.fetch("query_last_name")
-    
-    if @user.valid?
-      @user.save
+    p params.fetch("query_email")
+    p params.fetch("query_password")
+    p params.fetch("query_password_confirmation")
+    p params.fetch("query_first_name")
+    p params.fetch("query_last_name")
 
-      redirect_to("/index", { :notice => "User account updated successfully."})
-    else
-      render({ :template => "user_authentication/edit_profile_with_errors.html.erb" })
-    end
+    ##@user = @current_user
+    ##@user.email = params.fetch("query_email")
+    ##@user.password = params.fetch("query_password")
+    ##@user.password_confirmation = params.fetch("query_password_confirmation")
+    ##@user.first_name = params.fetch("query_first_name")
+    ##@user.last_name = params.fetch("query_last_name")
+    
+    ##if @user.valid?
+    ##  @user.save
+
+    ##  redirect_to("/index", { :notice => "User account updated successfully."})
+    ##else
+    ##  render({ :template => "user_authentication/edit_profile_with_errors.html.erb" })
+    ##end
   end
 
   def destroy
