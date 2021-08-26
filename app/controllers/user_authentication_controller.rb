@@ -18,10 +18,8 @@ class UserAuthenticationController < ApplicationController
   end
 
   def create_cookie(uname,pwd)
-    #user = User.where({ :email => params.fetch("query_email") }).first
     user = User.where({ :email => uname }).first
-    
-    #the_supplied_password = params.fetch("query_password")
+
     the_supplied_password = pwd
     
     if user != nil
@@ -30,6 +28,9 @@ class UserAuthenticationController < ApplicationController
       if are_they_legit == false
         redirect_to("/sign_in", { :alert => "Incorrect password." })
       else
+
+        #INSERT MFA CODE HERE
+
         session[:user_id] = user.id
         
         redirect_to("/index", { :notice => "Signed in successfully." })
@@ -200,7 +201,6 @@ class UserAuthenticationController < ApplicationController
     #puts response.headers
     
     render({ :template => "user_authentication/reset_password.html.erb" })
-
   end
 
   def validate_password_reset

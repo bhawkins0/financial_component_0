@@ -7,19 +7,29 @@
     <div class="col-2 border-bottom">
       <div class="p-3">Name</div>
     </div>
-    <div class="col-4 border-bottom">
+    <div class="col-3 border-bottom">
       <div class="p-3"><%=@current_user.first_name + " " + @current_user.last_name%></div>
     </div>
-    <div class="col-5">
+    <div class="col-1 border-bottom">
+      <div class="p-2">
+        <!--<button type="button" class="btn btn-link btn-sm" id="editName">Edit</button>-->
+      </div>
+    </div>
+    <div class="col-6">
     </div>
 
     <div class="col-2 border-bottom">
       <div class="p-3">Email</div>
     </div>
-    <div class="col-4 border-bottom">
+    <div class="col-3 border-bottom">
       <div class="p-3"><%=@current_user.email%></div>
     </div>
-    <div class="col-5">
+    <div class="col-1 border-bottom">
+      <div class="p-2">
+        <!--<button type="button" class="btn btn-link btn-sm" id="editEmail">Edit</button>-->
+      </div>
+    </div>
+    <div class="col-6">
     </div>
 
     <div class="col-2 border-bottom">
@@ -34,7 +44,7 @@
     <div class="col-2 border-bottom">
       <div class="p-3">Mobile</div>
     </div>
-    <div class="col-4 border-bottom">
+    <div class="col-3 border-bottom">
       <div class="p-3">
         <%if @current_user.mobile == nil%>
           <a href="/settings/add_mobile">Add</a>
@@ -43,8 +53,32 @@
         <%end%>
       </div>
     </div>
-    <div class="col-5">
+    <div class="col-1 border-bottom">
+      <div class="p-2">
+        <!--<button type="button" class="btn btn-link btn-sm" id="editPhone">Edit</button>-->
+      </div>
+    </div>
+    <div class="col-6">
     </div>
 
+    <div class="col-2">
+      <div class="p-3">
+        <button type="button" class="btn btn-link btn-sm" id="editProfile">Edit</button>
+      </div>
+    </div>
+    <div class="col-3">
+    </div>
+    <div class="col-1">
+    </div>
+    <div class="col-6">
+    </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function(){      
+    $("#editProfile").click(function(){
+      window.location = "/edit_user_profile"
+    });
+  });
+</script>
