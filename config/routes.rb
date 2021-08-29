@@ -156,8 +156,10 @@ Rails.application.routes.draw do
   #SETTINGS
   get("/settings/profile", { :controller => "user_authentication", :action => "get_user_profile" })
   get("/settings/add_mobile", { :controller => "user_authentication", :action => "add_mobile" })
-  post("/validate_mobile", { :controller => "user_authentication", :action => "validate_mobile" })
-  post("/validate_mobile_code", { :controller => "user_authentication", :action => "validate_mobile_code" })
+  post("/validate_mobile", { :controller => "user_authentication", :action => "validate_mobile_trigger" })
+  post("/validate_mobile_code", { :controller => "user_authentication", :action => "validate_mobile_code_trigger" })
+  post("/validate_mobile_for_edit", { :controller => "user_authentication", :action => "validate_mobile_for_edit_trigger" })
+  post("/validate_mobile_code_for_edit", { :controller => "user_authentication", :action => "validate_mobile_code_for_edit_trigger" })
   # ------------------------------
 
   # SIGN IN FORM

@@ -72,7 +72,7 @@
 </div>
 
 <div id="twilio_verification_for_edit">
-  <%= render partial: "user_authentication/twilio_verification.html.erb", locals: {verification_stage: @verification_stage} %>
+  <%= render partial: "user_authentication/twilio_verification_for_edit.html.erb", locals: {verification_stage: @verification_stage} %>
 </div>
 
 <script>
@@ -119,7 +119,7 @@
                 beforeSend: function(xhr) {
                   xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
                 },
-                url: "/validate_mobile",
+                url: "/validate_mobile_for_edit",
                 type: "POST",
                 data: {
                   recipient: recipient}
@@ -129,7 +129,7 @@
 
   function process2(item){
     event.preventDefault();
-    $.post( '/validate_mobile_code', { code: item});
+    $.post( '/validate_mobile_code_for_edit', { code: item});
   };
 </script>
     

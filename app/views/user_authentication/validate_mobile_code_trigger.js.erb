@@ -1,0 +1,10 @@
+if ('<%=@twilio_status%>' == 'approved') {
+  $('#fcModal_2_Body').text("Phone number successfully added!");
+  $('#fcModal_2').modal("show");
+  $("#fcModal_2").on('hide.bs.modal', function(){
+    window.location.replace("/settings/profile");
+  });
+} else {
+    $('#fcModal_2_Body').text("That didn't work! Please enter the code again or request a new code.");
+    $('#fcModal_2').modal("show");
+};
