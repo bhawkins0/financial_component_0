@@ -122,7 +122,7 @@ class UserAuthenticationController < ApplicationController
   end
 
   def validate_mobile_code_trigger
-    validate_mobile_code
+    @twilio_status = validate_mobile_code
 
     respond_to do |format|
       format.js
@@ -142,67 +142,55 @@ class UserAuthenticationController < ApplicationController
   def validate_mobile_code_for_edit_trigger
     @twilio_status = validate_mobile_code
 
-    p @twilio_status
-
     respond_to do |format|
       format.js
     end
   end
 
   def validate_mobile
-    ##recipient = params.fetch("recipient")
+    recipient = params.fetch("recipient")
     # Your Account Sid and Auth Token from twilio.com/console
     # and set the environment variables. See http://twil.io/secure
-    ##account_sid = ENV['TWILIO_ACCOUNT_SID']
-    ##auth_token = ENV['TWILIO_AUTH_TOKEN']
-    ##@client = Twilio::REST::Client.new(account_sid, auth_token)
+    account_sid = ENV['TWILIO_ACCOUNT_SID']
+    auth_token = ENV['TWILIO_AUTH_TOKEN']
+    @client = Twilio::REST::Client.new(account_sid, auth_token)
 
-    ##service = @client.verify.services.create(
-    ##                                    friendly_name: 'Financial Component'
-    ##                                  )
+    service = @client.verify.services.create(
+                                        friendly_name: 'Financial Component'
+                                      )
 
     # Download the helper library from https://www.twilio.com/docs/ruby/install
 
-    ##verification = @client.verify
-    ##                      .services(service.sid)
-    ##                      .verifications
-    ##                      .create(to: recipient.gsub('-',''), channel: 'sms')
+    verification = @client.verify
+                          .services(service.sid)
+                          .verifications
+                          .create(to: recipient.gsub('-',''), channel: 'sms')
 
-    ##session.store(:twilio_sid, verification.sid)
-    ##session.store(:twilio_service_sid, verification.service_sid)
-
-    #@verification_stage = 1
-
-    #respond_to do |format|
-    #    format.js
-    #end
+    session.store(:twilio_sid, verification.sid)
+    session.store(:twilio_service_sid, verification.service_sid)
   end
 
   def validate_mobile_code
-    ##account_sid = ENV['TWILIO_ACCOUNT_SID']
-    ##auth_token = ENV['TWILIO_AUTH_TOKEN']
-    ##@client = Twilio::REST::Client.new(account_sid, auth_token)
+    account_sid = ENV['TWILIO_ACCOUNT_SID']
+    auth_token = ENV['TWILIO_AUTH_TOKEN']
+    @client = Twilio::REST::Client.new(account_sid, auth_token)
 
-    ##verification_check = @client.verify
-    ##  .services(session.fetch('twilio_service_sid'))
-    ##  .verification_checks
-    ##  .create(verification_sid: session.fetch('twilio_sid'), code: params.fetch("code"))
+    verification_check = @client.verify
+      .services(session.fetch('twilio_service_sid'))
+      .verification_checks
+      .create(verification_sid: session.fetch('twilio_sid'), code: params.fetch("code"))
 
-    ##if verification_check.status == 'approved'
+    if verification_check.status == 'approved'
       @twilio_status = 'approved'
-    ##  phone_number = verification_check.to
-    ##  p phone_number
-    ##  @current_user.mobile = phone_number
-    ##  if @current_user.valid?
-    ##    @current_user.save
-    ##  end
-    ##end
+      phone_number = verification_check.to
+      p phone_number
+      @current_user.mobile = phone_number
+      if @current_user.valid?
+        @current_user.save
+      end
+    end
 
     return @twilio_status
-    
-    #respond_to do |format|
-    #    format.js
-    #end
   end
 
   def validate_email
