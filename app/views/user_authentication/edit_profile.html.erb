@@ -71,8 +71,12 @@
   </form>
 </div>
 
+<div id="twilio_verification_for_edit">
+  <%= render partial: "user_authentication/twilio_verification.html.erb", locals: {verification_stage: @verification_stage} %>
+</div>
+
 <script>
-  document.getElementById("editUser").onsubmit = function() {validateUser()};
+  document.getElementById("editUser").onsubmit = function() {validateUserMobile()};
   const phoneInputField = document.querySelector("#mobile_box");
   const phoneInput = window.intlTelInput(phoneInputField, {
     utilsScript:
@@ -104,9 +108,28 @@
     }
   }
 
-  function validateUser() {
-    alert("The form was submitted");
+  function validateUserMobile() {
+    var x = document.getElementById("mobile_box");
+
+    if (x.value != undefined){
+      event.preventDefault();
+
+      const recipient = phoneInput.getNumber();
+      $.ajax({
+                beforeSend: function(xhr) {
+                  xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                },
+                url: "/validate_mobile",
+                type: "POST",
+                data: {
+                  recipient: recipient}
+              });
+    };
   }
 
+  function process2(item){
+    event.preventDefault();
+    $.post( '/validate_mobile_code', { code: item});
+  };
 </script>
     

@@ -79,19 +79,13 @@ class UserAuthenticationController < ApplicationController
     render({ :template => "user_authentication/edit_profile.html.erb" })
   end
 
-  def update
+  def update()
+    p params.fetch("query_first_name")
+    p params.fetch("query_last_name")
     p params.fetch("query_email")
     p params.fetch("query_password")
     p params.fetch("query_password_confirmation")
-    p params.fetch("query_first_name")
-    p params.fetch("query_last_name")
-
-    ##@user = @current_user
-    ##@user.email = params.fetch("query_email")
-    ##@user.password = params.fetch("query_password")
-    ##@user.password_confirmation = params.fetch("query_password_confirmation")
-    ##@user.first_name = params.fetch("query_first_name")
-    ##@user.last_name = params.fetch("query_last_name")
+    p params.fetch("query_mobile")
     
     ##if @user.valid?
     ##  @user.save
@@ -115,6 +109,14 @@ class UserAuthenticationController < ApplicationController
 
   def add_mobile
     render({ :template => "user_authentication/add_mobile.html.erb" })
+  end
+
+  def validate_mobile_trigger
+    validate_mobile
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def validate_mobile
