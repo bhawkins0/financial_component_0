@@ -64,6 +64,7 @@
     <div class="col-2">
       <div class="p-3">
         <button type="button" class="btn btn-link btn-sm" id="editProfile">Edit</button>
+        <button type="button" class="btn btn-link btn-sm" id="deleteProfile">Delete</button>
       </div>
     </div>
     <div class="col-3">
@@ -72,13 +73,38 @@
     </div>
     <div class="col-6">
     </div>
-  </div>
 </div>
+
+<div class="modal fade" id="fcModal_1" tabindex="-1" aria-labelledby="fcModal_1_Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="fcModal_1_Label">Financial Component Delete Account</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="fcModal_1_Body">
+          <p>Are you sure you would like to delete this user account?</p>
+          <p>All associated settings and transactions will be deleted from Financial Component.</p>
+          <p>Please click Delete to delete or Cancel to cancel this request.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="confirmDelete">Delete</button>  
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
   $(document).ready(function(){      
     $("#editProfile").click(function(){
-      window.location = "/edit_user_profile"
+      window.location = "/edit_user_profile";
+    });
+    $("#deleteProfile").click(function(){
+      $('#fcModal_1').modal("show");
+    });
+    $("#confirmDelete").click(function(){
+      window.location = "/cancel_user_account";
     });
   });
 </script>
