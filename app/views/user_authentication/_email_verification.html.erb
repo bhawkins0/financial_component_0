@@ -1,10 +1,20 @@
-<%if email_exists == nil %>     
-  <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
-<%elsif email_exists == 1%>
-  <div class="div_spacing text-danger" id="login_alert">There is no account associated with this email.</div>
-<%else%>
-  <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
-  <script>
-    window.location = "/forgot_password"
-  </script>
+<%if flags == nil%>
+  <%if email_exists == nil %>     
+    <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
+  <%elsif email_exists == 1%>
+    <div class="div_spacing text-danger" id="login_alert">There is no account associated with this email.</div>
+  <%else%>
+    <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
+    <script>
+      window.location = "/forgot_password"
+    </script>
+  <%end%>
+<%elsif flags == 1%>
+  <%if email_exists == nil %>     
+    <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
+  <%elsif email_exists == 1%>
+    <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
+  <%else%>
+    <div class="div_spacing text-danger" id="login_alert">There is already an account associated with this email address.</div>
+  <%end%>
 <%end%>

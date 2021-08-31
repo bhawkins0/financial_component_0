@@ -19,7 +19,7 @@
 <div class="div_spacing text-success"><%=notice%></div>
 
 <div id="email_verification">
-  <%= render partial: "user_authentication/email_verification.html.erb", locals: {email_exists: @email_exists} %>
+  <%= render partial: "user_authentication/email_verification.html.erb", locals: {email_exists: @email_exists, flags: @flags} %>
 </div>
 
 <script>
@@ -37,7 +37,8 @@
               url: "/validate_email",
               type: "POST",
               data: {
-                email: email
+                email: email,
+                flags: 0
               }
             });
   };

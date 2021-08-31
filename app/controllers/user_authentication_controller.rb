@@ -202,7 +202,17 @@ class UserAuthenticationController < ApplicationController
       @email_exists = 2
       session[:email] = params.fetch("email")
     end
-
+    
+    flags = params.fetch("flags")
+    p flags
+    if flags == nil 
+      @flags = 1
+    elsif flags == 1
+      @flags = 1
+    elsif flags == 2
+      @flags = 2
+    end
+    
     respond_to do |format|
       format.js
     end

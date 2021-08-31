@@ -103,7 +103,6 @@
   });
 
   const info = document.querySelector(".alert-info");
-  const email = $("#email_box").val();
 
   function password_show_hide(this_id) {
     if (this_id === "basic-addon2") {
@@ -129,45 +128,54 @@
   }
 
   function validateUser(event) {
+    const email = document.getElementById("#email_box").value();
     var inputs = document.getElementsByTagName("input");
     var flag = 0;
     for(var i = 0; i < inputs.length; i++){
       if (inputs[i].value == ""){
-      event.preventDefault();
+        event.preventDefault();
         $('#fcModal_2_Body').text("Please ensure all fields are completed. You must include a valid " + inputs[i].name.replace("query_","").replace("_box","").replace("_", " ") + ".");
         $('#fcModal_2').modal("show");
+        flag = 1
         break;
-        flag = 1;
       }
     }
 
+    if (flag == 1) {
+      return;
+    }
+
     if (!validateEmail(email)) {
+      console.log(email)
       event.preventDefault();
       $('#fcModal_2_Body').text("Please enter a valid email address.");
       $('#fcModal_2').modal("show");
-      flag = 1;
-    }else{
+      return;
+    } 
+    else {
+      event.preventDefault();
+      console.log("2");
       validate_email(email);
     };
+    //alert("email validation complete");
+    //if (flag ==0) {
+    //  var x = document.getElementById("mobile_box");
 
-    if (flag ==0) {
-      var x = document.getElementById("mobile_box");
-
-      if (x.value != undefined){
-        event.preventDefault();
+    //if (x.value != undefined){
+    //    event.preventDefault();
   
-        const recipient = phoneInput.getNumber();
-        $.ajax({
-                    beforeSend: function(xhr) {
-                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-                  },
-                  url: "/validate_mobile_for_edit",
-                  type: "POST",
-                  data: {
-                    recipient: recipient}
-                });
-          };
-    }
+    //    const recipient = phoneInput.getNumber();
+    //    $.ajax({
+      //                beforeSend: function(xhr) {
+        //              xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        //            },
+        //          url: "/validate_mobile_for_edit",
+        //          type: "POST",
+        //          data: {
+          //            recipient: recipient}
+          //      });
+          //};
+          //}
   }
 
   function process2(item){
@@ -189,7 +197,8 @@
               url: "/validate_email",
               type: "POST",
               data: {
-                email: email
+                email: email,
+                flags: 1
               }
             });
   };
