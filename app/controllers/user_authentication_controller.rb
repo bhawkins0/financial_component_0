@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
-  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :process_login_form, :reset_password, :validate_password_reset, :validate_email, :validate_mobile_for_edit_trigger, :update_password, :about, :contact] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :process_login_form, :reset_password, :validate_password_reset, :validate_email, :validate_mobile_for_edit_trigger, :validate_mobile_code_for_edit_trigger, :update_password, :about, :contact] })
 
   def process_login_form
     a = params.fetch("commit")
@@ -183,10 +183,13 @@ class UserAuthenticationController < ApplicationController
     if verification_check.status == 'approved'
       @twilio_status = 'approved'
       phone_number = verification_check.to
-      p phone_number
-      @current_user.mobile = phone_number
-      if @current_user.valid?
-        @current_user.save
+      #p phone_number
+      flags = params.fetch("flags").to_i
+      if flags != 2
+        @current_user.mobile = phone_number
+        if @current_user.valid?
+          @current_user.save
+        end
       end
     end
 
@@ -203,13 +206,9 @@ class UserAuthenticationController < ApplicationController
       session[:email] = params.fetch("email")
     end
     
-    flags = params.fetch("flags")
-    p flags
-    if flags == nil 
-      @flags = 1
-    elsif flags == 1
-      @flags = 1
-    elsif flags == 2
+    flags = params.fetch("flags").to_i
+    
+    if flags == 2
       @flags = 2
     end
     

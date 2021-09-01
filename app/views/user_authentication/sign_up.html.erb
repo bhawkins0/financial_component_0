@@ -55,7 +55,7 @@
 
       <label for="mobile_box" class="col-sm-2 col-form-label border-bottom p-3">Mobile</label>
       <div class="col-sm-4 border-bottom p-3">
-          <input type="tel" class="form-control-plaintext bg-light" id="mobile_box" name="query_mobile" placeholder="+00 000 000 0000">
+          <input type="tel" class="form-control-plaintext bg-light" id="mobile_box" name="query_mobile" placeholder="000 000 0000">
       </div>
       <div class="col-sm-6"></div>
     </div>
@@ -89,6 +89,14 @@
     </div>
   </div>
 </div>
+</div>
+
+<div id="email_verification">
+  <%= render partial: "user_authentication/email_verification.html.erb", locals: {email_exists: @email_exists, flags: @flags} %>
+</div>
+
+<div id="twilio_verification_for_edit">
+  <%= render partial: "user_authentication/twilio_verification_for_edit.html.erb", locals: {verification_stage: @verification_stage} %>
 </div>
 
 <script>
@@ -128,16 +136,18 @@
   }
 
   function validateUser(event) {
-    const email = document.getElementById("#email_box").value();
+    event.preventDefault();
+    const email = document.getElementById("email_box");
     var inputs = document.getElementsByTagName("input");
     var flag = 0;
     for(var i = 0; i < inputs.length; i++){
       if (inputs[i].value == ""){
-        event.preventDefault();
+        //event.preventDefault();
         $('#fcModal_2_Body').text("Please ensure all fields are completed. You must include a valid " + inputs[i].name.replace("query_","").replace("_box","").replace("_", " ") + ".");
         $('#fcModal_2').modal("show");
         flag = 1
         break;
+        return;
       }
     }
 
@@ -145,42 +155,20 @@
       return;
     }
 
-    if (!validateEmail(email)) {
-      console.log(email)
-      event.preventDefault();
+    if (!validateEmail(email.value)) {
+      //event.preventDefault();
       $('#fcModal_2_Body').text("Please enter a valid email address.");
       $('#fcModal_2').modal("show");
       return;
     } 
     else {
-      event.preventDefault();
-      console.log("2");
-      validate_email(email);
+      validate_email(email.value);
     };
-    //alert("email validation complete");
-    //if (flag ==0) {
-    //  var x = document.getElementById("mobile_box");
-
-    //if (x.value != undefined){
-    //    event.preventDefault();
-  
-    //    const recipient = phoneInput.getNumber();
-    //    $.ajax({
-      //                beforeSend: function(xhr) {
-        //              xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-        //            },
-        //          url: "/validate_mobile_for_edit",
-        //          type: "POST",
-        //          data: {
-          //            recipient: recipient}
-          //      });
-          //};
-          //}
   }
 
   function process2(item){
     event.preventDefault();
-    $.post( '/validate_mobile_code_for_edit', { code: item});
+    $.post( '/validate_mobile_code_for_edit', { code: item, flags: 2});
   };
 
   function validateEmail(email) 
@@ -198,7 +186,7 @@
               type: "POST",
               data: {
                 email: email,
-                flags: 1
+                flags: 2
               }
             });
   };
