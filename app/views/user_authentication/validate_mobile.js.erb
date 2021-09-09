@@ -1,1 +1,1 @@
-$("#twilio_verification").html("<%= escape_javascript(render partial: "user_authentication/twilio_verification.html.erb", locals: {verification_stage: @verification_stage}) %>");
+$("#twilio_verification").html("<%= escape_javascript(render partial: "user_authentication/twilio_verification.html.erb", locals: {verification_stage: @verification_stage, flags: @flags}) %>");

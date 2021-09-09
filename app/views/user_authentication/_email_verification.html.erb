@@ -9,7 +9,7 @@
       window.location = "/forgot_password"
     </script>
   <%end%>
-<%if flags == 1%>
+<%elsif flags == 1%>
   <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
   <%if email_exists == 2 %>     
     <script>
@@ -21,7 +21,7 @@
     </script>
   <%else%>
     <script>
-      $('#fcModal_2_Body').text("A verification message has been sent to email provided. Please verify your email to login once the registration process is complete.");
+      $('#fcModal_2_Body').text("A verification message has been sent to the email provided. Please verify your email to login once the registration process is complete.");
       $('#fcModal_2').modal("show");
       $("#fcModal_2").on('hide.bs.modal', function(){
         var x = document.getElementById("mobile_box");

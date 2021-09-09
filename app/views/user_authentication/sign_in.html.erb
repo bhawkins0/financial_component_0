@@ -2,29 +2,27 @@
   <h2 class="pageTitle display-4">Financial Component</h2>
 </div>
 
-<!--<div class="container">-->
-  <form id="signIn" action="/process_login_form" method="post">
-    <label for="email_box"></label>
-    <input type="text" class="form_textbox form-control" id="email_box" name="query_email" placeholder="Email" onblur: "if(this.value == '') { this.value = 'Email'}", onfocus: "if(this.value == 'Email') {this.value = ''};">
+<form id="signIn" action="/process_login_form" method="post">
+  <label for="email_box"></label>
+  <input type="text" class="form_textbox form-control" id="email_box" name="query_email" placeholder="Email" onblur: "if(this.value == '') { this.value = 'Email'}", onfocus: "if(this.value == 'Email') {this.value = ''};">
 
-    <label for="password_box"></label>
-    <!--<div class="input-group input-group-sm">-->
-      <input class="form_textbox form-control" id="password_box" name="query_password" placeholder="Password" type="password" aria-label="Password" aria-describedby="basic-addon2" onblur: "if(this.value == '') { this.value = 'Password'; }", onfocus: "if(this.value == 'Password') { this.value = ''};">
-      <!--<span class="input-group-text" id="basic-addon2" onclick="password_show_hide(this.id);">
-        <i class="fas fa-eye" id="show_eye"></i>
-        <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
-      </span>
-    </div>-->
-    <div class="form_prompts">
-          <a id=forgot_password_link href="#">Forgot your password?</a>
-          &bull;
-          <a href="/resend_email">Resend email confirmation</a>
-    </div>
-    <br>
-    <button type="submit" class="form_button" name="subject" value="Log In">Log In</button>
-    <button type="submit" class="form_button" name="subject" value="Register">Register</button>
-  </form>
-<!--</div>-->
+  <label for="password_box"></label>
+  <!--<div class="input-group input-group-sm">-->
+    <input class="form_textbox form-control" id="password_box" name="query_password" placeholder="Password" type="password" aria-label="Password" aria-describedby="basic-addon2" onblur: "if(this.value == '') { this.value = 'Password'; }", onfocus: "if(this.value == 'Password') { this.value = ''};">
+    <!--<span class="input-group-text" id="basic-addon2" onclick="password_show_hide(this.id);">
+      <i class="fas fa-eye" id="show_eye"></i>
+      <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+    </span>
+  </div>-->
+  <div class="form_prompts">
+        <a id=forgot_password_link href="#">Forgot your password?</a>
+        &bull;
+        <a href="/resend_email">Resend email confirmation</a>
+  </div>
+  <br>
+  <button type="submit" class="form_button" name="subject" value="Log In">Log In</button>
+  <button type="submit" class="form_button" name="subject" value="Register">Register</button>
+</form>
 
 <div class="div_spacing text-success"><%=notice%></div>
 

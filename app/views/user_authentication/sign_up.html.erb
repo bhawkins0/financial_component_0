@@ -70,10 +70,6 @@
   </form>
 </div>
 
-<div id="twilio_verification_for_edit">
-  <%= render partial: "user_authentication/twilio_verification_for_edit.html.erb", locals: {verification_stage: @verification_stage} %>
-</div>
-
 <div class="modal fade" id="fcModal_2" tabindex="-1" aria-labelledby="fcModal_2_Label" aria-hidden="true">
 <div class="modal-dialog">
   <div class="modal-content">
@@ -95,12 +91,11 @@
   <%= render partial: "user_authentication/email_verification.html.erb", locals: {email_exists: @email_exists, flags: @flags} %>
 </div>
 
-<div id="twilio_verification_for_edit">
-  <%= render partial: "user_authentication/twilio_verification_for_edit.html.erb", locals: {verification_stage: @verification_stage} %>
+<div id="twilio_verification">
+  <%= render partial: "user_authentication/twilio_verification.html.erb", locals: {verification_stage: @verification_stage, flags: @flags} %>
 </div>
 
 <script>
-  //document.getElementById("editUser").onsubmit = function() {validateUser(e)};
   const form = document.getElementById('editUser');
   form.addEventListener('submit', validateUser);
 
@@ -142,7 +137,6 @@
     var flag = 0;
     for(var i = 0; i < inputs.length; i++){
       if (inputs[i].value == ""){
-        //event.preventDefault();
         $('#fcModal_2_Body').text("Please ensure all fields are completed. You must include a valid " + inputs[i].name.replace("query_","").replace("_box","").replace("_", " ") + ".");
         $('#fcModal_2').modal("show");
         flag = 1
@@ -167,7 +161,7 @@
 
   function process2(item){
     event.preventDefault();
-    $.post( '/validate_mobile_code_for_edit', { code: item, flags: 2});
+    $.post( '/validate_mobile_code', { code: item, flags: 1});
   };
 
   function validateEmail(email) 
@@ -184,7 +178,11 @@
               url: "/validate_email",
               type: "POST",
               data: {
-                email: email,
+                query_first_name: document.getElementById("first_name_box").value,
+                query_last_name: document.getElementById("last_name_box").value,
+                query_email: email,
+                query_password: document.getElementById("password_box").value,
+                query_password_confirmation: document.getElementById("password_confirmation_box").value,
                 flags: 1
               }
             });

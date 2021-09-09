@@ -1,38 +1,4 @@
-<%if flags == 2%>
-  <%if verification_stage == nil %>     
-
-  <%else%>
-    <div class="modal fade" id="fcModal_1" tabindex="-1" aria-labelledby="fcModal_1_Label" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="fcModal_1_Label">Financial Component Add Mobile</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="fcModal_1_Body">
-            <p>Thank you for entering your phone number. You should have received a text message with a verification code at the number provided.</p>
-            <p>Please enter the verification code in the box below.</p>
-            <p>If you did not receive the code and would like another sent to the number provided, please click <a href="/validate_mobile">click here.</a></p>
-          
-            <form id="validate_mobile_code" onsubmit="process2(document.getElementById('codeInput').value)">
-            <!--<form action="/validate_mobile_code" method="post">-->
-              <div class="mb-3">
-                <label for="codeInput" class="form-label">Verification Code</label>
-                <input name="daCode" type="text" class="form-control" id="codeInput" aria-describedby="codeHelp" placeholder="Insert Code Texted" required>    
-                <div id="codeHelp" class="form-text">The verification code was texted to the number provided.</div>
-              </div>
-              <button type="submit" class="btn btn-primary">Verify Code</button>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-          </div>
-        </div>
-      </div>
-    </div>
-  <%end%>
-<%else%>
+<%if flags == 0%>
   <%if verification_stage == nil %>     
     
     <p>Providing a mobile number will help secure your account with 2FA and enable streamlined access to Plaid.</p>
@@ -81,5 +47,42 @@
         </div>
       </div>
     </div>
+  <%end%>
+<%elsif flags == 1%>
+  <%if verification_stage == nil %>     
+
+  <%else%>
+    <div class="modal fade" id="fcModal_1" tabindex="-1" aria-labelledby="fcModal_1_Label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="fcModal_1_Label">Financial Component Add Mobile</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="fcModal_1_Body">
+            <p>Thank you for entering your phone number. You should have received a text message with a verification code at the number provided.</p>
+            <p>Please enter the verification code in the box below.</p>
+            <p>If you did not receive the code and would like another sent to the number provided, please click <a href="/validate_mobile">click here.</a></p>
+          
+            <form id="validate_mobile_code" onsubmit="process2(document.getElementById('codeInput').value)">
+            <!--<form action="/validate_mobile_code" method="post">-->
+              <div class="mb-3">
+                <label for="codeInput" class="form-label">Verification Code</label>
+                <input name="daCode" type="text" class="form-control" id="codeInput" aria-describedby="codeHelp" placeholder="Insert Code Texted" required>    
+                <div id="codeHelp" class="form-text">The verification code was texted to the number provided.</div>
+              </div>
+              <button type="submit" class="btn btn-primary">Verify Code</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $('#fcModal_1').modal("show");
+    </script>
   <%end%>
 <%end%>
