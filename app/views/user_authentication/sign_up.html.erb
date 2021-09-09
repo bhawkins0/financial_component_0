@@ -70,14 +70,14 @@
   </form>
 </div>
 
-<div class="modal fade" id="fcModal_2" tabindex="-1" aria-labelledby="fcModal_2_Label" aria-hidden="true">
+<div class="modal fade" id="fcModal_1" tabindex="-1" aria-labelledby="fcModal_1_Label" aria-hidden="true">
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="fcModal_2_Label">Financial Component Add User</h5>
+      <h5 class="modal-title" id="fcModal_1_Label">Financial Component Add User</h5>
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
-    <div class="modal-body" id="fcModal_2_Body">
+    <div class="modal-body" id="fcModal_1_Body">
       
     </div>
     <div class="modal-footer">
@@ -137,8 +137,8 @@
     var flag = 0;
     for(var i = 0; i < inputs.length; i++){
       if (inputs[i].value == ""){
-        $('#fcModal_2_Body').text("Please ensure all fields are completed. You must include a valid " + inputs[i].name.replace("query_","").replace("_box","").replace("_", " ") + ".");
-        $('#fcModal_2').modal("show");
+        $('#fcModal_1_Body').text("Please ensure all fields are completed. You must include a valid " + inputs[i].name.replace("query_","").replace("_box","").replace("_", " ") + ".");
+        $('#fcModal_1').modal("show");
         flag = 1
         break;
         return;
@@ -150,8 +150,8 @@
     }
 
     if (!validateEmail(email.value)) {
-      $('#fcModal_2_Body').text("Please enter a valid email address.");
-      $('#fcModal_2').modal("show");
+      $('#fcModal_1_Body').text("Please enter a valid email address.");
+      $('#fcModal_1').modal("show");
       return;
     } 
     else {
@@ -161,6 +161,7 @@
 
   function process2(item){
     event.preventDefault();
+    $('#fcModal_3').modal('hide');
     $.post( '/validate_mobile_code', { code: item, flags: 1});
   };
 

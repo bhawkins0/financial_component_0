@@ -25,9 +25,13 @@
       <div class="p-3"><%=@current_user.email%></div>
     </div>
     <div class="col-1 border-bottom">
-      <div class="p-2">
-        <!--<button type="button" class="btn btn-link btn-sm" id="editEmail">Edit</button>-->
-      </div>
+        <%if @current_user.email_verified_at == nil%>
+          <div class="p-3"><a href="/verify_email">Verify</a></div>
+        <%end%>
+        <!--
+        <div class="p-2">
+        <button type="button" class="btn btn-link btn-sm" id="editEmail">Edit</button>
+      </div>-->
     </div>
     <div class="col-6">
     </div>
@@ -55,7 +59,13 @@
     </div>
     <div class="col-1 border-bottom">
       <div class="p-2">
-        <!--<button type="button" class="btn btn-link btn-sm" id="editPhone">Edit</button>-->
+        <%if @current_user.mobile_verified_at == nil%>
+          <div class="p-3"><a href="/verify_mobile">Verify</a></div>
+        <%end%>
+        <!--
+          <div class="p-2">
+          <button type="button" class="btn btn-link btn-sm" id="editMobile">Edit</button>
+        </div>-->
       </div>
     </div>
     <div class="col-6">

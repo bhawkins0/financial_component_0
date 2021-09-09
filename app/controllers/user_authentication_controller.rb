@@ -203,8 +203,11 @@ class UserAuthenticationController < ApplicationController
         user = User.where({ :id => session[:user_id] }).first
         user.mobile = phone_number
         user.mobile_verified_at = DateTime.now
-        if @current_user.valid?
-          @current_user.save
+        if user.valid?
+          p "user valid"
+          user.save
+        else
+          p "user invalid"
         end
       end
     end

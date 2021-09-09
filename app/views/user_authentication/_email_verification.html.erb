@@ -20,8 +20,24 @@
       });
     </script>
   <%else%>
+    <div class="modal fade" id="fcModal_2" tabindex="-1" aria-labelledby="fcModal_2_Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="fcModal_2_Label">Financial Component Add User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="fcModal_2_Body">
+          A verification message has been sent to the email provided. Please verify your email to login once the registration process is complete.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
     <script>
-      $('#fcModal_2_Body').text("A verification message has been sent to the email provided. Please verify your email to login once the registration process is complete.");
       $('#fcModal_2').modal("show");
       $("#fcModal_2").on('hide.bs.modal', function(){
         var x = document.getElementById("mobile_box");
