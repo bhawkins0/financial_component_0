@@ -1,0 +1,131 @@
+<div>
+  <div>
+    <h1>
+      User verification #<%= @the_user_verification.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/user_verifications">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_user_verification/<%= @the_user_verification.id %>">
+          Delete user verification
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_user_verification.user_id %>
+      </dd>
+
+      <dt>
+        Email
+      </dt>
+      <dd>
+        <%= @the_user_verification.email %>
+      </dd>
+
+      <dt>
+        Email validation code
+      </dt>
+      <dd>
+        <%= @the_user_verification.email_validation_code %>
+      </dd>
+
+      <dt>
+        Mobile
+      </dt>
+      <dd>
+        <%= @the_user_verification.mobile %>
+      </dd>
+
+      <dt>
+        Mobile validation code
+      </dt>
+      <dd>
+        <%= @the_user_verification.mobile_validation_code %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_user_verification.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_user_verification.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit user verification
+    </h2>
+
+    <form action="/modify_user_verification/<%= @the_user_verification.id %>"  method="post" >
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_user_verification.user_id %>">
+      </div>
+
+      <div>
+        <label for="email_box">
+          Email
+        </label>
+
+        <input type="text" id="email_box" name="query_email" value="<%= @the_user_verification.email %>">
+      </div>
+
+      <div>
+        <label for="email_validation_code_box">
+          Email validation code
+        </label>
+
+        <input type="text" id="email_validation_code_box" name="query_email_validation_code" value="<%= @the_user_verification.email_validation_code %>">
+      </div>
+
+      <div>
+        <label for="mobile_box">
+          Mobile
+        </label>
+
+        <input type="text" id="mobile_box" name="query_mobile" value="<%= @the_user_verification.mobile %>">
+      </div>
+
+      <div>
+        <label for="mobile_validation_code_box">
+          Mobile validation code
+        </label>
+
+        <input type="text" id="mobile_validation_code_box" name="query_mobile_validation_code" value="<%= @the_user_verification.mobile_validation_code %>">
+      </div>
+
+      <button>
+        Update user verification
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

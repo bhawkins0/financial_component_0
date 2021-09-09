@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_26_131305) do
+ActiveRecord::Schema.define(version: 2021_09_09_004405) do
 
   create_table "financial_component_accounts", force: :cascade do |t|
     t.string "fc_statement"
@@ -106,6 +106,16 @@ ActiveRecord::Schema.define(version: 2021_08_26_131305) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "user_verifications", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "email"
+    t.integer "email_validation_code"
+    t.string "mobile"
+    t.integer "mobile_validation_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -115,6 +125,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_131305) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "mobile"
     t.datetime "mobile_verified_at"
+    t.datetime "email_verified_at"
   end
 
 end

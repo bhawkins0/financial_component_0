@@ -1,0 +1,150 @@
+<div>
+  <div>
+    <h1>
+      List of all user verifications
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new user verification
+    </h2>
+
+    <form action="/insert_user_verification" method="post">
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <div>
+        <label for="email_box">
+          Email
+        </label>
+
+        <input type="text" id="email_box" name="query_email">
+      </div>
+
+      <div>
+        <label for="email_validation_code_box">
+          Email validation code
+        </label>
+
+        <input type="text" id="email_validation_code_box" name="query_email_validation_code">
+      </div>
+
+      <div>
+        <label for="mobile_box">
+          Mobile
+        </label>
+
+        <input type="text" id="mobile_box" name="query_mobile">
+      </div>
+
+      <div>
+        <label for="mobile_validation_code_box">
+          Mobile validation code
+        </label>
+
+        <input type="text" id="mobile_validation_code_box" name="query_mobile_validation_code">
+      </div>
+
+      <button>
+        Create user verification
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Email
+        </th>
+
+        <th>
+          Email validation code
+        </th>
+
+        <th>
+          Mobile
+        </th>
+
+        <th>
+          Mobile validation code
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_user_verifications.each do |a_user_verification| %>
+      <tr>
+        <td>
+          <%= a_user_verification.id %>
+        </td>
+
+        <td>
+          <%= a_user_verification.user_id %>
+        </td>
+
+        <td>
+          <%= a_user_verification.email %>
+        </td>
+
+        <td>
+          <%= a_user_verification.email_validation_code %>
+        </td>
+
+        <td>
+          <%= a_user_verification.mobile %>
+        </td>
+
+        <td>
+          <%= a_user_verification.mobile_validation_code %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_user_verification.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_user_verification.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/user_verifications/<%= a_user_verification.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

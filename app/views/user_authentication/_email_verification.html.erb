@@ -1,4 +1,15 @@
-<%if flags == 2%>
+<%if flags == 0%>
+  <%if email_exists == nil %>       
+    <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
+  <%elsif email_exists == 1%>
+    <div class="div_spacing text-danger" id="login_alert">There is no account associated with this email.</div>
+  <%else%>
+    <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
+    <script>
+      window.location = "/forgot_password"
+    </script>
+  <%end%>
+<%if flags == 1%>
   <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
   <%if email_exists == 2 %>     
     <script>
@@ -10,33 +21,26 @@
     </script>
   <%else%>
     <script>
-      var x = document.getElementById("mobile_box");
+      $('#fcModal_2_Body').text("A verification message has been sent to email provided. Please verify your email to login once the registration process is complete.");
+      $('#fcModal_2').modal("show");
+      $("#fcModal_2").on('hide.bs.modal', function(){
+        var x = document.getElementById("mobile_box");
 
-      if (x.value != undefined){
-          event.preventDefault();
-    
-          const recipient = phoneInput.getNumber();
-          $.ajax({
-                        beforeSend: function(xhr) {
-                        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-                      },
-                    url: "/validate_mobile_for_edit",
-                    type: "POST",
-                    data: {
-                        recipient: recipient}
-                  });
-            };
+        if (x.value != undefined){      
+            const recipient = phoneInput.getNumber();
+            $.ajax({
+                          beforeSend: function(xhr) {
+                          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                        },
+                      url: "/validate_mobile",
+                      type: "POST",
+                      data: {
+                          recipient: recipient,
+                          flags: 1
+                        }
+                    });
+              };
+      });
     </script>
-  <%end%>
-<%else%>
-  <%if email_exists == nil %>     
-    <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
-  <%elsif email_exists == 1%>
-    <div class="div_spacing text-danger" id="login_alert">There is no account associated with this email.</div>
-  <%else%>
-    <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
-    <script>
-      window.location = "/forgot_password"
-    </script>
-  <%end%>
+  <%end%>  
 <%end%>

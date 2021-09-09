@@ -32,27 +32,14 @@
               url: "/validate_mobile",
               type: "POST",
               data: {
-                recipient: recipient}
+                recipient: recipient,
+                flags: 0
+              }
             });
   };
 
-  //$(document).ready(function(){   
-    function process2(item){
-      event.preventDefault();
-      $.post( '/validate_mobile_code', { code: item});
-      //$.post('/validate_mobile_code',{code: item}).done(function(data) {
-      //    if (data == 'approved') {
-      //      alert('approved')
-      //    $('#fcModal_1_Body').text("Please ensure transactions have both a debit and credit account specified before saving.");
-      //    $('#fcModal_1').modal("show");
-      //  } else if (data == 1) {
-      //    $('#fcModal_1_Body').text(data + " transaction successfully imported!");
-      //    $('#fcModal_1').modal("show");
-      //    } else {
-      //      alert('failed')
-      //    $('#fcModal_1_Body').text(data + " transactions successfully imported!");
-      //    $('#fcModal_1').modal("show");
-     //     };
-      //});
-    };
+  function process2(item){
+    event.preventDefault();
+    $.post( '/validate_mobile_code', { code: item, flags:0});
+  };
  </script>

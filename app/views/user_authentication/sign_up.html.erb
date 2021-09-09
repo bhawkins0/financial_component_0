@@ -156,7 +156,6 @@
     }
 
     if (!validateEmail(email.value)) {
-      //event.preventDefault();
       $('#fcModal_2_Body').text("Please enter a valid email address.");
       $('#fcModal_2').modal("show");
       return;
@@ -186,7 +185,7 @@
               type: "POST",
               data: {
                 email: email,
-                flags: 2
+                flags: 1
               }
             });
   };

@@ -119,17 +119,19 @@
                 beforeSend: function(xhr) {
                   xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
                 },
-                url: "/validate_mobile_for_edit",
+                url: "/validate_mobile",
                 type: "POST",
                 data: {
-                  recipient: recipient}
+                  recipient: recipient,
+                  flags: 1
+                }
               });
     };
   }
 
   function process2(item){
     event.preventDefault();
-    $.post( '/validate_mobile_code_for_edit', { code: item});
+    $.post( '/validate_mobile_code', { code: item,flags:1});
   };
 </script>
     

@@ -4,6 +4,7 @@
 #
 #  id                 :integer          not null, primary key
 #  email              :string
+#  email_verified_at  :datetime
 #  first_name         :string
 #  last_name          :string
 #  mobile             :string

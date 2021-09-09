@@ -3,9 +3,9 @@ class UserAuthenticationController < ApplicationController
   skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :process_login_form, :reset_password, :validate_password_reset, :validate_email, :validate_mobile_for_edit_trigger, :validate_mobile_code_for_edit_trigger, :update_password, :about, :contact] })
 
   def process_login_form
-    a = params.fetch("commit")
-    b = params.fetch("userauthentication").fetch("query_email")
-    c = params.fetch("userauthentication").fetch("query_password")
+    a = params.fetch("subject")
+    b = params.fetch("query_email")
+    c = params.fetch("query_password")
     if a == "Log In"
       create_cookie(b,c)
     else
@@ -207,10 +207,7 @@ class UserAuthenticationController < ApplicationController
     end
     
     flags = params.fetch("flags").to_i
-    
-    if flags == 2
-      @flags = 2
-    end
+    @flags = flags
     
     respond_to do |format|
       format.js

@@ -1,4 +1,23 @@
 Rails.application.routes.draw do
+  # Routes for the User verification resource:
+
+  # CREATE
+  post("/insert_user_verification", { :controller => "user_verifications", :action => "create" })
+          
+  # READ
+  get("/user_verifications", { :controller => "user_verifications", :action => "index" })
+  
+  get("/user_verifications/:path_id", { :controller => "user_verifications", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_user_verification/:path_id", { :controller => "user_verifications", :action => "update" })
+  
+  # DELETE
+  get("/delete_user_verification/:path_id", { :controller => "user_verifications", :action => "destroy" })
+
+  #------------------------------
+
   # Routes for the Financial component transaction split template resource:
 
   # CREATE
@@ -156,10 +175,8 @@ Rails.application.routes.draw do
   #SETTINGS
   get("/settings/profile", { :controller => "user_authentication", :action => "get_user_profile" })
   get("/settings/add_mobile", { :controller => "user_authentication", :action => "add_mobile" })
-  post("/validate_mobile", { :controller => "user_authentication", :action => "validate_mobile_trigger" })
-  post("/validate_mobile_code", { :controller => "user_authentication", :action => "validate_mobile_code_trigger" })
-  post("/validate_mobile_for_edit", { :controller => "user_authentication", :action => "validate_mobile_for_edit_trigger" })
-  post("/validate_mobile_code_for_edit", { :controller => "user_authentication", :action => "validate_mobile_code_for_edit_trigger" })
+  post("/validate_mobile", { :controller => "user_authentication", :action => "validate_mobile" })
+  post("/validate_mobile_code", { :controller => "user_authentication", :action => "validate_mobile_code" })
   # ------------------------------
 
   # SIGN IN FORM
