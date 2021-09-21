@@ -15,7 +15,8 @@
 #
 class User < ApplicationRecord
   validates :email, :uniqueness => { :case_sensitive => false }
-  validates :email, :presence => true
+  #validates :email, :presence => true
+  validates :email, presence: true, unless: :mobile
   has_secure_password
 
    has_many(:plaid_institutions, {

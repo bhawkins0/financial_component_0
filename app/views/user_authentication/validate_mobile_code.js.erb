@@ -12,7 +12,6 @@ if ( <%=@flags%> == 0) {
 }
 else if (<%=@flags%> == 1) {
   if ('<%=@twilio_status%>' == 'approved') {
-    console.log("working");
     $('#fcModal_3_Body').text("Phone number successfully added!");
     $('#fcModal_3').modal("show");
     $("#fcModal_3").on('hide.bs.modal', function(){

@@ -4,7 +4,7 @@
 
 <form id="signIn" action="/process_login_form" method="post">
   <label for="email_box"></label>
-  <input type="text" class="form_textbox form-control" id="email_box" name="query_email" placeholder="Email" onblur: "if(this.value == '') { this.value = 'Email'}", onfocus: "if(this.value == 'Email') {this.value = ''};">
+  <input type="text" class="form_textbox form-control" id="email_mobile_box" name="query_email_mobile" placeholder="Email or Phone Number" onblur: "if(this.value == '') { this.value = 'Email or Phone Number'}", onfocus: "if(this.value == 'Email or Phone Number') {this.value = ''};">
 
   <label for="password_box"></label>
   <!--<div class="input-group input-group-sm">-->
@@ -25,6 +25,7 @@
 </form>
 
 <div class="div_spacing text-success"><%=notice%></div>
+<div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
 
 <div id="email_verification">
   <%= render partial: "user_authentication/email_verification.html.erb", locals: {email_exists: @email_exists, flags: @flags} %>

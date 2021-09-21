@@ -4,7 +4,7 @@ class UserAuthenticationController < ApplicationController
 
   def process_login_form
     a = params.fetch("subject")
-    b = params.fetch("query_email")
+    b = params.fetch("query_email_mobile")
     c = params.fetch("query_password")
     if a == "Log In"
       create_cookie(b,c)
@@ -19,6 +19,10 @@ class UserAuthenticationController < ApplicationController
 
   def create_cookie(uname,pwd)
     user = User.where({ :email => uname }).first
+
+    if user == nil
+      user = User.where('mobile LIKE ?','%' + uname).first
+    end
 
     the_supplied_password = pwd
     
@@ -56,19 +60,26 @@ class UserAuthenticationController < ApplicationController
     render({ :template => "user_authentication/sign_up.html.erb" })
   end
 
-  def create
-    @user = User.new
-    @user.email = params.fetch("query_email")
-    @user.password = params.fetch("query_password")
-    @user.password_confirmation = params.fetch("query_password_confirmation")
-    @user.first_name = params.fetch("query_first_name")
-    @user.last_name = params.fetch("query_last_name")
+  def create()
+    user = User.new
+    user.first_name = params.fetch("query_first_name")
+    user.last_name = params.fetch("query_last_name")
+    user.password = params.fetch("query_password")
+    user.password_confirmation = params.fetch("query_password_confirmation")
+    user.email = params.fetch("query_email")
+    user.mobile = params.fetch("query_mobile")
+    if params.fetch("query_email") != nil
+      user.email_verified_at = DateTime.now
+    end
+    if params.fetch("query_mobile") != nil
+      user.mobile_verified_at = DateTime.now
+    end
 
-    save_status = @user.save
+    save_status = user.save
 
     if save_status == true
-      session[:user_id] = @user.id
-   
+      session[:user_id] = user.id
+      @current_user = user
       #redirect_to("/index", { :notice => "User account created successfully."})
       #else
       #redirect_to("/sign_up", { :alert => "User account failed to create successfully."})
@@ -113,12 +124,13 @@ class UserAuthenticationController < ApplicationController
 
   def validate_email
     email_exists = User.where({ :email => params.fetch("query_email") }).first
+    
+    session[:email] = params.fetch("query_email")
 
     if email_exists == nil
       @email_exists = 1
     else 
       @email_exists = 2
-      session[:email] = params.fetch("query_email")
     end
     
     flags = params.fetch("flags").to_i
@@ -126,12 +138,14 @@ class UserAuthenticationController < ApplicationController
     
     if flags == 1
       if email_exists == nil 
-        create
+        #create
+        
+        UserVerification.where(:email => params.fetch("query_email")).destroy_all
 
         email_code
 
         user_verification = UserVerification.new
-        user_verification.user_id =  @user.id
+        user_verification.user_id =  0
         user_verification.email = params.fetch("query_email")
         user_verification.email_validation_code = session[:email_code]
 
@@ -171,8 +185,16 @@ class UserAuthenticationController < ApplicationController
 
     @verification_stage = 1
 
-    user_verification = User.where({ :id => session[:user_id] }).first
+    user_verification = UserVerification.where({ :mobile => recipient }).first
+    if user_verification == nil
+      user_verification = UserVerification.new
+      user_verification.user_id =  0
+    end
     user_verification.mobile = recipient
+
+    if user_verification.valid?
+      user_verification.save 
+    end
 
     respond_to do |format|
       format.js
@@ -200,15 +222,14 @@ class UserAuthenticationController < ApplicationController
           @current_user.save
         end
       elsif @flags == 1
-        user = User.where({ :id => session[:user_id] }).first
-        user.mobile = phone_number
-        user.mobile_verified_at = DateTime.now
-        if user.valid?
-          p "user valid"
-          user.save
-        else
-          p "user invalid"
+        user_verification = UserVerification.where({ :mobile => phone_number }).first
+        user_verification.mobile_verified_at = DateTime.now
+        #NEED TO UPDATE THIS to inlcude mobile_verified_at
+        if user_verification.valid?
+          user_verification.save
         end
+
+        create
       end
     end
 
@@ -231,7 +252,7 @@ class UserAuthenticationController < ApplicationController
       content = Content.new(type: 'text/plain', value: 'Please see below for a validation code to reset your password to Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + session[:email_code].to_s)
     elsif @flags == 1
       subject = 'Financial Component Email Verification'
-      content = Content.new(type: 'text/plain', value: 'Please see below for a code to verify your email with Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + session[:email_code].to_s)
+      content = Content.new(type: 'text/plain', value: 'Please see below for a code to verify your email with Financial Component. This code is valid for only 3 hours. Thank you.' + "\n" + "\n" + session[:email_code].to_s)
     end
     mail = Mail.new(from, subject, to, content)
 
