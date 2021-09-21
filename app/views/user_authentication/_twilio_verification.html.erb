@@ -1,6 +1,5 @@
 <%if flags == 0%>
   <%if verification_stage == nil %>     
-    
     <p>Providing a mobile number will help secure your account with 2FA and enable streamlined access to Plaid.</p>
     <p>Please select your country and enter a mobile phone number to generate an authorization code that will be sent to you instantly.</p>
     <p>If you already have an authorization code, <a href="#/activate/[INSERT CODE]]/sms_verify">click here.</a></p>
@@ -50,7 +49,24 @@
   <%end%>
 <%elsif flags == 1%>
   <%if verification_stage == nil %>     
-
+    <%if mobile_exists == 2%>
+      <div class="modal fade" id="fcModal_3" tabindex="-1" aria-labelledby="fcModal_3_Label" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="fcModal_3_Label">Financial Component Add Mobile</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="fcModal_3_Body">
+              <p>There is already an account associated with this phone number. Please login using this number or register with another phone number.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <%end%>
   <%else%>
     <div class="modal fade" id="fcModal_3" tabindex="-1" aria-labelledby="fcModal_3_Label" aria-hidden="true">
       <div class="modal-dialog">

@@ -21,7 +21,9 @@ class UserAuthenticationController < ApplicationController
     user = User.where({ :email => uname }).first
 
     if user == nil
-      user = User.where('mobile LIKE ?','%' + uname).first
+      if length(uname) >= 10
+        user = User.where('mobile LIKE ?','%' + uname).first
+      end
     end
 
     the_supplied_password = pwd
@@ -163,6 +165,27 @@ class UserAuthenticationController < ApplicationController
   def validate_mobile
     recipient = params.fetch("recipient")
     @flags = params.fetch("flags").to_i
+
+    mobile_exists = User.where({ :mobile => params.fetch("query_mobile") }).first
+
+    if flags == 0
+      if mobile_exists == nil
+        @mobile_exists = 2
+
+        respond_to do |format|
+          format.js
+        end
+      end
+    elsif flags == 1
+      if mobile_exists != nil
+        @mobile_exists = 2
+
+        respond_to do |format|
+          format.js
+        end
+      end
+    end
+
     # Your Account Sid and Auth Token from twilio.com/console
     # and set the environment variables. See http://twil.io/secure
     account_sid = ENV['TWILIO_ACCOUNT_SID']
