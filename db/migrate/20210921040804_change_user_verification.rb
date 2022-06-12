@@ -1,6 +1,6 @@
 class ChangeUserVerification < ActiveRecord::Migration[6.0]
     def up
-      change_column :user_verifications, :mobile_validation_code, :DateTime
+      change_column :user_verifications, :mobile_validation_code, :datetime
     end
 
     def down
