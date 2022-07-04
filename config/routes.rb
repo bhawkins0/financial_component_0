@@ -155,6 +155,7 @@ Rails.application.routes.draw do
   # LOGIN FORM
   post("/process_login_form", {:controller => "user_authentication", :action => "process_login_form"})
   post("/validate_email", { :controller => "user_authentication", :action => "validate_email" })
+  post("/test_add_email", { :controller => "user_authentication", :action => "test_add_email" })
   get("/forgot_password", { :controller => "user_authentication", :action => "reset_password" })
   post("/validate_password_reset", { :controller => "user_authentication", :action => "validate_password_reset" })
   post("/update_password", { :controller => "user_authentication", :action => "update_password" })
@@ -177,6 +178,8 @@ Rails.application.routes.draw do
   get("/settings/add_mobile", { :controller => "user_authentication", :action => "add_mobile" })
   post("/validate_mobile", { :controller => "user_authentication", :action => "validate_mobile" })
   post("/validate_mobile_code", { :controller => "user_authentication", :action => "validate_mobile_code" })
+
+  get("/settings/add_email", { :controller => "user_authentication", :action => "add_email" })
   # ------------------------------
 
   # SIGN IN FORM

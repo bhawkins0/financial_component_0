@@ -1,0 +1,80 @@
+<head>
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+</head>
+
+<div class="page_title_div">
+  <h2 class="pageTitle display-4">Add Email</h2>
+</div>
+
+<div class="container">
+  <form id="editEmail" action="" method="post">
+      <label for="email_box" class="col-sm-4 col-form-label <!--border-bottom--> p-3">Please insert your email below</label>
+      <div class="col-sm-4 border-bottom p-3">
+        <input type="text" class="form-control-plaintext bg-light" id="email_box" name="query_email" placeholder="Email">
+      </div>
+      <div class="col-sm-6"></div>
+
+    <div class="col-sm-12 p-3">
+      <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="modal fade" id="fcModal_1" tabindex="-1" aria-labelledby="fcModal_1_Label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="fcModal_1_Label">Financial Component Add User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="fcModal_1_Body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('editEmail');
+  form.addEventListener('submit', validateEmail);
+  const info = document.querySelector(".alert-info");
+
+  function validateEmail() {
+    event.preventDefault();
+    const email = document.getElementById("email_box");
+
+    if ((email.value == "" )||(!checkEmail(email.value))){
+      $('#fcModal_1_Body').text("Please enter a valid email address.");
+      $('#fcModal_1').modal("show");
+      return;
+    }
+    else{
+        validate_email(email.value);
+    };
+  };
+
+  function checkEmail(email) 
+  {
+      var re = /\S+@\S+\.\S+/;
+      return re.test(email);
+  }
+
+  function validate_email(email){
+    $.ajax({
+              beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+              },
+              url: "/test_add_email",
+              type: "POST",
+              data: {
+                query_email: email,
+                flags: 1
+              }
+            });
+  };
+</script>

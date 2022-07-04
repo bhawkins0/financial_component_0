@@ -21,7 +21,7 @@ class UserAuthenticationController < ApplicationController
     user = User.where({ :email => uname }).first
 
     if user == nil
-      if length(uname) >= 10
+      if uname.length >= 10
         user = User.where('mobile LIKE ?','%' + uname).first
       end
     end
@@ -122,6 +122,14 @@ class UserAuthenticationController < ApplicationController
 
   def add_mobile
     render({ :template => "user_authentication/add_mobile.html.erb" })
+  end
+
+  def add_email
+    render({ :template => "user_authentication/add_email.html.erb" })
+  end
+
+  def test_add_email
+    UserMailer.with(user: @user).test_add_email.deliver_later
   end
 
   def validate_email
