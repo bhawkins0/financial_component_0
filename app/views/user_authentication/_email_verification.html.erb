@@ -41,24 +41,28 @@
       $('#fcModal_2').modal("show");
       $("#fcModal_2").on('hide.bs.modal', function(){
         var x = document.getElementById("mobile_box");
-
-        if (x.value != undefined){      
-            const recipient = phoneInput.getNumber();
-            $.ajax({
-                          beforeSend: function(xhr) {
-                          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-                        },
-                      url: "/validate_mobile",
-                      type: "POST",
-                      data: {
-                          recipient: recipient,
-                          flags: 1
-                        }
-                    });
-          }
+        if (x != undefined){
+          if (x.value != undefined){      
+              const recipient = phoneInput.getNumber();
+              $.ajax({
+                            beforeSend: function(xhr) {
+                            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                          },
+                        url: "/validate_mobile",
+                        type: "POST",
+                        data: {
+                            recipient: recipient,
+                            flags: 1
+                          }
+                      });
+            }
+          else{
+            window.location.replace("/settings/profile");
+          };
+        }
         else{
           window.location.replace("/settings/profile");
-        };
+          };
       });
     </script>
   <%end%>  

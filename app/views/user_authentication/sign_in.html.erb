@@ -2,22 +2,16 @@
   <h2 class="pageTitle display-4">Financial Component</h2>
 </div>
 
-<form id="signIn" action="/process_login_form" method="post">
+<form id="signin" action="/process_login_form" method="post">
   <label for="email_box"></label>
   <input type="text" class="form_textbox form-control" id="email_mobile_box" name="query_email_mobile" placeholder="Email or Phone Number" onblur: "if(this.value == '') { this.value = 'Email or Phone Number'}", onfocus: "if(this.value == 'Email or Phone Number') {this.value = ''};">
 
   <label for="password_box"></label>
-  <!--<div class="input-group input-group-sm">-->
-    <input class="form_textbox form-control" id="password_box" name="query_password" placeholder="Password" type="password" aria-label="Password" aria-describedby="basic-addon2" onblur: "if(this.value == '') { this.value = 'Password'; }", onfocus: "if(this.value == 'Password') { this.value = ''};">
-    <!--<span class="input-group-text" id="basic-addon2" onclick="password_show_hide(this.id);">
-      <i class="fas fa-eye" id="show_eye"></i>
-      <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
-    </span>
-  </div>-->
+  <input class="form_textbox form-control" id="password_box" name="query_password" placeholder="Password" type="password" aria-label="Password" aria-describedby="basic-addon2" onblur: "if(this.value == '') { this.value = 'Password'; }", onfocus: "if(this.value == 'Password') { this.value = ''};">
   <div class="form_prompts">
-        <a id=forgot_password_link href="#">Forgot your password?</a>
+        <a id="forgot_password_link" href="#">Forgot your password?</a>
         &bull;
-        <a href="/resend_email">Resend email confirmation</a>
+        <a href="#">Resend email confirmation</a>
   </div>
   <br>
   <button type="submit" class="form_button" name="subject" value="Log In">Log In</button>
@@ -31,37 +25,4 @@
   <%= render partial: "user_authentication/email_verification.html.erb", locals: {email_exists: @email_exists, flags: @flags} %>
 </div>
 
-<script>
-  function validateEmail(email) 
-  {
-      var re = /\S+@\S+\.\S+/;
-      return re.test(email);
-  };
-
-  function validate_email(email){
-    $.ajax({
-              beforeSend: function(xhr) {
-                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-              },
-              url: "/validate_email",
-              type: "POST",
-              data: {
-                email: email,
-                flags: 0
-              }
-            });
-  };
-
-  $('#forgot_password_link').click(function(){ ;
-    const $result = $("#login_alert");
-    const email = $("#login_email").val();
-    $result.text("");
-
-    if (validateEmail(email)) {
-      validate_email(email);
-    } else {
-      $result.text("Please enter a valid email address.");
-    };
-    return false; 
-  });
-</script>
+<script type="text/javascript" src="/javascript/signin.js"></script>

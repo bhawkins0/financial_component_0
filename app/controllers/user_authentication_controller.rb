@@ -2,6 +2,10 @@ class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
   skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie, :process_login_form, :reset_password, :validate_password_reset, :validate_email, :validate_mobile, :validate_mobile_code, :update_password, :about, :contact] })
 
+  def sign_in_form
+    render({ :template => "user_authentication/sign_in.html.erb" })
+  end
+
   def process_login_form
     a = params.fetch("subject")
     b = params.fetch("query_email_mobile")
@@ -11,10 +15,6 @@ class UserAuthenticationController < ApplicationController
     else
       redirect_to("/sign_up")
     end
-  end
-
-  def sign_in_form
-    render({ :template => "user_authentication/sign_in.html.erb" })
   end
 
   def create_cookie(uname,pwd)
@@ -46,23 +46,11 @@ class UserAuthenticationController < ApplicationController
     end
   end
 
-  def destroy_cookies
-    @matching_institutions.each do |inst|
-    if cookies["#{inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"] != nil
-      cookies.delete("#{inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}")
-    end
-  end
-
-    reset_session
-
-    redirect_to("/sign_in", { :notice => "Signed out successfully." })
-  end
-
   def sign_up_form
     render({ :template => "user_authentication/sign_up.html.erb" })
   end
 
-  def create()
+  def create_user()
     user = User.new
     user.first_name = params.fetch("query_first_name")
     user.last_name = params.fetch("query_last_name")
@@ -86,6 +74,20 @@ class UserAuthenticationController < ApplicationController
       #else
       #redirect_to("/sign_up", { :alert => "User account failed to create successfully."})
     end
+  end
+
+
+
+  def destroy_cookies
+    @matching_institutions.each do |inst|
+      if cookies["#{inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}"] != nil
+        cookies.delete("#{inst.plaid_name.gsub(/[`~!@#$%^&*()|+\-=?;:'",.<>\{\}\[\]\\\/\s]/,'_')}")
+      end
+    end
+
+    reset_session
+
+    redirect_to("/sign_in", { :notice => "Signed out successfully." })
   end
     
   def edit_profile_form
@@ -126,10 +128,6 @@ class UserAuthenticationController < ApplicationController
 
   def add_email
     render({ :template => "user_authentication/add_email.html.erb" })
-  end
-
-  def test_add_email
-    UserMailer.with(user: @user).test_add_email.deliver_later
   end
 
   def validate_email
@@ -276,19 +274,20 @@ class UserAuthenticationController < ApplicationController
 
     session[:email_code] = rand(1000..9999)
     
-    from = Email.new(email: 'bhawkins2012@gmail.com')
-    to = Email.new(email: session[:email])
-    if @flags == 0
-      subject = 'Financial Component Password Reset'
-      content = Content.new(type: 'text/plain', value: 'Please see below for a validation code to reset your password to Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + session[:email_code].to_s)
-    elsif @flags == 1
-      subject = 'Financial Component Email Verification'
-      content = Content.new(type: 'text/plain', value: 'Please see below for a code to verify your email with Financial Component. This code is valid for only 3 hours. Thank you.' + "\n" + "\n" + session[:email_code].to_s)
-    end
-    mail = Mail.new(from, subject, to, content)
+    #Commented out until email capability is restored 07.05.2022
+    ##from = Email.new(email: 'bhawkins2012@gmail.com')
+    ##to = Email.new(email: session[:email])
+    ##if @flags == 0
+    ##  subject = 'Financial Component Password Reset'
+    ##  content = Content.new(type: 'text/plain', value: 'Please see below for a validation code to reset your password to Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + session[:email_code].to_s)
+    ##elsif @flags == 1
+    ##  subject = 'Financial Component Email Verification'
+    ##  content = Content.new(type: 'text/plain', value: 'Please see below for a code to verify your email with Financial Component. This code is valid for only 3 hours. Thank you.' + "\n" + "\n" + session[:email_code].to_s)
+    ##end
+    ##mail = Mail.new(from, subject, to, content)
 
-    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-    response = sg.client.mail._('send').post(request_body: mail.to_json)
+    ##sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    ##response = sg.client.mail._('send').post(request_body: mail.to_json)
     
     if @flags == 0
       render({ :template => "user_authentication/reset_password.html.erb" })

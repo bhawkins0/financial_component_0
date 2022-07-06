@@ -1,4 +1,23 @@
 Rails.application.routes.draw do
+  #NAVBAR ROUTES
+  get("/",{:controller=>"user_authentication", :action=>"sign_in_form"})
+  get("/index",{:controller=>"application", :action=>"index"})
+  get("/about",{:controller=>"application", :action=>"about"})
+  get("/contact",{:controller=>"application", :action=>"contact"})  
+  
+  # LOGIN ROUTES
+  get("/sign_in", { :controller => "user_authentication", :action => "sign_in_form" })
+  post("/process_login_form", {:controller => "user_authentication", :action => "process_login_form"})
+  post("/validate_email", { :controller => "user_authentication", :action => "validate_email" })
+ 
+  get("/sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        
+  post("/create_user", { :controller => "user_authentication", :action => "create_user"  })
+
+
+
+
+
+
   # Routes for the User verification resource:
 
   # CREATE
@@ -151,19 +170,11 @@ Rails.application.routes.draw do
 
   #------------------------------
 
-  # Routes for the User account:
-  # LOGIN FORM
-  post("/process_login_form", {:controller => "user_authentication", :action => "process_login_form"})
-  post("/validate_email", { :controller => "user_authentication", :action => "validate_email" })
-  post("/test_add_email", { :controller => "user_authentication", :action => "test_add_email" })
+  
+  post("/verify_email", { :controller => "user_authentication", :action => "verify_email" })
   get("/forgot_password", { :controller => "user_authentication", :action => "reset_password" })
   post("/validate_password_reset", { :controller => "user_authentication", :action => "validate_password_reset" })
   post("/update_password", { :controller => "user_authentication", :action => "update_password" })
-  
-  # SIGN UP FORM
-  get("/sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        
-  # CREATE RECORD
-  post("/insert_user", { :controller => "user_authentication", :action => "create"  })
       
   # EDIT PROFILE FORM        
   get("/edit_user_profile", { :controller => "user_authentication", :action => "edit_profile_form" })       
@@ -182,8 +193,7 @@ Rails.application.routes.draw do
   get("/settings/add_email", { :controller => "user_authentication", :action => "add_email" })
   # ------------------------------
 
-  # SIGN IN FORM
-  get("/sign_in", { :controller => "user_authentication", :action => "sign_in_form" })
+  
   # AUTHENTICATE AND STORE COOKIE
   #post("/user_verify_credentials", { :controller => "user_authentication", :action => "create_cookie" })
   
@@ -192,11 +202,7 @@ Rails.application.routes.draw do
              
   #------------------------------
 
-  #NAVBAR ROUTES
-  get("/",{:controller=>"user_authentication", :action=>"sign_in_form"})
-  get("/index",{:controller=>"application", :action=>"index"})
-  get("/about",{:controller=>"application", :action=>"about"})
-  get("/contact",{:controller=>"application", :action=>"contact"})
+
 
   #get("/test",{:controller=>"application", :action=>"test"})
 
