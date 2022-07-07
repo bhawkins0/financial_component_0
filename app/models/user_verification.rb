@@ -12,4 +12,5 @@
 #  user_id               :integer
 #
 class UserVerification < ApplicationRecord
+    belongs_to :user, foreign_key: :user_id, primary_key: :id
 end

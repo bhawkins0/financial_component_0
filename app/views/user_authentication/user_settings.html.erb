@@ -7,44 +7,34 @@
     <div class="col-2 border-bottom">
       <div class="p-3">Name</div>
     </div>
-    <div class="col-3 border-bottom">
+    <div class="col-4 border-bottom">
       <div class="p-3"><%=@current_user.first_name + " " + @current_user.last_name%></div>
     </div>
-    <div class="col-1 border-bottom">
-      <div class="p-2">
-        <!--<button type="button" class="btn btn-link btn-sm" id="editName">Edit</button>-->
-      </div>
-    </div>
+    
     <div class="col-6">
     </div>
 
     <div class="col-2 border-bottom">
       <div class="p-3">Email</div>
     </div>
-    <div class="col-3 border-bottom">
-      <%if @current_user.email == nil %>
-        <div class="p-3">
-          <a href="/settings/add_email">Add</a>
-        </div>
-      <%elsif @current_user.email == "" %>
-        <div class="p-3">
-          <a href="/settings/add_email">Add</a>
-        </div>
+    <div class="col-4 border-bottom">
+      <%if @current_user.email == nil || @current_user.email == ''%>
+        <%if @current_user.user_verification == nil%>
+          <div class="p-3">
+            <a href="/settings/add_email">Add</a>
+          </div>
+        <%else%>
+          <div class="p-3">
+            <a href="/verify_email">Verify</a>
+          </div>
+        <%end%>
       <%else%>
         <div class="p-3">
           <%=@current_user.email%>
         </div>
       <%end%>
     </div>
-    <div class="col-1 border-bottom">
-        <%if @current_user.email_verified_at == nil%>
-          <div class="p-3"><a href="/verify_email">Verify</a></div>
-        <%end%>
-        <!--
-        <div class="p-2">
-        <button type="button" class="btn btn-link btn-sm" id="editEmail">Edit</button>
-      </div>-->
-    </div>
+
     <div class="col-6">
     </div>
 
@@ -54,40 +44,31 @@
     <div class="col-4 border-bottom">
       <div class="p-3"><a href="change_password">Change</a></div>
     </div>
-    <div class="col-5">
+
+    <div class="col-6">
     </div>
 
     <div class="col-2 border-bottom">
       <div class="p-3">Mobile</div>
     </div>
-    <div class="col-3 border-bottom">
-      <div class="p-3">
-        <%if @current_user.mobile == nil%>
-        <div class="p-3">
-          
-
-
-
-
-
-
-        
-          <a href="/settings/add_mobile">Add</a>
-        </div>
+    <div class="col-4 border-bottom">
+      <%if @current_user.mobile == nil%>
+        <%if @current_user.user_verification == nil%>
+          <div class="p-3">
+            <a href="/settings/add_mobile">Add</a>
+          </div>
         <%else%>
-          <%=@current_user.mobile%>
+          <div class="p-3">
+            <a href="/verify_mobile>Verify</a>
+          </div>
         <%end%>
-      </div>
+      <%else%>
+        <div class="p-3">
+          <%=@current_user.mobile%>
+        </div>
+      <%end%>
     </div>
-    <div class="col-1 border-bottom">
-      <div class="p-2">
-        
-        <!--
-          <div class="p-2">
-          <button type="button" class="btn btn-link btn-sm" id="editMobile">Edit</button>
-        </div>-->
-      </div>
-    </div>
+
     <div class="col-6">
     </div>
 
@@ -125,16 +106,4 @@
     </div>
   </div>
 
-<script>
-  $(document).ready(function(){      
-    $("#editProfile").click(function(){
-      window.location = "/edit_user_profile";
-    });
-    $("#deleteProfile").click(function(){
-      $('#fcModal_1').modal("show");
-    });
-    $("#confirmDelete").click(function(){
-      window.location = "/cancel_user_account";
-    });
-  });
-</script>
+  <script type="text/javascript" src="/javascript/user_settings.js"></script>

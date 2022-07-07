@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get("/sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        
   post("/create_user", { :controller => "user_authentication", :action => "create_user"  })
 
+  get("/verify_email", { :controller => "user_authentication", :action => "verify_email"  })
 
 
 

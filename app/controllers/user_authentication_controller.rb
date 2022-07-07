@@ -17,44 +17,6 @@ class UserAuthenticationController < ApplicationController
     end
   end
 
-  def validate_email
-    email_exists = User.where({ :email => params.fetch("query_email") }).first
-    
-    session[:email] = params.fetch("query_email")
-
-    if email_exists == nil
-      @email_exists = 0
-    else 
-      @email_exists = 1
-    end
-    
-    flags = params.fetch("flags").to_i
-    @flags = flags
-    
-    if flags == 1
-      if email_exists == nil 
-        #create
-        
-        UserVerification.where(:email => params.fetch("query_email")).destroy_all
-
-        email_code
-
-        user_verification = UserVerification.new
-        user_verification.user_id =  0
-        user_verification.email = params.fetch("query_email")
-        user_verification.email_validation_code = session[:email_code]
-
-        if user_verification.valid?
-          user_verification.save
-        end
-      end
-    end
-
-    respond_to do |format|
-      format.js
-    end
-  end
-
   def create_cookie(uname,pwd)
     user = User.where({ :email => uname }).first
 
@@ -84,9 +46,53 @@ class UserAuthenticationController < ApplicationController
     end
   end
 
+  def validate_email
+    email_exists = User.where({ :email => params.fetch("query_email") }).first
+    
+    session[:email] = params.fetch("query_email")
+
+    if email_exists == nil
+      @email_exists = 0
+    else 
+      @email_exists = 1
+    end
+    
+    flags = params.fetch("flags").to_i
+    @flags = flags
+    
+    if flags == 1
+      if email_exists == nil 
+        #create
+        
+        UserVerification.where(:email => params.fetch("query_email")).destroy_all
+
+        email_code
+
+        user_verification = UserVerification.new
+        user_verification.user_id =  @current_user.id
+        user_verification.email = params.fetch("query_email")
+        user_verification.email_validation_code = session[:email_code]
+
+        if user_verification.valid?
+          user_verification.save
+        end
+      end
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def sign_up_form
     render({ :template => "user_authentication/sign_up.html.erb" })
   end
+
+  def verify_email
+    render({ :template => "user_authentication/verify_email.html.erb" })
+  end
+
+
 
   def validate_mobile
     recipient = params.fetch("recipient")
@@ -149,6 +155,7 @@ class UserAuthenticationController < ApplicationController
       format.js
     end
   end
+
 
 
 

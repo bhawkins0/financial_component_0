@@ -24,4 +24,8 @@ class User < ApplicationRecord
     :foreign_key => "fc_user_id"
   })
   
+  has_one(:user_verification,{
+    :class_name => "UserVerification",
+    :foreign_key => "user_id"
+  })
 end
