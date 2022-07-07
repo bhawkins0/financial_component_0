@@ -3,5 +3,4 @@
  * listed below.
  *
  *= require_self
- *= require navbar
  */

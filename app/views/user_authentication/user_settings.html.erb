@@ -64,6 +64,14 @@
       <div class="p-3">
         <%if @current_user.mobile == nil%>
         <div class="p-3">
+          
+
+
+
+
+
+
+        
           <a href="/settings/add_mobile">Add</a>
         </div>
         <%else%>
@@ -73,9 +81,7 @@
     </div>
     <div class="col-1 border-bottom">
       <div class="p-2">
-        <%if @current_user.mobile_verified_at == nil%>
-          <div class="p-3"><a href="/verify_mobile">Verify</a></div>
-        <%end%>
+        
         <!--
           <div class="p-2">
           <button type="button" class="btn btn-link btn-sm" id="editMobile">Edit</button>

@@ -23,4 +23,5 @@ class User < ApplicationRecord
     :class_name => "PlaidInstitution",
     :foreign_key => "fc_user_id"
   })
+  
 end

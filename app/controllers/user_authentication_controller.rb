@@ -17,6 +17,44 @@ class UserAuthenticationController < ApplicationController
     end
   end
 
+  def validate_email
+    email_exists = User.where({ :email => params.fetch("query_email") }).first
+    
+    session[:email] = params.fetch("query_email")
+
+    if email_exists == nil
+      @email_exists = 0
+    else 
+      @email_exists = 1
+    end
+    
+    flags = params.fetch("flags").to_i
+    @flags = flags
+    
+    if flags == 1
+      if email_exists == nil 
+        #create
+        
+        UserVerification.where(:email => params.fetch("query_email")).destroy_all
+
+        email_code
+
+        user_verification = UserVerification.new
+        user_verification.user_id =  0
+        user_verification.email = params.fetch("query_email")
+        user_verification.email_validation_code = session[:email_code]
+
+        if user_verification.valid?
+          user_verification.save
+        end
+      end
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def create_cookie(uname,pwd)
     user = User.where({ :email => uname }).first
 
@@ -32,7 +70,7 @@ class UserAuthenticationController < ApplicationController
       are_they_legit = user.authenticate(the_supplied_password)
     
       if are_they_legit == false
-        redirect_to("/sign_in", { :alert => "Incorrect password." })
+        redirect_to("/sign_in", { :alert => "Incorrect login information." })
       else
 
         #INSERT MFA CODE HERE
@@ -49,6 +87,73 @@ class UserAuthenticationController < ApplicationController
   def sign_up_form
     render({ :template => "user_authentication/sign_up.html.erb" })
   end
+
+  def validate_mobile
+    recipient = params.fetch("recipient")
+    @flags = params.fetch("flags").to_i
+
+    mobile_exists = User.where({ :mobile => params.fetch("query_mobile") }).first
+
+    if @flags == 0
+      if mobile_exists == nil
+        @mobile_exists = 2
+
+        respond_to do |format|
+          format.js
+        end
+      end
+    elsif @flags == 1
+      if mobile_exists != nil
+        @mobile_exists = 2
+
+        respond_to do |format|
+          format.js
+        end
+      end
+    end
+
+    # Your Account Sid and Auth Token from twilio.com/console
+    # and set the environment variables. See http://twil.io/secure
+    account_sid = ENV['TWILIO_ACCOUNT_SID']
+    auth_token = ENV['TWILIO_AUTH_TOKEN']
+    @client = Twilio::REST::Client.new(account_sid, auth_token)
+
+    service = @client.verify.services.create(
+                                        friendly_name: 'Financial Component'
+                                      )
+
+    # Download the helper library from https://www.twilio.com/docs/ruby/install
+
+    verification = @client.verify
+                          .services(service.sid)
+                          .verifications
+                          .create(to: recipient.gsub('-',''), channel: 'sms')
+
+    session.store(:twilio_sid, verification.sid)
+    session.store(:twilio_service_sid, verification.service_sid)
+
+    @verification_stage = 1
+
+    user_verification = UserVerification.where({ :mobile => recipient }).first
+    if user_verification == nil
+      user_verification = UserVerification.new
+      user_verification.user_id =  0
+    end
+    user_verification.mobile = recipient
+
+    if user_verification.valid?
+      user_verification.save 
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+
+
+
 
   def create_user()
     user = User.new
@@ -130,106 +235,6 @@ class UserAuthenticationController < ApplicationController
     render({ :template => "user_authentication/add_email.html.erb" })
   end
 
-  def validate_email
-    email_exists = User.where({ :email => params.fetch("query_email") }).first
-    
-    session[:email] = params.fetch("query_email")
-
-    if email_exists == nil
-      @email_exists = 1
-    else 
-      @email_exists = 2
-    end
-    
-    flags = params.fetch("flags").to_i
-    @flags = flags
-    
-    if flags == 1
-      if email_exists == nil 
-        #create
-        
-        UserVerification.where(:email => params.fetch("query_email")).destroy_all
-
-        email_code
-
-        user_verification = UserVerification.new
-        user_verification.user_id =  0
-        user_verification.email = params.fetch("query_email")
-        user_verification.email_validation_code = session[:email_code]
-
-        if user_verification.valid?
-          user_verification.save
-        end
-      end
-    end
-
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def validate_mobile
-    recipient = params.fetch("recipient")
-    @flags = params.fetch("flags").to_i
-
-    mobile_exists = User.where({ :mobile => params.fetch("query_mobile") }).first
-
-    if flags == 0
-      if mobile_exists == nil
-        @mobile_exists = 2
-
-        respond_to do |format|
-          format.js
-        end
-      end
-    elsif flags == 1
-      if mobile_exists != nil
-        @mobile_exists = 2
-
-        respond_to do |format|
-          format.js
-        end
-      end
-    end
-
-    # Your Account Sid and Auth Token from twilio.com/console
-    # and set the environment variables. See http://twil.io/secure
-    account_sid = ENV['TWILIO_ACCOUNT_SID']
-    auth_token = ENV['TWILIO_AUTH_TOKEN']
-    @client = Twilio::REST::Client.new(account_sid, auth_token)
-
-    service = @client.verify.services.create(
-                                        friendly_name: 'Financial Component'
-                                      )
-
-    # Download the helper library from https://www.twilio.com/docs/ruby/install
-
-    verification = @client.verify
-                          .services(service.sid)
-                          .verifications
-                          .create(to: recipient.gsub('-',''), channel: 'sms')
-
-    session.store(:twilio_sid, verification.sid)
-    session.store(:twilio_service_sid, verification.service_sid)
-
-    @verification_stage = 1
-
-    user_verification = UserVerification.where({ :mobile => recipient }).first
-    if user_verification == nil
-      user_verification = UserVerification.new
-      user_verification.user_id =  0
-    end
-    user_verification.mobile = recipient
-
-    if user_verification.valid?
-      user_verification.save 
-    end
-
-    respond_to do |format|
-      format.js
-    end
-  end
-
   def validate_mobile_code
     account_sid = ENV['TWILIO_ACCOUNT_SID']
     auth_token = ENV['TWILIO_AUTH_TOKEN']
@@ -274,21 +279,23 @@ class UserAuthenticationController < ApplicationController
 
     session[:email_code] = rand(1000..9999)
     
-    #Commented out until email capability is restored 07.05.2022
-    ##from = Email.new(email: 'bhawkins2012@gmail.com')
-    ##to = Email.new(email: session[:email])
-    ##if @flags == 0
-    ##  subject = 'Financial Component Password Reset'
-    ##  content = Content.new(type: 'text/plain', value: 'Please see below for a validation code to reset your password to Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + session[:email_code].to_s)
-    ##elsif @flags == 1
-    ##  subject = 'Financial Component Email Verification'
-    ##  content = Content.new(type: 'text/plain', value: 'Please see below for a code to verify your email with Financial Component. This code is valid for only 3 hours. Thank you.' + "\n" + "\n" + session[:email_code].to_s)
-    ##end
-    ##mail = Mail.new(from, subject, to, content)
+    from = Email.new(email: 'brennan@financialcomponent.com')
+    to = Email.new(email: session[:email])
+    if @flags == 0
+      subject = 'Financial Component Password Reset'
+      content = Content.new(type: 'text/plain', value: 'Please see below for a validation code to reset your password to Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + session[:email_code].to_s)
+    elsif @flags == 1
+      subject = 'Financial Component Email Verification'
+      content = Content.new(type: 'text/plain', value: 'Please see below for a code to verify your email with Financial Component. This code is valid for only 3 hours. Thank you.' + "\n" + "\n" + session[:email_code].to_s)
+    end
+    mail = Mail.new(from, subject, to, content)
 
-    ##sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-    ##response = sg.client.mail._('send').post(request_body: mail.to_json)
-    
+    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    response = sg.client.mail._('send').post(request_body: mail.to_json)
+    puts response.status_code
+    puts response.body
+    puts response.headers
+
     if @flags == 0
       render({ :template => "user_authentication/reset_password.html.erb" })
     end

@@ -1,7 +1,7 @@
 <%if flags == 0%>
   <%if email_exists == nil %>       
     <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
-  <%elsif email_exists == 1%>
+  <%elsif email_exists == 0%>
     <div class="div_spacing text-danger" id="login_alert">There is no account associated with this email.</div>
   <%else%>
     <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
@@ -11,59 +11,9 @@
   <%end%>
 <%elsif flags == 1%>
   <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
-  <%if email_exists == 2 %>     
-    <script>
-      $('#fcModal_2_Body').text("There is already an account associated with this email address.");
-      $('#fcModal_2').modal("show");
-      $("#fcModal_2").on('hide.bs.modal', function(){
-        window.location = "/sign_up";
-      });
-    </script>
+  <%if email_exists == 1 %>
+    <script type="text/javascript" src="/javascript/email_verification_flags1ee1.js"></script>
   <%else%>
-    <div class="modal fade" id="fcModal_2" tabindex="-1" aria-labelledby="fcModal_2_Label" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="fcModal_2_Label">Financial Component Add User</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" id="fcModal_2_Body">
-          A verification message has been sent to the email provided. Please verify your email to login once the registration process is complete.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-    </div>
-
-    <script>
-      $('#fcModal_2').modal("show");
-      $("#fcModal_2").on('hide.bs.modal', function(){
-        var x = document.getElementById("mobile_box");
-        if (x != undefined){
-          if (x.value != undefined){      
-              const recipient = phoneInput.getNumber();
-              $.ajax({
-                            beforeSend: function(xhr) {
-                            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-                          },
-                        url: "/validate_mobile",
-                        type: "POST",
-                        data: {
-                            recipient: recipient,
-                            flags: 1
-                          }
-                      });
-            }
-          else{
-            window.location.replace("/settings/profile");
-          };
-        }
-        else{
-          window.location.replace("/settings/profile");
-          };
-      });
-    </script>
-  <%end%>  
+    <script type="text/javascript" src="/javascript/email_verification_flags1ee0.js"></script>
+  <%end%>
 <%end%>

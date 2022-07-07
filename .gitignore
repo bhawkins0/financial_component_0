@@ -48,3 +48,4 @@ package-lock.json
 core.chrome*
 .theia/.ltici_apitoken.yml
 sendgrid.env
+sendgrid.env
