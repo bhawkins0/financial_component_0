@@ -1,1 +1,12 @@
-$("#email_verification").html("<%= escape_javascript(render partial: "user_authentication/email_verification.html.erb", locals: {email_exists: @email_exists, flags: @flags}) %>");
+<%if @current_user.email_verified_at != nil%>
+    $('#fcModal_1_Body').text("Email successfully added to profile!");
+<%else%>
+    $('#fcModal_1_Body').text("The code provided does not match the validation code. Please submit another code or request a new verification email.");
+<%end%>
+$('#fcModal_1').modal("show");
+$("#fcModal_1").on('hide.bs.modal', function(){
+    <%if @current_user.email_verified_at != nil%>
+        window.location = "/settings/profile"
+    <%end%>
+    ;
+});

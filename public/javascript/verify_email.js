@@ -8,10 +8,9 @@ function validCode(code)
 };
 
 function verify_code() {
-    const code = $("#code_box").val();
+  const code = $("#code_box").val();
   event.preventDefault();
-    console.log(code)
-    if ((code == "") || !(validCode(code))){
+  if ((code == "") || !(validCode(code))){
     $('#fcModal_1_Body').text("Please enter a valid code.");
     $('#fcModal_1').modal("show");
     return;

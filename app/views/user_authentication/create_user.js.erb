@@ -9,5 +9,8 @@
 <%end%>
 $('#fcModal_1').modal("show");
 $("#fcModal_1").on('hide.bs.modal', function(){
-  window.location = "/settings/profile";
+    <%if @save_status == true%>
+        window.location = "/settings/profile"
+    <%end%>
+    ;
 });
