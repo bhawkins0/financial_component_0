@@ -7,7 +7,6 @@ function validCode(code)
     return re.test(code);
 };
 
-
 function verify_code() {
     const code = $("#code_box").val();
   event.preventDefault();
@@ -22,11 +21,12 @@ function verify_code() {
           beforeSend: function(xhr) {
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
           },
-          url: "/verify_email",
+          url: "/validate_email",
           type: "POST",
           data: {
-            query_email: code,
-            flags: 2
+            query_email: '',
+            code: code,
+            flags: 1
           }
         });
   };

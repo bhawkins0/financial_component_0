@@ -4,7 +4,7 @@
 
 <form id="signin" action="/process_login_form" method="post">
   <label for="email_box"></label>
-  <input type="text" class="form_textbox form-control" id="email_mobile_box" name="query_email_mobile" placeholder="Email or Phone Number" onblur: "if(this.value == '') { this.value = 'Email or Phone Number'}", onfocus: "if(this.value == 'Email or Phone Number') {this.value = ''};">
+  <input type="text" class="form_textbox form-control" id="email_box" name="query_email" placeholder="Email" onblur: "if(this.value == '') { this.value = 'Email'}", onfocus: "if(this.value == 'Email') {this.value = ''};">
 
   <label for="password_box"></label>
   <input class="form_textbox form-control" id="password_box" name="query_password" placeholder="Password" type="password" aria-label="Password" aria-describedby="basic-addon2" onblur: "if(this.value == '') { this.value = 'Password'; }", onfocus: "if(this.value == 'Password') { this.value = ''};">
@@ -18,7 +18,7 @@
   <button type="submit" class="form_button" name="subject" value="Register">Register</button>
 </form>
 
-<div class="div_spacing text-success"><%=notice%></div>
+<div class="div_spacing text-success" id="login_notice"><%=notice%></div>
 <div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
 
 <div id="email_verification">

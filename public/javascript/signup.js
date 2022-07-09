@@ -47,6 +47,17 @@ function validateUser(event) {
     const mobile = document.getElementById("mobile_box");
     var inputs = document.getElementsByTagName("input");
     var flag = 0;
+    if ($("#password_box").val() != $("#password_confirmation_box").val()){
+        $('#fcModal_1_Body').text("Please ensure that the passwords match.");
+        $('#fcModal_1').modal("show");
+        flag = 1;
+        return;
+    }
+
+    if (flag == 1) {
+        return;
+    }
+
     for(var i = 0; i < inputs.length; i++){
         if (inputs[i].value == ""){
             if(inputs[i].name == "query_mobile"){
@@ -55,7 +66,7 @@ function validateUser(event) {
             else {
                 $('#fcModal_1_Body').text("Please ensure all fields are completed. You must include a valid " + inputs[i].name.replace("query_","").replace("_box","").replace("_", " ") + ".");
                 $('#fcModal_1').modal("show");
-                flag = 1
+                flag = 1;
                 break;
                 return;
             };
@@ -73,60 +84,31 @@ function validateUser(event) {
             return;
         } 
         else{
-            validate_email(email.value);
+            create_user();
         };
     };
 }
-
-function process2(item){
-    event.preventDefault();
-    $('#fcModal_3').modal('hide');
-    $.post( '/validate_mobile_code', { 
-        code: item, 
-        query_first_name: document.getElementById("first_name_box").value,
-        query_last_name: document.getElementById("last_name_box").value,
-        query_email: document.getElementById("email_box").value,
-        query_password: document.getElementById("password_box").value,
-        query_password_confirmation: document.getElementById("password_confirmation_box").value,
-        query_mobile: phoneInput.getNumber(),
-        flags: 1
-        });
-};
 
 function validEmail(email){
     var re = /\S+[^\s][@][^\s]\S+[^\s][\.]\S{3}/;
     return re.test(email);
 };
 
-function validate_email(email){
-$.ajax({
-            beforeSend: function(xhr) {
-            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-            },
-            url: "/validate_email",
-            type: "POST",
-            data: {
-            query_first_name: document.getElementById("first_name_box").value,
-            query_last_name: document.getElementById("last_name_box").value,
-            query_email: email,
-            query_password: document.getElementById("password_box").value,
-            query_password_confirmation: document.getElementById("password_confirmation_box").value,
-            flags: 1
-            }
-        });
-};
-
-function validate_mobile(mobile){
-    const recipient = phoneInput.getNumber();
+function create_user(){
     $.ajax({
                 beforeSend: function(xhr) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
                 },
-                url: "/validate_mobile",
+                url: "/create_user",
                 type: "POST",
                 data: {
-                recipient: recipient,
-                flags: 1
+                query_first_name: document.getElementById("first_name_box").value,
+                query_last_name: document.getElementById("last_name_box").value,
+                query_email: document.getElementById("email_box").value,
+                query_password: document.getElementById("password_box").value,
+                query_password_confirmation: document.getElementById("password_confirmation_box").value,
+                query_mobile: document.getElementById("mobile_box").value,
+                flags: 0
                 }
             });
-};
+    };

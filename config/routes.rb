@@ -8,12 +8,33 @@ Rails.application.routes.draw do
   # LOGIN ROUTES
   get("/sign_in", { :controller => "user_authentication", :action => "sign_in_form" })
   post("/process_login_form", {:controller => "user_authentication", :action => "process_login_form"})
+  get("/sign_up", { :controller => "user_authentication", :action => "sign_up_form" })
+  post("/create_user", { :controller => "user_authentication", :action => "create_user"  })
+  
+  #SETTINGS ROUTES
+  get("/settings/profile", { :controller => "user_authentication", :action => "get_user_profile" })
+  get("/settings/add_email", { :controller => "user_authentication", :action => "add_email" })
+  get("/verify_email", { :controller => "user_authentication", :action => "verify_email"  })
+
+
+
+
+
+
+  #SETTINGS
+  
+  get("/settings/add_mobile", { :controller => "user_authentication", :action => "add_mobile" })
+  post("/validate_mobile", { :controller => "user_authentication", :action => "validate_mobile" })
+  post("/validate_mobile_code", { :controller => "user_authentication", :action => "validate_mobile_code" })
+
+  # ------------------------------
+
   post("/validate_email", { :controller => "user_authentication", :action => "validate_email" })
  
-  get("/sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        
-  post("/create_user", { :controller => "user_authentication", :action => "create_user"  })
+  
+  
 
-  get("/verify_email", { :controller => "user_authentication", :action => "verify_email"  })
+  
 
 
 
@@ -185,15 +206,7 @@ Rails.application.routes.draw do
   # DELETE RECORD
   get("/cancel_user_account", { :controller => "user_authentication", :action => "destroy" })
 
-  #SETTINGS
-  get("/settings/profile", { :controller => "user_authentication", :action => "get_user_profile" })
-  get("/settings/add_mobile", { :controller => "user_authentication", :action => "add_mobile" })
-  post("/validate_mobile", { :controller => "user_authentication", :action => "validate_mobile" })
-  post("/validate_mobile_code", { :controller => "user_authentication", :action => "validate_mobile_code" })
-
-  get("/settings/add_email", { :controller => "user_authentication", :action => "add_email" })
-  # ------------------------------
-
+  
   
   # AUTHENTICATE AND STORE COOKIE
   #post("/user_verify_credentials", { :controller => "user_authentication", :action => "create_cookie" })

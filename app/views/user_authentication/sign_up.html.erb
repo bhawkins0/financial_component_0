@@ -73,29 +73,4 @@
   </form>
 </div>
 
-<div class="modal fade" id="fcModal_1" tabindex="-1" aria-labelledby="fcModal_1_Label" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="fcModal_1_Label">Financial Component Add User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="fcModal_1_Body">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="email_verification">
-  <%= render partial: "user_authentication/email_verification.html.erb", locals: {email_exists: @email_exists, flags: @flags} %>
-</div>
-
-<div id="twilio_verification">
-  <%= render partial: "user_authentication/twilio_verification.html.erb", locals: {verification_stage: @verification_stage, flags: @flags} %>
-</div>
-
 <script type="text/javascript" src="/javascript/signup.js"></script>

@@ -47,7 +47,7 @@
     <div class="body-container">
       <div class="sideNav customScroll" id="sideNav">
           <ul class="sideNavItems">
-            <%if @current_user != nil%>
+            <%if (@current_user != nil) && (@current_user.email_verified_at !=nil)%>
               <li>
                   <a class="sideNavItem" href="/index">Home</a>
               </li>
@@ -130,6 +130,22 @@
       </div>
       <div class="body-content container customScroll" id="bodyContent" style="overflow: scroll;">
           <%= yield %>
+      </div>
+    </div>
+
+    <div class="modal fade" id="fcModal_1" tabindex="-1" aria-labelledby="fcModal_1_Label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="fcModal_1_Label">Financial Component</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="fcModal_1_Body">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
     </div>
 

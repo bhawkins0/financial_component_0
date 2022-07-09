@@ -17,26 +17,38 @@
     <div class="col-2 border-bottom">
       <div class="p-3">Email</div>
     </div>
-    <div class="col-4 border-bottom">
+
+    <%if @current_user.email_verified_at == nil%>
       <%if @current_user.email == nil || @current_user.email == ''%>
-        <%if @current_user.user_verification == nil%>
+        <div class="col-4 border-bottom">
           <div class="p-3">
             <a href="/settings/add_email">Add</a>
           </div>
-        <%else%>
-          <div class="p-3">
-            <a href="/verify_email">Verify</a>
-          </div>
-        <%end%>
+        </div>
+
+        <div class="col-6">
+        </div>
       <%else%>
+        <div class="col-4 border-bottom">
+          <div class="p-3" style="width:100%">
+            <%=@current_user.email%>
+            <a href="/verify_email" style="float:right">Verify</a>
+          </div>
+        </div>
+
+        <div class="col-6">
+        </div>
+      <%end%>
+    <%else%>
+      <div class="col-4 border-bottom">
         <div class="p-3">
           <%=@current_user.email%>
         </div>
-      <%end%>
-    </div>
+      </div>
 
-    <div class="col-6">
-    </div>
+      <div class="col-6">
+      </div>
+    <%end%>
 
     <div class="col-2 border-bottom">
       <div class="p-3">Password</div>
@@ -51,26 +63,37 @@
     <div class="col-2 border-bottom">
       <div class="p-3">Mobile</div>
     </div>
-    <div class="col-4 border-bottom">
-      <%if @current_user.mobile == nil%>
-        <%if @current_user.user_verification == nil%>
+    <%if @current_user.mobile_verified_at == nil%>
+      <%if @current_user.mobile == nil || @current_user.mobile == ''%>
+        <div class="col-4 border-bottom">
           <div class="p-3">
             <a href="/settings/add_mobile">Add</a>
           </div>
-        <%else%>
-          <div class="p-3">
-            <a href="/verify_mobile>Verify</a>
-          </div>
-        <%end%>
+        </div>
+
+        <div class="col-6">
+        </div>
       <%else%>
+        <div class="col-4 border-bottom">
+          <div class="p-3" style="width:100%">
+            <%=@current_user.mobile%>
+            <a href="/verify_mobile" style="float:right">Verify</a>
+          </div>
+        </div>
+
+        <div class="col-6">
+        </div>
+      <%end%>
+    <%else%>
+      <div class="col-4 border-bottom">
         <div class="p-3">
           <%=@current_user.mobile%>
         </div>
-      <%end%>
-    </div>
+      </div>
 
-    <div class="col-6">
-    </div>
+      <div class="col-6">
+      </div>
+    <%end%>
 
     <div class="col-2">
       <div class="p-3">
