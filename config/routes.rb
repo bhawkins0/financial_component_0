@@ -15,24 +15,16 @@ Rails.application.routes.draw do
   get("/settings/profile", { :controller => "user_authentication", :action => "get_user_profile" })
   
   get("/settings/add_email", { :controller => "user_authentication", :action => "add_email" })
+  post("/validate_email", { :controller => "user_authentication", :action => "validate_email" })
   get("/verify_email", { :controller => "user_authentication", :action => "verify_email"  })
   post("/verify_email_code", { :controller => "user_authentication", :action => "verify_email_code"  })
   
   get("/settings/add_mobile", { :controller => "user_authentication", :action => "add_mobile" })
+  post("/verify_mobile", { :controller => "user_authentication", :action => "verify_mobile" })
+  post("/verify_mobile_code", { :controller => "user_authentication", :action => "verify_mobile_code" })
 
 
-
-
-
-  #SETTINGS
   
-  
-  post("/validate_mobile", { :controller => "user_authentication", :action => "validate_mobile" })
-  post("/validate_mobile_code", { :controller => "user_authentication", :action => "validate_mobile_code" })
-
-  # ------------------------------
-
-  post("/validate_email", { :controller => "user_authentication", :action => "validate_email" })
  
   
   

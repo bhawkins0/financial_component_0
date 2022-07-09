@@ -1,0 +1,12 @@
+<%if @current_user.mobile_verified_at != nil%>
+    $('#fcModal_1_Body').text("Mobile successfully added to profile!");
+<%else%>
+    $('#fcModal_1_Body').text("The code provided does not match the validation code. Please submit another code or request a new verification message.");
+<%end%>
+$('#fcModal_1').modal("show");
+$("#fcModal_1").on('hide.bs.modal', function(){
+    <%if @current_user.mobile_verified_at != nil%>
+        window.location = "/settings/profile"
+    <%end%>
+    ;
+});

@@ -1,13 +1,22 @@
-<%if flags == 0%>
-  <%if verification_stage == nil %>     
-    
-  <%else%>
+<%if verification_stage == nil %>     
+  <p>Providing a mobile number will help secure your account with 2FA and enable streamlined access to Plaid.</p>
+  <p>Please select your country and enter a mobile phone number to generate an authorization code that will be sent to you instantly.</p>
+  <p>If you already have an authorization code, <a href="#/activate/[INSERT CODE]]/sms_verify">click here.</a></p>
+
+  <form id="add_mobile" onsubmit="submitMobile(event)">
+    <div class="mb-3">
+      <label for="mobileInput" class="form-label">Phone Number</label>
+      <input name="recipient" type="tel" class="form-control" id="mobileInput" aria-describedby="mobileHelp" placeholder="Insert Phone Number" required>    
+      <div id="mobileHelp" class="form-text">We'll never share your mobile number with anyone else.</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Mobile</button>
+  </form>
+<%elsif verification_stage == 0%>
     <p>Thank you for entering your phone number. You should have received a text message with a verification code at the number provided.</p>
     <p>Please enter the verification code in the box below.</p>
-    <p>If you did not receive the code and would like another sent to the number provided, please click <a href="/validate_mobile">click here.</a></p>
+    <p>If you did not receive the code and would like another sent to the number provided, please click <a href="/verify_mobile">click here.</a></p>
 
-    <form id="validate_mobile_code" onsubmit="process2(document.getElementById('codeInput').value)">
-    <!--<form action="/validate_mobile_code" method="post">-->
+    <form id="verify_mobile_code" onsubmit="submitCode(document.getElementById('codeInput').value)">
       <div class="mb-3">
         <label for="codeInput" class="form-label">Verification Code</label>
         <input name="daCode" type="text" class="form-control" id="codeInput" aria-describedby="codeHelp" placeholder="Insert Code Texted" required>    
@@ -15,76 +24,4 @@
       </div>
       <button type="submit" class="btn btn-primary">Verify Code</button>
     </form>
-
-    <div class="modal fade" id="fcModal_2" tabindex="-1" aria-labelledby="fcModal_2_Label" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="fcModal_2_Label">Financial Component Add Mobile</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="fcModal_2_Body">
-            
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-          </div>
-        </div>
-      </div>
-    </div>
-  <%end%>
-<%elsif flags == 1%>
-  <%if verification_stage == nil %>     
-    <%if mobile_exists == 2%>
-      <div class="modal fade" id="fcModal_3" tabindex="-1" aria-labelledby="fcModal_3_Label" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="fcModal_3_Label">Financial Component Add Mobile</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="fcModal_3_Body">
-              <p>There is already an account associated with this phone number. Please login using this number or register with another phone number.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    <%end%>
-  <%else%>
-    <div class="modal fade" id="fcModal_3" tabindex="-1" aria-labelledby="fcModal_3_Label" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="fcModal_3_Label">Financial Component Add Mobile</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="fcModal_3_Body">
-            <p>Thank you for entering your phone number. You should have received a text message with a verification code at the number provided.</p>
-            <p>Please enter the verification code in the box below.</p>
-            <p>If you did not receive the code and would like another sent to the number provided, please click <a href="/validate_mobile">click here.</a></p>
-          
-            <form id="validate_mobile_code" onsubmit="process2(document.getElementById('codeInput').value)">
-              <div class="mb-3">
-                <label for="codeInput" class="form-label">Verification Code</label>
-                <input name="daCode" type="text" class="form-control" id="codeInput" aria-describedby="codeHelp" placeholder="Insert Code Texted" required>    
-                <div id="codeHelp" class="form-text">The verification code was texted to the number provided.</div>
-              </div>
-              <button type="submit" class="btn btn-primary">Verify Code</button>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      $('#fcModal_3').modal("show");
-    </script>
-  <%end%>
 <%end%>
