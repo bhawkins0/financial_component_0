@@ -1,4 +1,4 @@
-<%if @save_status == true%>
+<%if (@user_save_status == true) && (@user_verification_save_status == true)%>
     $('#fcModal_1_Body').text("Please verify your email address to gain full access to Financial Component.");
 <%else%>
     <%if @email_exists == true%>
@@ -9,7 +9,7 @@
 <%end%>
 $('#fcModal_1').modal("show");
 $("#fcModal_1").on('hide.bs.modal', function(){
-    <%if @save_status == true%>
+    <%if (@user_save_status == true) && (@user_verification_save_status == true)%>
         window.location = "/settings/profile"
     <%end%>
     ;

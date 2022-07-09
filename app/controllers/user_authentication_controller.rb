@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
-  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create_user, :sign_in_form, :create_cookie, :process_login_form, :reset_password, :validate_password_reset, :update_password, :about, :contact] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_in_form, :process_login_form, :create_cookie, :sign_up_form, :create_user, :validate_email, :reset_password, :validate_password_reset, :update_password, :about, :contact] })
 
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
@@ -43,7 +43,7 @@ class UserAuthenticationController < ApplicationController
   end
 
   def create_user()
-    if !validate_email
+    if validate_email
       user = User.new
       user.first_name = params.fetch("query_first_name")
       user.last_name = params.fetch("query_last_name")
@@ -56,7 +56,7 @@ class UserAuthenticationController < ApplicationController
         user.save
       end
 
-      @save_status = user.save
+      @user_save_status = user.save
 
       UserVerification.where(:email => params.fetch("query_email")).destroy_all
       user_verification = UserVerification.new
@@ -68,9 +68,9 @@ class UserAuthenticationController < ApplicationController
         user_verification.save
       end
 
-      @save_status = user_verification.save
-
-      if @save_status == true
+      @user_verification_save_status = user_verification.save
+      
+      if @user_save_status == true
         session[:user_id] = user.id
         @current_user = user
       end
@@ -83,41 +83,20 @@ class UserAuthenticationController < ApplicationController
 
   def validate_email
     query_email = params.fetch("query_email")
+
     if ((query_email != '') && (query_email != nil))
+      p("running")
       email_exists = User.where({ :email => query_email }).first
-    end if
 
-    if email_exists == nil
-      @email_exists = false
-    else 
-      @email_exists = true
-    end    
-    
-    flags = params.fetch("flags").to_i
-    @flags = flags
-    
-    if flags == 0
-      #create_user
-      return @email_exists
-    elsif flags == 1
-      #verify_email_code
-      validation_code = params.fetch("code").to_i
-      user_verification = UserVerification.where(:user_id => @current_user.id).first
-
-      if validation_code == user_verification.email_validation_code
-        @current_user.email_verified_at = Time.now
-        if @current_user.valid?
-          @current_user.save
-          if (@current_user.email_verified_at != nil) && (@current_user.mobile_verified_at != nil)
-            user_verification.destroy_all
-          end
-        end
-      end
-
-      respond_to do |format|
-        format.js
-      end
+      if email_exists == nil
+        @email_exists = false
+      else 
+        @email_exists = true
+      end 
     end
+    
+    #create_user
+    return !@email_exists
   end
 
   def get_user_profile
@@ -162,8 +141,35 @@ class UserAuthenticationController < ApplicationController
     puts response.headers
   end
   
+  def verify_email_code
+    validation_code = params.fetch("code").to_i
+    user_verification = UserVerification.where(:user_id => @current_user.id).first
+
+    if validation_code == user_verification.email_validation_code
+      @current_user.email_verified_at = Time.now
+      if @current_user.valid?
+        @current_user.save
+        if (@current_user.email_verified_at != nil) && (@current_user.mobile_verified_at != nil)
+          user_verification.destroy_all
+        end
+      end
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
   
-  
+  def add_mobile
+    render({ :template => "user_authentication/add_mobile.html.erb" })
+  end
+
+  def destroy
+    @current_user.destroy
+    reset_session
+    
+    redirect_to("/", { :notice => "User account cancelled." })
+  end
   
   
 
@@ -286,18 +292,11 @@ class UserAuthenticationController < ApplicationController
     ##end
   end
 
-  def destroy
-    @current_user.destroy
-    reset_session
-    
-    redirect_to("/", { :notice => "User account cancelled." })
-  end
+  
  
   
 
-  def add_mobile
-    render({ :template => "user_authentication/add_mobile.html.erb" })
-  end
+  
 
  
 

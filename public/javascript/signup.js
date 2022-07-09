@@ -107,8 +107,7 @@ function create_user(){
                 query_email: document.getElementById("email_box").value,
                 query_password: document.getElementById("password_box").value,
                 query_password_confirmation: document.getElementById("password_confirmation_box").value,
-                query_mobile: document.getElementById("mobile_box").value,
-                flags: 0
+                query_mobile: document.getElementById("mobile_box").value
                 }
             });
     };

@@ -1,19 +1,6 @@
 <%if flags == 0%>
   <%if verification_stage == nil %>     
-    <p>Providing a mobile number will help secure your account with 2FA and enable streamlined access to Plaid.</p>
-    <p>Please select your country and enter a mobile phone number to generate an authorization code that will be sent to you instantly.</p>
-    <p>If you already have an authorization code, <a href="#/activate/[INSERT CODE]]/sms_verify">click here.</a></p>
-
-    <form id="validate_mobile" onsubmit="process(event)">
-      <div class="mb-3">
-        <label for="mobileInput" class="form-label">Phone Number</label>
-        <input name="recipient" type="tel" class="form-control" id="mobileInput" aria-describedby="mobileHelp" placeholder="Insert Phone Number" required>    
-        <div id="mobileHelp" class="form-text">We'll never share your mobile number with anyone else.</div>
-      </div>
-      <button type="submit" class="btn btn-primary">Send Validation Code</button>
-    </form>
-
-    <div class="alert alert-info" style="display: none;"></div>
+    
   <%else%>
     <p>Thank you for entering your phone number. You should have received a text message with a verification code at the number provided.</p>
     <p>Please enter the verification code in the box below.</p>

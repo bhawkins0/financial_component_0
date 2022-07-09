@@ -1,45 +1,28 @@
 <head>
-  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.12/css/intlTelInput.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 </head>
 
 <div class="page_title_div">
   <h2 class="pageTitle display-4">Add Mobile</h2>
-</div>  
-
-<div id="twilio_verification">
-  <%= render partial: "user_authentication/twilio_verification.html.erb", locals: {verification_stage: @verification_stage} %>
 </div>
 
-<script>
-  const phoneInputField = document.querySelector("#mobileInput");
-  const phoneInput = window.intlTelInput(phoneInputField, {
-    utilsScript:
-      "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-  });
+<%if @current_user.mobile = nil || @current_user.mobile = ''%>
+  <p>Providing a mobile number will help secure your account with 2FA and enable streamlined access to Plaid.</p>
+  <p>Please select your country and enter a mobile phone number to generate an authorization code that will be sent to you instantly.</p>
+  <p>If you already have an authorization code, <a href="#/activate/[INSERT CODE]]/sms_verify">click here.</a></p>
 
-  const info = document.querySelector(".alert-info");
+  <form id="validate_mobile" onsubmit="submitMobile(event)">
+    <div class="mb-3">
+      <label for="mobileInput" class="form-label">Phone Number</label>
+      <input name="recipient" type="tel" class="form-control" id="mobileInput" aria-describedby="mobileHelp" placeholder="Insert Phone Number" required>    
+      <div id="mobileHelp" class="form-text">We'll never share your mobile number with anyone else.</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Send Validation Code</button>
+  </form>
+<%end%>
 
-  function process(event) {
-    event.preventDefault();
+<div class="div_spacing text-success" id="login_notice"><%=notice%></div>
+<div class="div_spacing text-danger" id="login_alert"><%=alert%></div>
 
-    const recipient = phoneInput.getNumber();
-    $.ajax({
-              beforeSend: function(xhr) {
-                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-              },
-              url: "/validate_mobile",
-              type: "POST",
-              data: {
-                recipient: recipient,
-                flags: 0
-              }
-            });
-  };
-
-  function process2(item){
-    event.preventDefault();
-    $.post( '/validate_mobile_code', { code: item, flags:0});
-  };
- </script>
+<script type="text/javascript" src="/javascript/add_mobile.js"></script>
