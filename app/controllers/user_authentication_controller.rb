@@ -166,7 +166,10 @@ class UserAuthenticationController < ApplicationController
 
   def verify_mobile
     recipient = params.fetch("recipient")
-    
+    if recipient[0] == ' '
+      recipient[0] = '+'
+    end
+        
     # Your Account Sid and Auth Token from twilio.com/console
     # and set the environment variables. See http://twil.io/secure
     account_sid = ENV['TWILIO_ACCOUNT_SID']
@@ -178,7 +181,7 @@ class UserAuthenticationController < ApplicationController
                                       )
 
     # Download the helper library from https://www.twilio.com/docs/ruby/install
-
+ 
     verification = @client.verify
                           .services(service.sid)
                           .verifications

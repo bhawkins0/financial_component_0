@@ -42,6 +42,7 @@ function password_validation(){
 };
 
 function validateUser(event) {
+    console.log("test")
     event.preventDefault();
     const email = document.getElementById("email_box");
     const mobile = document.getElementById("mobile_box");
@@ -52,7 +53,14 @@ function validateUser(event) {
         $('#fcModal_1').modal("show");
         flag = 1;
         return;
-    }
+    };
+
+    if ((mobile.value != '') && (!validMobile(mobile.value))) {
+        $('#fcModal_1_Body').text("Please enter a valid phone number.");
+        $('#fcModal_1').modal("show");
+        flag = 1;
+        return;
+    };
 
     if (flag == 1) {
         return;
@@ -94,6 +102,11 @@ function validEmail(email){
     return re.test(email);
 };
 
+function validMobile(mobile) {
+    var re = /([0-9]{10})/;
+    return re.test(mobile);
+};
+
 function create_user(){
     $.ajax({
                 beforeSend: function(xhr) {
@@ -107,7 +120,7 @@ function create_user(){
                 query_email: document.getElementById("email_box").value,
                 query_password: document.getElementById("password_box").value,
                 query_password_confirmation: document.getElementById("password_confirmation_box").value,
-                query_mobile: document.getElementById("mobile_box").value
+                query_mobile: phoneInput.getNumber()
                 }
             });
     };

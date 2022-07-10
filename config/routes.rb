@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post("/verify_email_code", { :controller => "user_authentication", :action => "verify_email_code"  })
   
   get("/settings/add_mobile", { :controller => "user_authentication", :action => "add_mobile" })
+  get("/verify_mobile", { :controller => "user_authentication", :action => "verify_mobile" })
   post("/verify_mobile", { :controller => "user_authentication", :action => "verify_mobile" })
   post("/verify_mobile_code", { :controller => "user_authentication", :action => "verify_mobile_code" })
 
