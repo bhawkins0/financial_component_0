@@ -165,9 +165,11 @@ class UserAuthenticationController < ApplicationController
   end
 
   def verify_mobile
+    flag = 0
     recipient = params.fetch("recipient")
     if recipient[0] == ' '
       recipient[0] = '+'
+      flag = 1
     end
         
     # Your Account Sid and Auth Token from twilio.com/console
@@ -208,8 +210,12 @@ class UserAuthenticationController < ApplicationController
 
     @verification_stage = 0
 
-    respond_to do |format|
-      format.js
+    if flag == 0
+      respond_to do |format|
+        format.js
+      end
+    elsif flag == 1
+      render({ :template => "user_authentication/add_mobile.html.erb" })
     end
   end
 
@@ -243,6 +249,27 @@ class UserAuthenticationController < ApplicationController
       format.js
     end
   end
+
+  def change_password
+    render({ :template => "user_authentication/change_password.html.erb" })
+  end
+  
+  
+  def change_password_2
+    @user = User.where({ :email => session[:email] }).first
+    @user.password = params.fetch("query_password")
+    @user.password_confirmation = params.fetch("query_password_confirmation")
+  
+    if @user.valid?
+      @user.save
+
+      reset_session
+      
+      redirect_to("/index", { :notice => "User account updated successfully."})
+    end
+  end
+
+
 
   def destroy
     @current_user.destroy
@@ -310,26 +337,5 @@ class UserAuthenticationController < ApplicationController
     ##else
     ##  render({ :template => "user_authentication/edit_profile_with_errors.html.erb" })
     ##end
-  end
-
-  
- 
-  
-
-
-
-  
-  def update_password
-    @user = User.where({ :email => session[:email] }).first
-    @user.password = params.fetch("query_password")
-    @user.password_confirmation = params.fetch("query_password_confirmation")
-  
-    if @user.valid?
-      @user.save
-
-      reset_session
-      
-      redirect_to("/index", { :notice => "User account updated successfully."})
-    end
   end
 end

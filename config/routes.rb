@@ -24,10 +24,31 @@ Rails.application.routes.draw do
   post("/verify_mobile", { :controller => "user_authentication", :action => "verify_mobile" })
   post("/verify_mobile_code", { :controller => "user_authentication", :action => "verify_mobile_code" })
 
-
+  get("/settings/change_password", { :controller => "user_authentication", :action => "change_password"})
   
  
+  get("/forgot_password", { :controller => "user_authentication", :action => "reset_password" })
+  post("/validate_password_reset", { :controller => "user_authentication", :action => "validate_password_reset" })
+  post("/update_password", { :controller => "user_authentication", :action => "update_password" })
+      
+  # EDIT PROFILE FORM        
+  get("/edit_user_profile", { :controller => "user_authentication", :action => "edit_profile_form" })       
+  # UPDATE RECORD
+  post("/modify_user", { :controller => "user_authentication", :action => "update" })
   
+  # DELETE RECORD
+  get("/cancel_user_account", { :controller => "user_authentication", :action => "destroy" })
+
+  
+  
+  # AUTHENTICATE AND STORE COOKIE
+  #post("/user_verify_credentials", { :controller => "user_authentication", :action => "create_cookie" })
+  
+  # SIGN OUT        
+  get("/sign_out", { :controller => "user_authentication", :action => "destroy_cookies" })
+             
+  #------------------------------
+
   
 
   
@@ -189,29 +210,8 @@ Rails.application.routes.draw do
   #------------------------------
 
   
-  post("/verify_email", { :controller => "user_authentication", :action => "verify_email" })
-  get("/forgot_password", { :controller => "user_authentication", :action => "reset_password" })
-  post("/validate_password_reset", { :controller => "user_authentication", :action => "validate_password_reset" })
-  post("/update_password", { :controller => "user_authentication", :action => "update_password" })
-      
-  # EDIT PROFILE FORM        
-  get("/edit_user_profile", { :controller => "user_authentication", :action => "edit_profile_form" })       
-  # UPDATE RECORD
-  post("/modify_user", { :controller => "user_authentication", :action => "update" })
-  
-  # DELETE RECORD
-  get("/cancel_user_account", { :controller => "user_authentication", :action => "destroy" })
-
   
   
-  # AUTHENTICATE AND STORE COOKIE
-  #post("/user_verify_credentials", { :controller => "user_authentication", :action => "create_cookie" })
-  
-  # SIGN OUT        
-  get("/sign_out", { :controller => "user_authentication", :action => "destroy_cookies" })
-             
-  #------------------------------
-
 
 
   #get("/test",{:controller=>"application", :action=>"test"})
