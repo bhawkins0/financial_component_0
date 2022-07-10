@@ -42,7 +42,6 @@ function password_validation(){
 };
 
 function validateUser(event) {
-    console.log("test")
     event.preventDefault();
     const email = document.getElementById("email_box");
     const mobile = document.getElementById("mobile_box");

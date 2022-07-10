@@ -25,7 +25,14 @@ Rails.application.routes.draw do
   post("/verify_mobile_code", { :controller => "user_authentication", :action => "verify_mobile_code" })
 
   get("/settings/change_password", { :controller => "user_authentication", :action => "change_password"})
-  
+  post("/verify_password", { :controller => "user_authentication", :action => "verify_password"})
+  get("/forgot_password", { :controller => "user_authentication", :action => "forgot_password"})
+
+
+
+
+
+
  
   get("/forgot_password", { :controller => "user_authentication", :action => "reset_password" })
   post("/validate_password_reset", { :controller => "user_authentication", :action => "validate_password_reset" })

@@ -43,7 +43,7 @@ class UserAuthenticationController < ApplicationController
   end
 
   def create_user()
-    if validate_email
+    if !validate_email
       user = User.new
       user.first_name = params.fetch("query_first_name")
       user.last_name = params.fetch("query_last_name")
@@ -96,7 +96,7 @@ class UserAuthenticationController < ApplicationController
     end
     
     #create_user
-    return !@email_exists
+    return @email_exists
   end
 
   def get_user_profile
@@ -254,7 +254,35 @@ class UserAuthenticationController < ApplicationController
     render({ :template => "user_authentication/change_password.html.erb" })
   end
   
-  
+  def verify_password
+    current_password = params.fetch("curr")
+    new_password = params.fetch("new")
+    new_password_confirmation = params.fetch("confirm")
+
+    password_legit = @current_user.authenticate(current_password)
+    
+    @succes = false
+    if password_legit == false
+      
+    else
+      @current_user.password = new_password
+      @current_user.password_confirmation = new_password_confirmation
+
+      if @current_user.valid?
+        @current_user.save
+        @success = true
+      end
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def forgot_password
+    render({ :template => "user_authentication/forgot_password.html.erb" })
+  end
+
+
   def change_password_2
     @user = User.where({ :email => session[:email] }).first
     @user.password = params.fetch("query_password")
