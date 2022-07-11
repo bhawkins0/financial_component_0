@@ -1,9 +1,9 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
-  skip_before_action(:force_user_sign_in, { :only => [:sign_in_form, :process_login_form, :create_cookie, :sign_up_form, :create_user, :validate_email, :forgot_password, :reset_password] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_in, :process_login_form, :create_cookie, :sign_up, :create_user, :validate_email, :forgot_password, :reset_password, :email_code, :verify_password] })
 
-  def sign_in_form
-    render({ :template => "user_authentication/sign_in.html.erb" })
+  def sign_in
+    #render({ :template => "user_authentication/sign_in.html.erb" })
   end
 
   def process_login_form
@@ -28,18 +28,38 @@ class UserAuthenticationController < ApplicationController
       if are_they_legit == false
         redirect_to("/sign_in", { :alert => "Incorrect login information." })
       else
-        #INSERT MFA CODE HERE
-        session[:user_id] = user.id
-        
-        redirect_to("/index", { :notice => "Signed in successfully." })
+        if user.password_verified_at == nil
+          user = User.where(:email => params.fetch("query_email")).first
+          @current_user = user
+
+          session[:user_id] = user.id
+
+          o = [('a'..'z'), ('A'..'Z'), ('0'..'9')].map(&:to_a).flatten
+          pwd = (0...16).map { o[rand(o.length)] }.join
+          p(pwd)
+          user.password = pwd
+          user.password_confirmation = pwd
+          
+          if user.valid?
+            user.save
+            
+            email_code
+            render({ :template => "user_authentication/reset_password.html.erb", :locals => {:alert => "Please reset your password to login."}})
+          end
+        else
+          #INSERT MFA CODE HERE
+          session[:user_id] = user.id
+          
+          redirect_to("/index", { :notice => "Signed in successfully." })
+        end
       end
     else
       redirect_to("/sign_in", { :alert => "No user with that email address." })
     end
   end
 
-  def sign_up_form
-    render({ :template => "user_authentication/sign_up.html.erb" })
+  def sign_up
+    #render({ :template => "user_authentication/sign_up.html.erb" })
   end
 
   def create_user()
@@ -49,6 +69,7 @@ class UserAuthenticationController < ApplicationController
       user.last_name = params.fetch("query_last_name")
       user.password = params.fetch("query_password")
       user.password_confirmation = params.fetch("query_password_confirmation")
+      user.password_verified_at = Time.now
       user.email = params.fetch("query_email")
       user.mobile = params.fetch("query_mobile")
 
@@ -125,10 +146,10 @@ class UserAuthenticationController < ApplicationController
     
     from = Email.new(email: 'brennan@financialcomponent.com')
     to = Email.new(email: @current_user.email)
-    if @current_user.email_verified_at != nil
+    if @current_user.password_verified_at == nil
       subject = 'Financial Component Password Reset'
-      content = Content.new(type: 'text/plain', value: 'Please see below for a validation code to reset your password to Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + @current_user.user_verification.email_validation_code.to_s)
-    else
+      content = Content.new(type: 'text/plain', value: 'Please see below for a validation code to reset your password to Financial Component. If you did not make this request, please reach out to us immediately. Thank you.' + "\n" + "\n" + @current_user.password.to_s)      
+    elsif @current_user.email_verified_at == nil
       subject = 'Financial Component Email Verification'
       content = Content.new(type: 'text/plain', value: 'Please see below for a code to verify your email with Financial Component. This code is valid for only 3 hours. Thank you.' + "\n" + "\n" + @current_user.user_verification.email_validation_code.to_s)
     end
@@ -161,7 +182,7 @@ class UserAuthenticationController < ApplicationController
   end
   
   def add_mobile
-    render({ :template => "user_authentication/add_mobile.html.erb" })
+    #render({ :template => "user_authentication/add_mobile.html.erb" })
   end
 
   def verify_mobile
@@ -251,7 +272,7 @@ class UserAuthenticationController < ApplicationController
   end
 
   def change_password
-    render({ :template => "user_authentication/change_password.html.erb" })
+    #render({ :template => "user_authentication/change_password.html.erb" })
   end
   
   def verify_password
@@ -267,6 +288,7 @@ class UserAuthenticationController < ApplicationController
     else
       @current_user.password = new_password
       @current_user.password_confirmation = new_password_confirmation
+      @current_user.password_verified_at = Time.now
 
       if @current_user.valid?
         @current_user.save
@@ -280,12 +302,20 @@ class UserAuthenticationController < ApplicationController
   end
 
   def forgot_password
-    render({ :template => "user_authentication/forgot_password.html.erb" })
+    #render({ :template => "user_authentication/forgot_password.html.erb" })
   end
 
   def reset_password
     if validate_email
-      
+      p("validated")
+      #@current_user = User.where(:email => params.fetch("query_email")).first
+      #email_code
+      #render({ :template => "user_authentication/reset_password.html.erb" })
+    else
+      p("not validated")
+      #render({ :template => "user_authentication/forgot_password.html.erb" , :locals => {:notice => "If there is an account associated with the email address provided we will send a password reset code to the email."}})
+      render({ :template => "index.html.erb" })
+      #redirect_to("/", { :notice => "If there is an account associated with the email address provided we will send a password reset code to the email." })
     end
   end
 

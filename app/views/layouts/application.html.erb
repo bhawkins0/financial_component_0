@@ -47,7 +47,7 @@
     <div class="body-container">
       <div class="sideNav customScroll" id="sideNav">
           <ul class="sideNavItems">
-            <%if (@current_user != nil) && (@current_user.email_verified_at !=nil)%>
+            <%if (@current_user != nil) && (@current_user.email_verified_at !=nil) && (@current_user.password_verified_at != nil)%>
               <li>
                   <a class="sideNavItem" href="/index">Home</a>
               </li>
@@ -103,7 +103,7 @@
               <li>
                   <a class="sideNavItem" href="/contact">Contact</a>
               </li>
-              <%if @current_user != nil%>
+              <%if (@current_user != nil) && (@current_user.password_verified_at != nil)%>
                 <span class="sideNavItem collapsible clickable">Settings</span>
                   <ul class="sideNavItemsChild">
                       <li>

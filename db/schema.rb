@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_11_021415) do
+ActiveRecord::Schema.define(version: 2022_07_11_025247) do
 
   create_table "financial_component_accounts", force: :cascade do |t|
     t.string "fc_statement"
@@ -114,7 +114,6 @@ ActiveRecord::Schema.define(version: 2022_07_11_021415) do
     t.string "email"
     t.integer "email_validation_code"
     t.string "mobile"
-    t.datetime "mobile_verified_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

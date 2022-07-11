@@ -1,11 +1,11 @@
-const form = document.getElementById('Password');
+const form = document.getElementById('resetPassword');
 form.addEventListener('submit', validatePassword);
 
 const $info = $("#change_password_alert");
 
 function password_show_hide(this_id) {
-    if (this_id === "current_password_box_toggle") {
-        var x = document.getElementById("current_password_box");
+    if (this_id === "verification_code_box_toggle") {
+        var x = document.getElementById("verification_code_box");
         var show_eye = document.getElementById("show_eye");
         var hide_eye = document.getElementById("hide_eye");
     } else if (this_id === "password_box_toggle") {
@@ -31,7 +31,6 @@ function password_show_hide(this_id) {
 };
 
 function password_validation(){
-    
     new_pwd = $("#password_box").val();
     new_pwd_confirm = $("#password_confirmation_box").val();
 
@@ -44,7 +43,7 @@ function password_validation(){
 function validatePassword(event) {
     event.preventDefault();
 
-    current_pwd = $("#current_password_box").val();
+    current_pwd = $("#verification_code_box").val();
     new_pwd = $("#password_box").val();
     new_pwd_confirm = $("#password_confirmation_box").val();
     
@@ -90,4 +89,4 @@ function verify_password(current_pwd,new_pwd,new_pwd_confirm){
                 confirm: new_pwd_confirm
                 }
             });
-    };
+};

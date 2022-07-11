@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   #NAVBAR ROUTES
-  get("/",{:controller=>"user_authentication", :action=>"sign_in_form"})
+  get("/",{:controller=>"user_authentication", :action=>"sign_in"})
   get("/index",{:controller=>"application", :action=>"index"})
   get("/about",{:controller=>"application", :action=>"about"})
   get("/contact",{:controller=>"application", :action=>"contact"})  
   
   # LOGIN ROUTES
-  get("/sign_in", { :controller => "user_authentication", :action => "sign_in_form" })
+  get("/sign_in", { :controller => "user_authentication", :action => "sign_in" })
   post("/process_login_form", {:controller => "user_authentication", :action => "process_login_form"})
-  get("/sign_up", { :controller => "user_authentication", :action => "sign_up_form" })
+  get("/sign_up", { :controller => "user_authentication", :action => "sign_up" })
   post("/create_user", { :controller => "user_authentication", :action => "create_user"  })
   
   #SETTINGS ROUTES
@@ -27,16 +27,14 @@ Rails.application.routes.draw do
   get("/settings/change_password", { :controller => "user_authentication", :action => "change_password"})
   post("/verify_password", { :controller => "user_authentication", :action => "verify_password"})
   get("/forgot_password", { :controller => "user_authentication", :action => "forgot_password"})
-
+  post("/reset_password", { :controller => "user_authentication", :action => "reset_password"})
 
 
 
 
 
  
-  get("/forgot_password", { :controller => "user_authentication", :action => "reset_password" })
-  post("/validate_password_reset", { :controller => "user_authentication", :action => "validate_password_reset" })
-  post("/update_password", { :controller => "user_authentication", :action => "update_password" })
+  
       
   # EDIT PROFILE FORM        
   get("/edit_user_profile", { :controller => "user_authentication", :action => "edit_profile_form" })       
