@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
-  skip_before_action(:force_user_sign_in, { :only => [:sign_in, :process_login_form, :create_cookie, :sign_up, :create_user, :validate_email, :forgot_password, :reset_password, :email_code, :verify_password] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_in, :process_login_form, :create_cookie, :sign_up, :create_user, :validate_email, :forgot_password, :password_reset, :reset_password, :email_code, :verify_password] })
 
   def sign_in
     #render({ :template => "user_authentication/sign_in.html.erb" })
@@ -306,17 +306,7 @@ class UserAuthenticationController < ApplicationController
   end
 
   def reset_password
-    if validate_email
-      p("validated")
-      #@current_user = User.where(:email => params.fetch("query_email")).first
-      #email_code
-      #render({ :template => "user_authentication/reset_password.html.erb" })
-    else
-      p("not validated")
-      #render({ :template => "user_authentication/forgot_password.html.erb" , :locals => {:notice => "If there is an account associated with the email address provided we will send a password reset code to the email."}})
-      render({ :template => "index.html.erb" })
-      #redirect_to("/", { :notice => "If there is an account associated with the email address provided we will send a password reset code to the email." })
-    end
+    render({ :template => "user_authentication/reset_password.html.erb"})
   end
 
   def destroy

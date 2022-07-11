@@ -13,8 +13,7 @@ $.ajax({
             url: "/validate_email",
             type: "POST",
             data: {
-            query_email: email,
-            flags: 0
+            query_email: email
             }
         });
 };
