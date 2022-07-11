@@ -2,16 +2,17 @@
 #
 # Table name: users
 #
-#  id                 :integer          not null, primary key
-#  email              :string
-#  email_verified_at  :datetime
-#  first_name         :string
-#  last_name          :string
-#  mobile             :string
-#  mobile_verified_at :datetime
-#  password_digest    :string
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
+#  id                   :integer          not null, primary key
+#  email                :string
+#  email_verified_at    :datetime
+#  first_name           :string
+#  last_name            :string
+#  mobile               :string
+#  mobile_verified_at   :datetime
+#  password_digest      :string
+#  password_verified_at :datetime
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #
 class User < ApplicationRecord
   validates :email, :uniqueness => { :case_sensitive => false }

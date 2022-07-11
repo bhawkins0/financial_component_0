@@ -18,15 +18,3 @@ $.ajax({
             }
         });
 };
-
-$("#forgot_password_link").click(function(){
-    const $result = $("#login_alert");
-    const email = $("#email_box").val();
-    $result.text("");
-    if (validEmail(email)) {
-        validate_email(email);
-    } else {
-        $result.text("Please enter a valid email address.");
-    };
-    return false; 
-});

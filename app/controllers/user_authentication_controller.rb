@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
-  skip_before_action(:force_user_sign_in, { :only => [:sign_in_form, :process_login_form, :create_cookie, :sign_up_form, :create_user, :validate_email, :reset_password, :validate_password_reset, :update_password, :about, :contact] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_in_form, :process_login_form, :create_cookie, :sign_up_form, :create_user, :validate_email, :forgot_password, :reset_password] })
 
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
@@ -85,7 +85,7 @@ class UserAuthenticationController < ApplicationController
     query_email = params.fetch("query_email")
 
     if ((query_email != '') && (query_email != nil))
-      p("running")
+
       email_exists = User.where({ :email => query_email }).first
 
       if email_exists == nil
@@ -270,6 +270,7 @@ class UserAuthenticationController < ApplicationController
 
       if @current_user.valid?
         @current_user.save
+        reset_session
         @success = true
       end
     end
@@ -282,22 +283,11 @@ class UserAuthenticationController < ApplicationController
     render({ :template => "user_authentication/forgot_password.html.erb" })
   end
 
-
-  def change_password_2
-    @user = User.where({ :email => session[:email] }).first
-    @user.password = params.fetch("query_password")
-    @user.password_confirmation = params.fetch("query_password_confirmation")
-  
-    if @user.valid?
-      @user.save
-
-      reset_session
+  def reset_password
+    if validate_email
       
-      redirect_to("/index", { :notice => "User account updated successfully."})
     end
   end
-
-
 
   def destroy
     @current_user.destroy

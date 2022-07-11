@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   
   def force_user_sign_in
     if @current_user == nil
-      redirect_to("/sign_in", { :notice => "Please sign in or register." })
+      redirect_to("/sign_in", { :alert => "Please sign in or register." })
     end
   end
 

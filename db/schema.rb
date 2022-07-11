@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_21_042355) do
+ActiveRecord::Schema.define(version: 2022_07_11_021415) do
 
   create_table "financial_component_accounts", force: :cascade do |t|
     t.string "fc_statement"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 2021_09_21_042355) do
     t.boolean "fc_transaction_split_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "fc_transaction_split_template_id"
+    t.integer "fc_transaction_split_id"
   end
 
   create_table "financial_component_transaction_splits", force: :cascade do |t|
@@ -52,6 +54,7 @@ ActiveRecord::Schema.define(version: 2021_09_21_042355) do
     t.boolean "fc_transaction_split_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "fc_transaction_split_id"
   end
 
   create_table "financial_component_transactions", force: :cascade do |t|
@@ -126,6 +129,7 @@ ActiveRecord::Schema.define(version: 2021_09_21_042355) do
     t.string "mobile"
     t.datetime "mobile_verified_at"
     t.datetime "email_verified_at"
+    t.datetime "password_verified_at"
   end
 
 end
